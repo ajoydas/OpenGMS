@@ -1,0 +1,20 @@
+{% load staticfiles %}
+{% load i18n %}
+{% include 'material/includes/material_css.html' %}
+<script src="{% static 'material/js/jquery.js' %}"></script>
+{% include 'material/includes/material_js.html' %}
+
+{% load material_form %}
+
+{% block body %}
+
+<form method="POST">
+    {% csrf_token %}
+    {% form form=form %}{% endform %}
+    <button type="submit" class="btn btn-primary btn-lg">{%  trans 'Log In' %}</button>
+</form>
+    <div>
+          <a href="{% url 'signup' %}" class="btn btn-link">{% trans 'Sign up' %}</a>
+    </div>
+
+{% endblock body %}
