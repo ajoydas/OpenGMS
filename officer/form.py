@@ -1,39 +1,103 @@
-from material import *
-from django.template import Template
-from . import demo as forms
+from django import forms
+from django.contrib.auth.models import User
+import datetime
 
 
-class RegistrationForm(forms.Form):
-    username = forms.CharField()
-    email = forms.EmailField(label="Email Address")
-    password = forms.CharField(widget=forms.PasswordInput)
-    password_confirm = forms.CharField(widget=forms.PasswordInput, label="Confirm password")
-    first_name = forms.CharField(required=False)
-    last_name = forms.CharField(required=False)
-    gender = forms.ChoiceField(choices=((None, ''), ('F', 'Female'), ('M', 'Male'), ('O', 'Other')))
-    receive_news = forms.BooleanField(required=False, label='I want to receive news and special offers')
-    agree_toc = forms.BooleanField(required=True, label='I agree with the Terms and Conditions')
+class ProfileForm(forms.ModelForm):
 
-    layout = Layout('username', 'email',
-                    Row('password', 'password_confirm'),
-                    Fieldset('Pesonal details',
-                             Row('first_name', 'last_name'),
-                             'gender', 'receive_news', 'agree_toc'))
+    first_name = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control'}),
+        max_length=50,
+        required=True)
+    last_name = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control'}),
+        max_length=50,
+        required=True)
+    birth_date = forms.DateField(
+        widget=forms.DateInput,
+        help_text=datetime.date.today, required=True)
+    user_sex = ( ('MALE', 'Male'), ('FEMALE', 'Female') )
+    sex = forms.ChoiceField(choices=user_sex)
+    user_designation = ( ('SENIOR', 'Senior Officer'), ('JUNIOR', 'Junior Officer') )
+    designation = forms.ChoiceField(choices=user_designation)
+    job_title = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control'}),
+        max_length=50,
+        required=True)
+    email = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control'}),
+        max_length=75,
+        required=True)
+    about = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control', 'rows': 4}),
+        max_length=350,
+        required=True)
 
-    template = Template("""
-    {% form %}
-        {% part form.username prefix %}<i class="material-icons prefix">account_box</i>{% endpart %}
-        {% part form.email prefix %}<i class="material-icons prefix">email</i>{% endpart %}
-        {% part form.password prefix %}<i class="material-icons prefix">lock_open</i>{% endpart %}
-    {% endform %}
-    """)
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'birth_date', 'sex', 'designation', 'job_title',
+                  'email', 'about']
 
-    buttonConfirm = Template("""
-            <button class="waves-effect waves-light btn" type="submit">Sign In</button>
-        """)
 
-    buttonCancel = Template("""
-               <button class="waves-effect waves-light btn" action="" type="submit">Cancel</button>
-           """)
+class ChangePasswordForm(forms.ModelForm):
+    id = forms.CharField(widget=forms.HiddenInput())
+    old_password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'form-control'}),
+        label="Old password",
+        required=True)
 
-    title = "Registration form"
+    new_password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'form-control'}),
+        label="New password",
+        required=True)
+    confirm_password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'form-control'}),
+        label="Confirm new password",
+        required=True)
+
+    class Meta:
+        model = User
+        fields = ['id', 'old_password', 'new_password', 'confirm_password']
+
+    def clean(self):
+        super(ChangePasswordForm, self).clean()
+        old_password = self.cleaned_data.get('old_password')
+        new_password = self.cleaned_data.get('new_password')
+        confirm_password = self.cleaned_data.get('confirm_password')
+        id = self.cleaned_data.get('id')
+        user = User.objects.get(pk=id)
+        if not user.check_password(old_password):
+            self._errors['old_password'] = self.error_class([
+                'Old password doesn\'t match'])
+        if new_password and new_password != confirm_password:
+            self._errors['new_password'] = self.error_class([
+                'Passwords don\'t match'])
+        return self.cleaned_data
+
+
+class ContactForm(forms.ModelForm):
+
+    address = forms.CharField(
+        widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 4}),
+        max_length=300,
+        required=True)
+    city = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control'}),
+        max_length=30,
+        required=True)
+    state = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control'}),
+        max_length=30,
+        required=True)
+    country = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control'}),
+        max_length=30,
+        required=True)
+    phone = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'form-control'}),
+        required=True)
+    zip = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'form-control'}),
+        required=True)
+
+    class Meta:
+        model = User
+        fields = ['address', 'city', 'state', 'country', 'phone', 'zip']
