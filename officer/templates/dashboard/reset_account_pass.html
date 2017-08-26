@@ -1,0 +1,44 @@
+{% extends 'dashboard/test.html' %}
+{% load staticfiles %}
+{% load material_form %}
+
+{% block head %}
+
+    <!-- Animate.css -->
+    <link href="{% static 'extra/animate.css/animate.min.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+
+{% block content %}
+<div>
+
+      <div class="login_wrapper">
+        <div class="animate form login_form">
+          <section class="login_content">
+            <form>
+              <h1>Reset Password</h1>
+              <div>
+                <input type="text" class="form-control" placeholder="Username" required="" />
+              </div>
+              <div>
+                <input type="email" class="form-control" placeholder="Email" required="" />
+              </div>
+              <div>
+                <button class="btn btn-dark">Reset Password</button>
+              </div>
+
+              <div class="separator">
+              </div>
+            </form>
+          </section>
+        </div>
+
+      </div>
+    </div>
+
+{% endblock %}
+
+{% block js %}
+{% endblock %}
+
