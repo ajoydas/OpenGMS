@@ -19,4 +19,6 @@ urlpatterns = [
     url(r'^create_account', officer_views.create_account, name='create_account'),
     url(r'^delete_account', officer_views.delete_account, name='delete_account'),
     url(r'^reset_account_pass', officer_views.reset_account_pass, name='reset_account_pass'),
+
+    url(r'^new_order', officer_views.new_order, name='new_order'),
 ]

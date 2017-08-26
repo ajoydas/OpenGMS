@@ -101,3 +101,37 @@ class ContactForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['address', 'city', 'state', 'country', 'phone', 'zip']
+
+
+class NewOrderForm(forms.ModelForm):
+    client_username = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control'}),
+        max_length=50,
+        required=True)
+    client_name = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control'}),
+        max_length=50,
+        required=True)
+    order_types = (('SHIRT', 'Shirt'), ('PANT', 'Pant'), ('T-SHIRT', 'T-Shirt'))
+    order_type = forms.ChoiceField(choices=order_types)
+    design = forms.FileField()
+    deadline = forms.DateField(
+        widget=forms.DateInput,
+        help_text=datetime.date.today, required=True)
+    quantity = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'form-control'}),
+        required=True)
+    budget = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'form-control'}),
+        required=True)
+    shipping_address = forms.CharField(
+        widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 4}),
+        max_length=300,
+        required=True)
+    specification = forms.CharField(
+        widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 4}),
+        max_length=300,
+        required=True)
+
+    class Meta:
+        model = User
+        fields = ['client_username', 'client_name', 'order_type', 'design', 'deadline',
+                  'quantity', 'budget', 'shipping_address', 'specification']

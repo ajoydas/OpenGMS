@@ -10,10 +10,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import get_object_or_404, redirect, render
-from officer.form import ProfileForm, ChangePasswordForm, ContactForm
+from officer.form import ProfileForm, ChangePasswordForm, ContactForm, NewOrderForm
 
 # Create your views here.
 
+
+__FILE_TYPES = ['zip']
 
 # @login_required
 def profile(request):
@@ -143,3 +145,8 @@ def delete_account(request):
 
 def reset_account_pass(request):
     return render(request, 'dashboard/reset_account_pass.html')
+
+
+def new_order(request):
+    form = NewOrderForm()
+    return render(request, 'dashboard/new_order.html', {'form': form})
