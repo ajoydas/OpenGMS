@@ -10,3 +10,6 @@ Pillow
 Markdown
 bleach
 django-material
+raven
+django-debug-toolbar
+django-tables2

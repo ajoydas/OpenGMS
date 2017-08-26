@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
-
+    'django_tables2',
     'debug_toolbar',
     # 'raven.contrib.django.raven_compat',
     #app
@@ -99,6 +99,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.request'
                 # 'material.frontend.context_processors.modules',
             ],
             'debug': DEBUG,

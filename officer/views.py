@@ -11,6 +11,10 @@ from django.contrib.auth.models import User
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import get_object_or_404, redirect, render
 from officer.form import ProfileForm, ChangePasswordForm, ContactForm, NewOrderForm
+from django.shortcuts import render
+from django_tables2 import RequestConfig
+from .models import Order_List
+from .tables import OrderTable
 
 # Create your views here.
 
@@ -150,3 +154,9 @@ def reset_account_pass(request):
 def new_order(request):
     form = NewOrderForm()
     return render(request, 'dashboard/new_order.html', {'form': form})
+
+
+def order_list(request):
+    # table = OrderTable(Order_List.objects.all())
+    # RequestConfig(request).configure(table)
+    return render(request, 'dashboard/order_list.html')
