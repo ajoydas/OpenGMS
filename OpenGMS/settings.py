@@ -53,7 +53,7 @@ INSTALLED_APPS = [
     'core',
     'authentication',
     'officer',
-
+    'client',
 ]
 
 MIDDLEWARE = [
