@@ -30,6 +30,7 @@ urlpatterns = [
         name='login'),
     url(r'^auth/', include('authentication.urls')),
     url(r'^officer/', include('officer.urls')),
+    url(r'^client/', include('client.urls')),
 
 ]
 
