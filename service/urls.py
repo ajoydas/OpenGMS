@@ -18,6 +18,7 @@ urlpatterns = [
     url(r'^create_account', service_views.create_account, name='create_account'),
     url(r'^delete_account', service_views.delete_account, name='delete_account'),
     url(r'^reset_account_pass', service_views.reset_account_pass, name='reset_account_pass'),
+    url(r'^select_manager', service_views.select_manager, name='select_manager'),
 
     url(r'^new_order', service_views.new_order, name='new_order'),
     url(r'^order_list', service_views.order_list, name='order_list'),

@@ -152,6 +152,10 @@ def reset_account_pass(request):
     return render(request, 'service/reset_account_pass.html')
 
 
+def select_manager(request):
+    return render(request, 'service/select_manager.html')
+
+
 def new_order(request):
     form = NewOrderForm()
     return render(request, 'service/new_order.html', {'form': form})
