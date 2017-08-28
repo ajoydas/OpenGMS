@@ -158,6 +158,13 @@ def new_order(request):
 
 
 def order_list(request):
-    # table = OrderTable(Order_List.objects.all())
-    # RequestConfig(request).configure(table)
     return render(request, 'client/order_list.html')
+
+
+def order_view(request):
+    return render(request, 'client/order_view.html')
+
+
+def order_edit(request):
+    form = NewOrderForm()
+    return render(request, 'client/order_edit.html', {'form': form})

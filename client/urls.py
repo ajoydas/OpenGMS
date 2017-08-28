@@ -22,4 +22,6 @@ urlpatterns = [
 
     url(r'^new_order', client_views.new_order, name='new_order'),
     url(r'^order_list', client_views.order_list, name='order_list'),
+    url(r'^order_view', client_views.order_view, name='order_view'),
+    url(r'^order_edit', client_views.order_edit, name='order_edit'),
 ]
