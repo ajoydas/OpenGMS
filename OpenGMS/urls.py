@@ -31,6 +31,7 @@ urlpatterns = [
     url(r'^auth/', include('authentication.urls')),
     url(r'^officer/', include('officer.urls')),
     url(r'^client/', include('client.urls')),
+    url(r'^production/', include('production.urls')),
 
 ]
 
