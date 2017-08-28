@@ -157,7 +157,7 @@ def new_order(request):
     return render(request, 'client/client_new_order.html', {'form': form})
 
 
-# def order_list(request):
-#     # table = OrderTable(Order_List.objects.all())
-#     # RequestConfig(request).configure(table)
-#     return render(request, 'dashboard/order_list.html')
+def order_list(request):
+    # table = OrderTable(Order_List.objects.all())
+    # RequestConfig(request).configure(table)
+    return render(request, 'client/order_list.html')

@@ -76,7 +76,7 @@
                   <li><a><i class="fa fa-info"></i> Order History
                     <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="#"> Order List </a></li>
+                      <li><a href="{% url 'client:order_list' %}"> Order List </a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-bar-chart-o"></i> Data Status <span class="fa fa-chevron-down"></span></a>
@@ -128,8 +128,8 @@
         <!-- page content -->
         <div class="right_col" role="main">
               <div class="container expand-on-small-only">
-              {% block content %}{% endblock %}
-          </div>
+                {% block content %}{% endblock %}
+              </div>
         </div>
         <!-- /page content -->
 

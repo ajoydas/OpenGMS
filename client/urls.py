@@ -21,5 +21,5 @@ urlpatterns = [
     # url(r'^reset_account_pass', client_views.reset_account_pass, name='reset_account_pass'),
 
     url(r'^new_order', client_views.new_order, name='new_order'),
-    # url(r'^order_list', client_views.order_list, name='order_list'),
+    url(r'^order_list', client_views.order_list, name='order_list'),
 ]
