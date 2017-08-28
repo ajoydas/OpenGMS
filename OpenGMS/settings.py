@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'officer',
     'client',
     'production',
+    'service',
 ]
 
 MIDDLEWARE = [

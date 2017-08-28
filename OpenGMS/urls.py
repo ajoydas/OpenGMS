@@ -32,7 +32,7 @@ urlpatterns = [
     url(r'^officer/', include('officer.urls')),
     url(r'^client/', include('client.urls')),
     url(r'^production/', include('production.urls')),
-
+    url(r'^service/', include('service.urls')),
 ]
 
 if settings.DEBUG:

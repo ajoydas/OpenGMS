@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import get_object_or_404, redirect, render
-from production.form import ProfileForm, ChangePasswordForm, ContactForm, NewOrderForm
+from service.form import ProfileForm, ChangePasswordForm, ContactForm, NewOrderForm
 from django.shortcuts import render
 from django_tables2 import RequestConfig
 from .models import Order_List
@@ -46,13 +46,13 @@ def profile(request):
     #         'location': user.profile.location
     #         })
     form = ProfileForm()
-    return render(request, 'production/profile.html', {'form': form})
+    return render(request, 'service/profile.html', {'form': form})
 
 
 # @login_required
 def contact(request):
     form = ContactForm()
-    return render(request, 'production/contact.html', {'form': form})
+    return render(request, 'service/contact.html', {'form': form})
 
 
 # @login_required
@@ -66,7 +66,7 @@ def picture(request):
         pass
 
     print(uploaded_picture)
-    return render(request, 'production/picture.html',
+    return render(request, 'service/picture.html',
                   {'uploaded_picture': uploaded_picture})
 
 
@@ -137,15 +137,27 @@ def password(request):
     # else:
     #     form = ChangePasswordForm(instance=user)
     form = ChangePasswordForm()
-    return render(request, 'production/password.html', {'form': form})
+    return render(request, 'service/password.html', {'form': form})
+
+
+def create_account(request):
+    return render(request, 'service/create_account.html')
+
+
+def delete_account(request):
+    return render(request, 'service/delete_account.html')
+
+
+def reset_account_pass(request):
+    return render(request, 'service/reset_account_pass.html')
 
 
 def new_order(request):
     form = NewOrderForm()
-    return render(request, 'production/new_order.html', {'form': form})
+    return render(request, 'service/new_order.html', {'form': form})
 
 
 def order_list(request):
     # table = OrderTable(Order_List.objects.all())
     # RequestConfig(request).configure(table)
-    return render(request, 'production/order_list.html')
+    return render(request, 'service/order_list.html')
