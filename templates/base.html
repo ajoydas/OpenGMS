@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% block title %}Material Design for Django Forms and Admin{% endblock %}</title>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    {% block head %}
+    {% endblock %}
+  </head>
+
+
+  <body class="valign-wrapper2">
+{#      {% block sidebar %}{% endblock %}#}
+      <div class="container expand-on-small-only">
+          {% block content %}{% endblock %}
+      </div>
+  </body>
+
+</html>

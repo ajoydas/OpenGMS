@@ -17,8 +17,12 @@ Including another URLconf
 from django.conf.urls import url
 from django.views import generic
 
+from authentication import form
+
+app_name = 'auth'
+
 urlpatterns = [
-       # url(r'^signup/$', generic.FormView.as_view(
-       #  form_class=form.RegistrationForm, template_name="base_form.html")),
+       url(r'^signup', generic.FormView.as_view(
+        form_class=form.RegistrationForm, template_name="base_form.html")),
 
 ]

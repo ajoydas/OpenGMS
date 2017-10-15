@@ -32,9 +32,10 @@ DEBUG = config('DEBUG', cast=bool)
 # Application definition
 
 INSTALLED_APPS = [
-    # 'material',
-    # 'material.frontend',
-    # 'material.admin',
+    'material',
+    'material.frontend',
+    'material.admin',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -48,12 +49,15 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'django_tables2',
     'debug_toolbar',
+    'phonenumber_field',
     # 'raven.contrib.django.raven_compat',
     #app
     'core',
     'authentication',
     'officer',
-
+    'client',
+    'production',
+    'service',
 ]
 
 MIDDLEWARE = [
@@ -99,8 +103,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'django.template.context_processors.request'
-                # 'material.frontend.context_processors.modules',
+                # 'django.template.context_processors.request'
+                'material.frontend.context_processors.modules',
             ],
             'debug': DEBUG,
         },
@@ -157,19 +161,19 @@ ALLOWED_HOSTS = ['*']
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 # shortcut for in form templates
-# try:
-#     # shortcut for in form templates
-#     from django.template.base import add_to_builtins
-#     add_to_builtins('material.templatetags.material_form')
-#     add_to_builtins('template_debug.templatetags.debug_tags')
-# except ImportError:
-#     """
-#     Django 1.9.
-#     """
-#     TEMPLATES[0]['OPTIONS']['builtins'] = [
-#         'material.templatetags.material_form',
-#         'template_debug.templatetags.debug_tags'
-#     ]
+try:
+    # shortcut for in form templates
+    from django.template.base import add_to_builtins
+    add_to_builtins('material.templatetags.material_form')
+    add_to_builtins('template_debug.templatetags.debug_tags')
+except ImportError:
+    """
+    Django 1.9.
+    """
+    TEMPLATES[0]['OPTIONS']['builtins'] = [
+        'material.templatetags.material_form',
+        'template_debug.templatetags.debug_tags'
+    ]
 
 
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')

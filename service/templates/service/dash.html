@@ -1,0 +1,198 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Gentelella Alela! | </title>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+      {% block head %}
+    {% endblock %}
+    <!-- Bootstrap -->
+   <link href="{% static 'extra/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Font Awesome -->
+     <link href="{% static 'extra/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+      <!-- NProgress -->
+   <link href="{% static 'extra/nprogress.css' %}" rel="stylesheet">
+    <!-- jQuery custom content scroller -->
+   <link href="{% static 'extra/jquery.mCustomScrollbar.min.css' %}" rel="stylesheet">
+    <!-- Custom Theme Style -->
+   <link href="{% static 'build/css/custom.min.css' %}" rel="stylesheet">
+
+
+
+
+  </head>
+
+  <body class="nav-md">
+    <div class="container body">
+      <div class="main_container">
+        <div class="col-md-3 left_col menu_fixed">
+          <div class="left_col scroll-view">
+            <div class="navbar nav_title" style="border: 0;">
+              <a href="personal_info.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <!-- menu profile quick info -->
+            <div class="profile clearfix">
+              <div class="profile_pic">
+                <img src="{% static 'images/img.jpg' %}" alt="..." class="img-circle profile_img">
+              </div>
+              <div class="profile_info">
+                <span>Welcome,</span>
+                <h2>John Doe</h2>
+              </div>
+            </div>
+            <!-- /menu profile quick info -->
+
+            <br />
+
+            <!-- sidebar menu -->
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+              <div class="menu_section">
+                <h2>Client Module</h2>
+                <ul class="nav side-menu">
+                  <li><a><i class="fa fa-edit"></i> Update Info <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{% url 'service:profile'%}"> Profile </a></li>
+                        <li><a href="{% url 'service:contact'%}"> Contact Info </a></li>
+                        <li><a href="{% url 'service:picture' %}"> Picture </a></li>
+                        <li><a href="{% url 'service:password' %}"> Password </a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-user-plus"></i> Manage Account <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{% url 'service:create_account'%}"> Create Account </a></li>
+                      <li><a href="{% url 'service:delete_account'%}"> Delete Account </a></li>
+                      <li><a href="{% url 'service:reset_account_pass'%}"> Reset Password </a></li>
+                      <li><a href="{% url 'service:select_manager'%}"> Select Manager </a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-plus"></i> Submit New Order
+                    <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{% url 'service:new_order' %}"> New Order </a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-info"></i> Order History
+                    <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{% url 'service:order_list' %}"> Order List </a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-bar-chart-o"></i> Data Status <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="#"> Status </a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+
+            </div>
+            <!-- /sidebar menu -->
+          </div>
+        </div>
+
+        <!-- top navigation -->
+        <div class="top_nav">
+          <div class="nav_menu">
+            <nav>
+              <div class="nav toggle">
+                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+              </div>
+
+              <ul class="nav navbar-nav navbar-right">
+                <li class="">
+                  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <img src="{% static 'images/img.jpg' %}" alt="">John Doe
+                    <span class=" fa fa-angle-down"></span>
+                  </a>
+                  <ul class="dropdown-menu dropdown-usermenu pull-right">
+                    <li><a href="javascript:;"> Profile</a></li>
+                    <li>
+                      <a href="javascript:;">
+                        <span class="badge bg-red pull-right">50%</span>
+                        <span>Settings</span>
+                      </a>
+                    </li>
+                    <li><a href="javascript:;">Help</a></li>
+                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <!-- /top navigation -->
+
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+              <div class="container expand-on-small-only">
+                {% block content %}{% endblock %}
+              </div>
+        </div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <footer>
+          <div class="pull-right">
+            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+          </div>
+          <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
+      </div>
+    </div>
+
+{#    <!-- jQuery -->#}
+{#    {% include 'dashboard/extra/jquery/dist/jquery.min.js' %}#}
+{#    <script src="extra/jquery/dist/jquery.min.js"></script>#}
+{#    <!-- Bootstrap -->#}
+{#    {% include 'dashboard/extra/bootstrap/dist/js/bootstrap.min.js' %}#}
+{#    <script src="extra/bootstrap/dist/js/bootstrap.min.js"></script>#}
+{#    <!-- FastClick -->#}
+{#    {% include 'dashboard/extra/fastclick/lib/fastclick.js' %}#}
+{#    <script src="extra/fastclick/lib/fastclick.js"></script>#}
+{#    <!-- NProgress -->#}
+{#    {% include 'dashboard/extra/nprogress/nprogress.js' %}#}
+{#    <script src="extra/nprogress/nprogress.js"></script>#}
+{#    <!-- jQuery custom content scroller -->#}
+{#    {% include 'dashboard/extra/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js' %}#}
+{#    <script src="extra/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>#}
+{##}
+{#    <!-- Custom Theme Scripts -->#}
+{#    {% include 'dashboard/build/js/custom.min.js' %}#}
+{#    <script src="build/js/custom.min.js"></script>#}
+
+  <script src="{% static 'extra/jquery/dist/jquery.min.js' %}"></script>
+{#    <link href="extra/bootstrap.min.css" rel="stylesheet">#}
+    <!-- Font Awesome -->
+    <script src="{% static 'extra/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+{#    <link href="extra/font-awesome/css/font-awesome.min.css" rel="stylesheet">#}
+    <!-- NProgress -->
+    <script src="{% static 'extra/fastclick/lib/fastclick.js' %}"></script>
+
+{#    <link href="extra/nprogress.css" rel="stylesheet">#}
+    <!-- jQuery custom content scroller -->
+  <script src="{% static 'extra/nprogress/nprogress.js' %}"></script>
+
+{#  {% include 'dashboard/extra/jquery.mCustomScrollbar.min.css' %}#}
+{#    <link href="extra/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>#}
+
+    <!-- Custom Theme Style -->
+  <script src="{% static 'extra/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+
+{#  {% include 'dashboard/build/css/custom.min.css' %}#}
+    <script src="{% static 'build/js/custom.min.js' %}"></script>
+      {% block js %}
+    {% endblock %}
+  </body>
+</html>

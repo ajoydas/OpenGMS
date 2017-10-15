@@ -13,3 +13,4 @@ django-material
 raven
 django-debug-toolbar
 django-tables2
+django-phonenumber-field

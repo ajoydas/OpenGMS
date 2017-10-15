@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="dataSourceStorageLocal">
-    <data-source name="db.sqlite3" uuid="bcfb6aad-cbe5-4c2a-b80f-9fc6e376a4dd">
+    <data-source name="db.sqlite3" uuid="1315d6d6-bf87-4187-ac6b-2f05e52ce919">
       <database-info product="SQLite" version="3.16.1" jdbc-version="2.1" driver-name="SQLiteJDBC" driver-version="native" />
       <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed" />
       <secret-storage>master_key</secret-storage>
       <auth-required>false</auth-required>
-      <introspection-schemas>*:main</introspection-schemas>
+      <introspection-schemas>*</introspection-schemas>
     </data-source>
   </component>
 </project>

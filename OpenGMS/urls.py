@@ -22,15 +22,20 @@ from django.contrib.auth import views as auth_views
 from django.views import generic
 
 from core import views as core_views
+from core import form as core_form
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', core_views.home, name='home'),
-    url(r'^login', auth_views.login, {'template_name': 'core/login.html'},
-        name='login'),
+    url(r'^login', generic.FormView.as_view(
+        form_class=core_form.LogInForm, template_name="core/base_form.html")),
+    # url(r'^login', auth_views.login, {'template_name': 'core/login.html'},
+    #     name='login'),
     url(r'^auth/', include('authentication.urls')),
     url(r'^officer/', include('officer.urls')),
-
+    url(r'^client/', include('client.urls')),
+    url(r'^production/', include('production.urls')),
+    url(r'^service/', include('service.urls')),
 ]
 
 if settings.DEBUG:

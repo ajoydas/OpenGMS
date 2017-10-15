@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load material_form %}
+
+{% block head %}
+{% include 'material/includes/material_css.html' %}
+    <style type="text/css">
+      html, body {
+          background: #eee;
+          height: 100%;
+      }
+    </style>
+    <style type="text/css">
+  @media only screen and (min-width : 601px) {
+      #id_card_type_container {
+          margin-top: 40px;
+          margin-left: 50px;
+      }
+}
+</style>
+    <style type="text/css">
+        {{ form.css }}
+    </style>
+{% endblock %}
+
+
+{% block content %}
+<div class="row valign change-form">
+    <div class="col s12 m8 offset-m2 l8 offset-l2">
+        <div class="card">
+            <form method="POST" enctype="multipart/form-data">
+                <div class="card-content">
+                    <span class="card-title grey-text text-darken-2">{{ form.title }}</span>
+                    {% csrf_token %}
+                    {% include form.template %}
+                    {% block formbody %}{% endblock %}
+                </div>
+                <div class="card-action">
+                    {% block actions %}
+                    <div class="right-align">
+{#                        <button class="waves-effect waves-light btn" type="submit">Sign In</button>#}
+                        {% include form.buttonCancel %}
+                        {% include form.buttonConfirm %}
+                    </div>
+                    {% endblock %}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% block result %}
+    {% block js %}
+        {% include 'material/includes/material_js.html' %}
+    {% endblock %}
+{% endblock %}
+{% endblock %}
+
+
