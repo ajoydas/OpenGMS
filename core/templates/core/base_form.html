@@ -27,7 +27,7 @@
 <div class="row valign change-form">
     <div class="col s12 m8 offset-m2 l8 offset-l2">
         <div class="card">
-            <form method="POST" enctype="multipart/form-data">
+            <form action="{% url "login" %}" method="POST" enctype="multipart/form-data">
                 <div class="card-content">
                     <span class="card-title grey-text text-darken-2">{{ form.title }}</span>
                     {% csrf_token %}

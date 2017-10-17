@@ -152,10 +152,10 @@ def create_account(request):
 
         account_types = {'Client':0,'Technical Officer':1, 'Service Manager':2,'Production Manager':3}
         if(username!=False and email!=False and account_type!=False):
-            password = User.objects.make_random_password(length=10)
-            print("Generated Password "+ password)
             if not User.objects.filter(username=username).exists():
                 user = User.objects.create_user(username=username,email= email,password=password)
+                password = User.objects.make_random_password(length=10)
+                print("Generated Password " + password)
                 user.profile.account_type = account_types[account_type]
                 user.save()
                 NewUser(user=user,password=password).save()
@@ -164,7 +164,7 @@ def create_account(request):
                 messages.error(request, 'Submitted form is not valid. User already exist.')
 
         else:
-            messages.error(request, 'Submitted form is not valid.Try again.')
+            messages.error(request, 'Submitted form is not valid. Try again.')
         return render(request, 'dashboard/create_account.html')
     else:
         return render(request, 'dashboard/create_account.html')
@@ -175,7 +175,34 @@ def delete_account(request):
 
 
 def reset_account_pass(request):
-    return render(request, 'dashboard/reset_account_pass.html')
+    if (request.POST):
+        username = request.POST.get('user', False)
+        email = request.POST.get('email', False)
+        print (username)
+        print (email)
+
+        if (username != False and email != False):
+
+            if User.objects.filter(username=username).exists():
+                user = User.objects.filter(username=username)
+                password = User.objects.make_random_password(length=10)
+                print("Generated Password " + password)
+                user[0].set_password(password)
+                user[0].profile.account_flag = False
+                user[0].save()
+                if not NewUser.objects.filter(user=user[0]).exists():
+                    NewUser(user=user[0], password=password).save()
+
+                messages.success(request, 'Reset password successful.')
+            else:
+                messages.error(request, 'Submitted form is not valid. Username doesn\'t exist.')
+
+        else:
+            messages.error(request, 'Submitted form is not valid. Try again.')
+
+        return render(request, 'dashboard/reset_account_pass.html')
+    else:
+        return render(request, 'dashboard/reset_account_pass.html')
 
 
 def new_order(request):
@@ -187,3 +214,9 @@ def order_list(request):
     # table = OrderTable(Order_List.objects.all())
     # RequestConfig(request).configure(table)
     return render(request, 'dashboard/order_list.html')
+
+def account_list(request):
+    # table = OrderTable(Order_List.objects.all())
+    # RequestConfig(request).configure(table)
+    userlist = NewUser.objects.all()
+    return render(request, 'dashboard/account_list.html',{'userlist':userlist})
