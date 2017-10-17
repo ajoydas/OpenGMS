@@ -11,42 +11,49 @@
 
 
 {% block content %}
-<div>
-
-      <div class="login_wrapper">
-        <div class="animate form login_form">
-          <section class="login_content">
-            <form>
-              <h1>Create Account</h1>
-              <div>
-                <input type="text" class="form-control" placeholder="Username" required="" />
-              </div>
-              <div>
-                <input type="email" class="form-control" placeholder="Email" required="" />
-              </div>
-              <div class="form-group">
-
-                        <div >
-                          <select class="form-control">
-                            <option>Account Type</option>
-                            <option>Client</option>
-                            <option>Service Manager</option>
-                            <option>Production Manager</option>
-                            <option>Technical Officer</option>
-                          </select>
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}><h4>{{ message }}</h4></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <div>
+        <div class="login_wrapper">
+            <div class="animate form login_form">
+                <section class="login_content">
+                    <form action="{% url "officer:create_account" %}" method="post">
+                        {% csrf_token %}
+                        <h1>Create Account</h1>
+                        <div>
+                            <input type="text" name="user" class="form-control" placeholder="Username" required=""/>
                         </div>
-              </div>
-              <div>
-                <button class="btn btn-dark">Create Account</button>
-              </div>
+                        <div>
+                            <input type="email" name="email" class="form-control" placeholder="Email" required=""/>
+                        </div>
+                        <div class="form-group">
 
-              <div class="separator">
-              </div>
-            </form>
-          </section>
+                            <div>
+                                <select class="form-control" name="account_type">
+                                    <option>Account Type</option>
+                                    <option>Client</option>
+                                    <option>Service Manager</option>
+                                    <option>Production Manager</option>
+                                    <option>Technical Officer</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <button value="Submit" class="btn btn-dark">Create Account</button>
+                        </div>
+
+                        <div class="separator">
+                        </div>
+                    </form>
+                </section>
+            </div>
+
         </div>
-
-      </div>
     </div>
 
 {% endblock %}

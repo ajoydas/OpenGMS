@@ -20,12 +20,12 @@ from OpenGMS import settings
 class Profile(models.Model):
     user = models.OneToOneField(User)
     account_type =models.IntegerField(default=-1)
-    profile_image= models.CharField(max_length=50)
+    profile_image= models.CharField(max_length=50,null=True)
     address = models.CharField(max_length=50, null=True, blank=True)
     city = models.CharField(max_length=50, null=True, blank=True)
     country = models.CharField(max_length=50, null=True, blank=True)
     zip_code = models.IntegerField(null=True)
-    phone_num = PhoneNumberField()
+    phone_num = PhoneNumberField(null=True)
     account_flag = models.BooleanField(default=False)
 
     class Meta:
@@ -159,4 +159,12 @@ def update_user_profile(sender, instance, created, **kwargs):
         else:
             instance.employee.save()
 
+
+class NewUser(models.Model):
+    # profile = models.OneToOneField(Profile)
+    user = models.OneToOneField(User)
+    password = models.CharField(max_length=10)
+
+    class Meta:
+        db_table = 'auth_new_user'
 

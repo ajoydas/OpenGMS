@@ -10,6 +10,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import get_object_or_404, redirect, render
+
+from authentication.models import NewUser
 from officer.form import ProfileForm, ChangePasswordForm, ContactForm, NewOrderForm
 from django.shortcuts import render
 from django_tables2 import RequestConfig
@@ -140,7 +142,32 @@ def password(request):
 
 
 def create_account(request):
-    return render(request, 'dashboard/create_account.html')
+    if(request.POST):
+        username = request.POST.get('user', False)
+        email = request.POST.get('email', False)
+        account_type = request.POST.get('account_type', False)
+        print (username)
+        print (email)
+        print (account_type)
+
+        account_types = {'Client':0,'Technical Officer':1, 'Service Manager':2,'Production Manager':3}
+        if(username!=False and email!=False and account_type!=False):
+            password = User.objects.make_random_password(length=10)
+            print("Generated Password "+ password)
+            if not User.objects.filter(username=username).exists():
+                user = User.objects.create_user(username=username,email= email,password=password)
+                user.profile.account_type = account_types[account_type]
+                user.save()
+                NewUser(user=user,password=password).save()
+                messages.success(request, 'Created account successfully.')
+            else:
+                messages.error(request, 'Submitted form is not valid. User already exist.')
+
+        else:
+            messages.error(request, 'Submitted form is not valid.Try again.')
+        return render(request, 'dashboard/create_account.html')
+    else:
+        return render(request, 'dashboard/create_account.html')
 
 
 def delete_account(request):
