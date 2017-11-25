@@ -1,4 +1,4 @@
-{% extends 'dashboard/test.html' %}
+{% extends 'client/dash.html' %}
 {% load i18n %}
 
 {#{% block head %}#}
@@ -18,24 +18,24 @@
             <h3 style="margin-top: 0">{% trans 'Profile Informations' %}</h3>
             <div class="container">
                 <div class="row">
-                    <label class="custom_profile">Username</label>
+                    <label class="col-md-3">Username</label>
                     <span class="col-md-6">{{ user.username}}</span>
                 </div>
                 <div class="row">
-                    <label class="col-md-3">First name</label>
-                    <span class="col-md-6">{{ user.employee.first_name }}</span>
+                    <label class="col-md-3">Company name</label>
+                    <span class="col-md-6">{{ user.client.company_name }}</span>
                 </div>
                 <div class="row">
-                    <label class="col-md-3">Last name</label>
-                    <span class="col-md-6">{{ user.employee.last_name }}</span>
+                    <label class="col-md-3">Registration Info</label>
+                    <span class="col-md-6">{{ user.client.registration_info }}</span>
                 </div>
                 <div class="row">
-                    <label class="col-md-3">Designation</label>
-                    <span class="col-md-6">{{ user.employee.designation }}</span>
+                    <label class="col-md-3">Website</label>
+                    <span class="col-md-6">{{ user.client.website }}</span>
                 </div>
                 <div class="row">
-                    <label class="col-md-3">Manager-id</label>
-                    <span class="col-md-6">{{ user.employee.manager.username }}</span>
+                    <label class="col-md-3">Additional info</label>
+                    <span class="col-md-6">{{ user.client.additional_info }}</span>
                 </div>
             </div>
 

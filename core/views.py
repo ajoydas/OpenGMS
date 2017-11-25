@@ -2,7 +2,7 @@ import os
 
 from django.conf import settings as django_settings
 from django.contrib import messages
-from django.contrib.auth import update_session_auth_hash, authenticate, logout
+from django.contrib.auth import update_session_auth_hash, authenticate, logout, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
@@ -17,7 +17,7 @@ def home(request):
     return redirect('login')
 
 
-def login(request):
+def loginview(request):
     if request.method == 'POST':
         print ("Login form validating.")
         form = LogInForm(request.POST)
@@ -34,14 +34,15 @@ def login(request):
 
             if user is not None:
                 if user.is_active:
+                    login(request,user)
                     if user.profile.account_type == 0:
                         if user.profile.account_flag:  # false if not first time or resetted password
-                            return redirect('client:profile')
+                            return redirect('client:personal_info')
                         return redirect('client:profile')
 
                     elif user.profile.account_type == 1:
                         if user.profile.account_flag:
-                            return redirect('officer:profile')
+                            return redirect('officer:personal_info')
                         return redirect('officer:profile')
 
                     elif user.profile.account_type == 2:
@@ -53,9 +54,12 @@ def login(request):
                         if user.profile.account_flag:
                             return redirect('production:profile')
                         return redirect('production:profile')
-
-            logout(request)
+                    logout(request)
     else:
         print ("Rendering get form")
         return render(request, 'core/base_form.html',
                       {'form': LogInForm()})
+
+def logoutview(request):
+    logout(request)
+    return redirect('login')

@@ -23,30 +23,31 @@ from .tables import OrderTable
 
 __FILE_TYPES = ['zip']
 
-# @login_required
+@login_required
+def personalInfo(request):
+    return render(request, 'dashboard/personal_info.html', {'user': request.user})
+
+@login_required
 def profile(request):
-    # user = request.user
-    # if request.method == 'POST':
-    #     form = ProfileForm(request.POST)
-    #     if form.is_valid():
-    #         user.first_name = form.cleaned_data.get('first_name')
-    #         user.last_name = form.cleaned_data.get('last_name')
-    #         user.profile.job_title = form.cleaned_data.get('job_title')  # profile is for user profile
-    #         user.email = form.cleaned_data.get('email')
-    #         user.profile.url = form.cleaned_data.get('url')
-    #         user.profile.location = form.cleaned_data.get('location')
-    #         user.profile.about = form.cleaned_data.get('about')
-    #         user.save()
-    #         messages.add_message(request,
-    #                              messages.SUCCESS,
-    #                              'Your profile was successfully edited.')
-    #
-    # else:
-    #     form = ProfileForm(instance=user, initial={
-    #         'job_title': user.profile.job_title,
-    #         'url': user.profile.url,
-    #         'location': user.profile.location
-    #         })
+    user = request.user
+    if request.method == 'POST':
+        form = ProfileForm(request.POST)
+        if form.is_valid():
+            user.first_name = form.cleaned_data.get('first_name')
+            user.last_name = form.cleaned_data.get('last_name')
+            user.email = form.cleaned_data.get('email')
+            user.employee.job_title = form.cleaned_data.get('job_title')
+            user.employee.about = form.cleaned_data.get('about')
+            user.save()
+            messages.add_message(request,
+                                 messages.SUCCESS,
+                                 'Your profile was successfully edited.')
+
+    else:
+        form = ProfileForm(instance=user, initial={
+            'job_title': user.profile.job_title,
+            'job_title': user.profile.job_title,
+            })
     form = ProfileForm()
     return render(request, 'dashboard/profile.html', {'form': form})
 

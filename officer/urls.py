@@ -8,7 +8,7 @@ app_name = 'officer'
 urlpatterns = [
     # url(r'^dash/$', generic.FormView.as_view(
     #     form_class=form.RegistrationForm, template_name="dashboard/create_account.html")),
-
+    url(r'^$', officer_views.personalInfo, name='personal_info'),
     url(r'^profile', officer_views.profile, name='profile'),
     url(r'^contact', officer_views.contact, name='contact'),
     url(r'^picture', officer_views.picture, name='picture'),

@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'django_tables2',
-    'debug_toolbar',
+    # 'debug_toolbar',
     'phonenumber_field',
     # 'raven.contrib.django.raven_compat',
     #app
@@ -64,7 +64,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -165,14 +165,14 @@ try:
     # shortcut for in form templates
     from django.template.base import add_to_builtins
     add_to_builtins('material.templatetags.material_form')
-    add_to_builtins('template_debug.templatetags.debug_tags')
+    # add_to_builtins('template_debug.templatetags.debug_tags')
 except ImportError:
     """
     Django 1.9.
     """
     TEMPLATES[0]['OPTIONS']['builtins'] = [
         'material.templatetags.material_form',
-        'template_debug.templatetags.debug_tags'
+        # 'template_debug.templatetags.debug_tags'
     ]
 
 

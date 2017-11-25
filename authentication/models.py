@@ -111,7 +111,10 @@ class Employee(models.Model):
     # profile = models.OneToOneField(Profile)
     date_of_birth = models.DateField(null=True)
     sex = models.CharField(max_length=6)
+    job_title = models.CharField(max_length=100, null=True)
     designation = models.CharField(max_length=6)
+    about = models.CharField(max_length=100, null= True)
+
     class Meta:
         db_table = 'auth_employee'
 

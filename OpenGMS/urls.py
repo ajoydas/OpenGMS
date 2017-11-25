@@ -29,7 +29,8 @@ urlpatterns = [
     url(r'^$', core_views.home, name='home'),
     # url(r'^login', generic.FormView.as_view(
     #     form_class=core_form.LogInForm, template_name="core/base_form.html",success_url='loginpost'), name="login"),
-    url(r'^login', core_views.login, name='login'),
+    url(r'^login', core_views.loginview, name='login'),
+    url(r'^logout', core_views.logoutview, name='logout'),
     # url(r'^login', auth_views.login, {'template_name': 'core/login.html'},
     #     name='login'),
     url(r'^auth/', include('authentication.urls')),

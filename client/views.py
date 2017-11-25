@@ -21,6 +21,9 @@ from .models import Order_List
 
 __FILE_TYPES = ['zip']
 
+@login_required
+def personalInfo(request):
+    return render(request, 'client/personal_info.html', {'user': request.user})
 
 # @login_required
 def profile(request):

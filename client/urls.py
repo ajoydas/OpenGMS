@@ -9,6 +9,7 @@ urlpatterns = [
     # url(r'^dash/$', generic.FormView.as_view(
     #     form_class=form.RegistrationForm, template_name="dashboard/create_account.html")),
 
+    url(r'^$', client_views.personalInfo, name='personal_info'),
     url(r'^profile', client_views.profile, name='profile'),
     url(r'^contact', client_views.contact, name='contact'),
     url(r'^picture', client_views.picture, name='picture'),
