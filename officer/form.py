@@ -1,10 +1,12 @@
 from django import forms
 from django.contrib.auth.models import User
+from phonenumber_field.formfields import PhoneNumberField
 import datetime
+
+from core.models import Order
 
 
 class ProfileForm(forms.ModelForm):
-
     first_name = forms.CharField(
         widget=forms.TextInput(attrs={'class': 'form-control'}),
         max_length=50,
@@ -13,12 +15,15 @@ class ProfileForm(forms.ModelForm):
         widget=forms.TextInput(attrs={'class': 'form-control'}),
         max_length=50,
         required=True)
-    birth_date = forms.DateField(
+    date_of_birth = forms.DateField(
         widget=forms.DateInput,
-        help_text=datetime.date.today, required=True)
-    user_sex = ( ('MALE', 'Male'), ('FEMALE', 'Female') )
+        help_text="'%Y-%m-%d', '%m/%d/%Y', '%m/%d/%y'",
+        input_formats=['%Y-%m-%d', '%m/%d/%Y', '%m/%d/%y'],
+        required=True,
+    )
+    user_sex = (('MALE', 'Male'), ('FEMALE', 'Female'))
     sex = forms.ChoiceField(choices=user_sex)
-    user_designation = ( ('SENIOR', 'Senior Officer'), ('JUNIOR', 'Junior Officer') )
+    user_designation = (('SENIOR', 'Senior Officer'), ('JUNIOR', 'Junior Officer'))
     designation = forms.ChoiceField(choices=user_designation)
     job_title = forms.CharField(
         widget=forms.TextInput(attrs={'class': 'form-control'}),
@@ -35,7 +40,7 @@ class ProfileForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'birth_date', 'sex', 'designation', 'job_title',
+        fields = ['first_name', 'last_name', 'date_of_birth', 'sex', 'designation', 'job_title',
                   'email', 'about']
 
 
@@ -76,7 +81,6 @@ class ChangePasswordForm(forms.ModelForm):
 
 
 class ContactForm(forms.ModelForm):
-
     address = forms.CharField(
         widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 4}),
         max_length=300,
@@ -93,45 +97,54 @@ class ContactForm(forms.ModelForm):
         widget=forms.TextInput(attrs={'class': 'form-control'}),
         max_length=30,
         required=True)
-    phone = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'form-control'}),
-        required=True)
-    zip = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'form-control'}),
-        required=True)
+    zip_code = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'form-control'}),
+                                  required=True)
+    phone_num = PhoneNumberField(widget=forms.TextInput(attrs={'placeholder': 'Phone'}), label="Phone number",
+                                 required=False, help_text='+ Country Code 11 digit phone\n'
+                                                           'e.g. +8801XXXXXXXXX')
 
     class Meta:
         model = User
-        fields = ['address', 'city', 'state', 'country', 'phone', 'zip']
+        fields = ['address', 'city', 'state', 'country', 'zip_code', 'phone_num']
 
 
 class NewOrderForm(forms.ModelForm):
     client_username = forms.CharField(
+        label="Client Username",
         widget=forms.TextInput(attrs={'class': 'form-control'}),
         max_length=50,
-        required=True)
+        required=False)
     client_name = forms.CharField(
+        label="Client Name",
         widget=forms.TextInput(attrs={'class': 'form-control'}),
         max_length=50,
-        required=True)
+        required=False)
     order_types = (('SHIRT', 'Shirt'), ('PANT', 'Pant'), ('T-SHIRT', 'T-Shirt'))
-    order_type = forms.ChoiceField(choices=order_types)
-    design = forms.FileField()
+    order_type = forms.ChoiceField(choices=order_types, required=True)
+    design = forms.FileField(required=False)
     deadline = forms.DateField(
         widget=forms.DateInput,
-        help_text=datetime.date.today, required=True)
+        help_text="'%Y-%m-%d', '%m/%d/%Y', '%m/%d/%y'",
+        input_formats=['%Y-%m-%d', '%m/%d/%Y', '%m/%d/%y'],
+        required=True)
     quantity = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'form-control'}),
-        required=True)
+                                  required=True)
     budget = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'form-control'}),
-        required=True)
+                                required=True)
+    client_address = forms.BooleanField(label="Ship in Client address", required=False)
     shipping_address = forms.CharField(
         widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 4}),
         max_length=300,
-        required=True)
+        required=False)
     specification = forms.CharField(
         widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 4}),
         max_length=300,
-        required=True)
+        required=False)
+    order_statuses = (('RECEIVED', 'received'), ('CONFIRMED', 'Confirmed'), ('IN-PRODUCTION', 'In-Production')
+                      , ('IN-SHIPMENT', 'In-Shipment'), ('DONE', 'Done'))
+    order_status = forms.ChoiceField(choices=order_statuses, required=True)
 
     class Meta:
-        model = User
+        model = Order
         fields = ['client_username', 'client_name', 'order_type', 'design', 'deadline',
-                  'quantity', 'budget', 'shipping_address', 'specification']
+                  'quantity', 'budget','client_address', 'shipping_address', 'specification']

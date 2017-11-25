@@ -19,14 +19,15 @@ from OpenGMS import settings
 @python_2_unicode_compatible
 class Profile(models.Model):
     user = models.OneToOneField(User)
-    account_type =models.IntegerField(default=-1)
-    profile_image= models.CharField(max_length=50,null=True)
+    account_type = models.IntegerField(default=-1)
+    profile_picture = models.FileField(upload_to='profile_pictures', blank=True)
     address = models.CharField(max_length=50, null=True, blank=True)
     city = models.CharField(max_length=50, null=True, blank=True)
+    state = models.CharField(max_length=50, null=True, blank=True)
     country = models.CharField(max_length=50, null=True, blank=True)
     zip_code = models.IntegerField(null=True)
     phone_num = PhoneNumberField(null=True)
-    account_flag = models.BooleanField(default=False)
+    account_flag = models.IntegerField(default=1)
 
     class Meta:
         db_table = 'auth_profile'
@@ -104,6 +105,7 @@ class Profile(models.Model):
 #
 # # post_save.connect(create_user_profile, sender=User)
 # # post_save.connect(save_user_profile, sender=User)
+
 
 class Employee(models.Model):
     user = models.OneToOneField(User)
