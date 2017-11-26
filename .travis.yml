@@ -16,7 +16,6 @@ python:
 services: postgresql
 
 env:
-  - DJANGO=1.4.1
   - WEB_CONCURRENCY=2
 
 before_install:
@@ -26,7 +25,6 @@ before_install:
 
 install:
   - pip install -r requirements.txt
-  - pip install django==$DJANGO --quiet
   - pip install psycopg2 --quiet
 
 before_script:
