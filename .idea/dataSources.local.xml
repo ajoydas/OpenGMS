@@ -8,5 +8,11 @@
       <auth-required>false</auth-required>
       <introspection-schemas>*:*</introspection-schemas>
     </data-source>
+    <data-source name="Django default" uuid="7e9f480e-6806-4c9c-ae63-7752dd641964">
+      <database-info product="SQLite" version="3.16.1" jdbc-version="2.1" driver-name="SQLiteJDBC" driver-version="native" />
+      <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed" />
+      <auth-required>false</auth-required>
+      <introspection-schemas>*:main</introspection-schemas>
+    </data-source>
   </component>
 </project>

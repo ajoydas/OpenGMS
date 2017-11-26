@@ -2,39 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5eab5142-ca31-41b5-b2d0-6caf4732431d" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/authentication/migrations/0007_profile_state.py" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/authentication/migrations/0008_auto_20171125_2042.py" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/authentication/migrations/0009_auto_20171125_2258.py" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/core/migrations/0001_initial.py" />
-      <change beforePath="$PROJECT_DIR$/.idea/OpenGMS.iml" afterPath="$PROJECT_DIR$/.idea/OpenGMS.iml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/travis.yml" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/OpenGMS/check_group.py" afterPath="$PROJECT_DIR$/OpenGMS/function_util.py" />
-      <change beforePath="$PROJECT_DIR$/authentication/models.py" afterPath="$PROJECT_DIR$/authentication/models.py" />
-      <change beforePath="$PROJECT_DIR$/client/templates/client/dash.html" afterPath="$PROJECT_DIR$/client/templates/client/dash.html" />
-      <change beforePath="$PROJECT_DIR$/core/models.py" afterPath="$PROJECT_DIR$/core/models.py" />
-      <change beforePath="$PROJECT_DIR$/core/templates/core/base_form.html" afterPath="$PROJECT_DIR$/core/templates/core/base_form.html" />
-      <change beforePath="$PROJECT_DIR$/core/templates/core/login.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/core/views.py" afterPath="$PROJECT_DIR$/core/views.py" />
+      <change beforePath="$PROJECT_DIR$/OpenGMS/settings.py" afterPath="$PROJECT_DIR$/OpenGMS/settings.py" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
-      <change beforePath="$PROJECT_DIR$/officer/form.py" afterPath="$PROJECT_DIR$/officer/form.py" />
-      <change beforePath="$PROJECT_DIR$/officer/templates/dashboard/account_list.html" afterPath="$PROJECT_DIR$/officer/templates/dashboard/account_list.html" />
-      <change beforePath="$PROJECT_DIR$/officer/templates/dashboard/base_form.html" afterPath="$PROJECT_DIR$/officer/templates/dashboard/base_form.html" />
-      <change beforePath="$PROJECT_DIR$/officer/templates/dashboard/contact.html" afterPath="$PROJECT_DIR$/officer/templates/dashboard/contact.html" />
-      <change beforePath="$PROJECT_DIR$/officer/templates/dashboard/create_account.html" afterPath="$PROJECT_DIR$/officer/templates/dashboard/create_account.html" />
-      <change beforePath="$PROJECT_DIR$/officer/templates/dashboard/delete_account.html" afterPath="$PROJECT_DIR$/officer/templates/dashboard/delete_account.html" />
-      <change beforePath="$PROJECT_DIR$/officer/templates/dashboard/new_order.html" afterPath="$PROJECT_DIR$/officer/templates/dashboard/new_order.html" />
-      <change beforePath="$PROJECT_DIR$/officer/templates/dashboard/order_list.html" afterPath="$PROJECT_DIR$/officer/templates/dashboard/order_list.html" />
-      <change beforePath="$PROJECT_DIR$/officer/templates/dashboard/password.html" afterPath="$PROJECT_DIR$/officer/templates/dashboard/password.html" />
-      <change beforePath="$PROJECT_DIR$/officer/templates/dashboard/personal_info.html" afterPath="$PROJECT_DIR$/officer/templates/dashboard/personal_info.html" />
-      <change beforePath="$PROJECT_DIR$/officer/templates/dashboard/picture.html" afterPath="$PROJECT_DIR$/officer/templates/dashboard/picture.html" />
-      <change beforePath="$PROJECT_DIR$/officer/templates/dashboard/profile.html" afterPath="$PROJECT_DIR$/officer/templates/dashboard/profile.html" />
-      <change beforePath="$PROJECT_DIR$/officer/templates/dashboard/reset_account_pass.html" afterPath="$PROJECT_DIR$/officer/templates/dashboard/reset_account_pass.html" />
-      <change beforePath="$PROJECT_DIR$/officer/templates/dashboard/test.html" afterPath="$PROJECT_DIR$/officer/templates/dashboard/dash.html" />
-      <change beforePath="$PROJECT_DIR$/officer/urls.py" afterPath="$PROJECT_DIR$/officer/urls.py" />
-      <change beforePath="$PROJECT_DIR$/officer/views.py" afterPath="$PROJECT_DIR$/officer/views.py" />
-      <change beforePath="$PROJECT_DIR$/production/templates/production/dash.html" afterPath="$PROJECT_DIR$/production/templates/production/dash.html" />
-      <change beforePath="$PROJECT_DIR$/service/templates/service/dash.html" afterPath="$PROJECT_DIR$/service/templates/service/dash.html" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3-journal" afterPath="" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -74,11 +48,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/officer/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="302">
-              <caret line="250" column="52" lean-forward="false" selection-start-line="250" selection-start-column="52" selection-end-line="250" selection-end-column="52" />
+            <state relative-caret-position="643">
+              <caret line="250" column="43" lean-forward="false" selection-start-line="250" selection-start-column="43" selection-end-line="250" selection-end-column="43" />
               <folding>
                 <element signature="e#24#63#0" expanded="true" />
               </folding>
@@ -86,25 +60,32 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="function_util.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/OpenGMS/function_util.py">
+      <file leaf-file-name=".env" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.env">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="17" column="59" lean-forward="false" selection-start-line="17" selection-start-column="59" selection-end-line="17" selection-end-column="59" />
+            <state relative-caret-position="57">
+              <caret line="3" column="65" lean-forward="true" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="65" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/authentication/models.py">
+      <file leaf-file-name="travis.yml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/travis.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="160" column="11" lean-forward="false" selection-start-line="160" selection-start-column="11" selection-end-line="160" selection-end-column="63" />
-              <folding>
-                <element signature="e#2283#2314#0" expanded="false" />
-                <element signature="e#3634#3697#0" expanded="false" />
-              </folding>
+            <state relative-caret-position="452">
+              <caret line="32" column="37" lean-forward="false" selection-start-line="32" selection-start-column="37" selection-end-line="32" selection-end-column="37" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/OpenGMS/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="129">
+              <caret line="125" column="33" lean-forward="false" selection-start-line="125" selection-start-column="25" selection-end-line="125" selection-end-column="33" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -125,7 +106,7 @@
         <entry file="file://$PROJECT_DIR$/core/models.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="167">
-              <caret line="9" column="57" lean-forward="true" selection-start-line="9" selection-start-column="57" selection-end-line="9" selection-end-column="57" />
+              <caret line="9" column="57" lean-forward="false" selection-start-line="9" selection-start-column="57" selection-end-line="9" selection-end-column="57" />
               <folding>
                 <element signature="e#24#63#0" expanded="true" />
               </folding>
@@ -187,7 +168,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/service/templates/service/delete_account.html" />
         <option value="$PROJECT_DIR$/service/templates/service/new_order.html" />
         <option value="$PROJECT_DIR$/service/templates/service/password.html" />
         <option value="$PROJECT_DIR$/service/templates/service/picture.html" />
@@ -216,7 +196,6 @@
         <option value="$PROJECT_DIR$/client/views.py" />
         <option value="$PROJECT_DIR$/OpenGMS/urls.py" />
         <option value="$PROJECT_DIR$/requirements.txt" />
-        <option value="$PROJECT_DIR$/OpenGMS/settings.py" />
         <option value="$PROJECT_DIR$/OpenGMS/Check_group.py" />
         <option value="$PROJECT_DIR$/officer/static/css/opengms_custom.css" />
         <option value="$PROJECT_DIR$/officer/templates/dashboard/test.html" />
@@ -238,6 +217,8 @@
         <option value="$PROJECT_DIR$/core/models.py" />
         <option value="$PROJECT_DIR$/officer/form.py" />
         <option value="$PROJECT_DIR$/officer/views.py" />
+        <option value="$PROJECT_DIR$/OpenGMS/settings.py" />
+        <option value="$PROJECT_DIR$/travis.yml" />
       </list>
     </option>
   </component>
@@ -278,6 +259,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -288,107 +271,12 @@
             <path>
               <item name="OpenGMS" type="b2602c69:ProjectViewProjectNode" />
               <item name="OpenGMS" type="462c0819:PsiDirectoryNode" />
-              <item name="authentication" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="OpenGMS" type="b2602c69:ProjectViewProjectNode" />
               <item name="OpenGMS" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="OpenGMS" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OpenGMS" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="OpenGMS" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OpenGMS" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="OpenGMS" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OpenGMS" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="OpenGMS" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OpenGMS" type="462c0819:PsiDirectoryNode" />
-              <item name="media" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="OpenGMS" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OpenGMS" type="462c0819:PsiDirectoryNode" />
-              <item name="media" type="462c0819:PsiDirectoryNode" />
-              <item name="profile_pictures" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="OpenGMS" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OpenGMS" type="462c0819:PsiDirectoryNode" />
-              <item name="officer" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="OpenGMS" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OpenGMS" type="462c0819:PsiDirectoryNode" />
-              <item name="officer" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="OpenGMS" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OpenGMS" type="462c0819:PsiDirectoryNode" />
-              <item name="officer" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="dashboard" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="OpenGMS" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OpenGMS" type="462c0819:PsiDirectoryNode" />
-              <item name="OpenGMS" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="OpenGMS" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OpenGMS" type="462c0819:PsiDirectoryNode" />
-              <item name="production" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="OpenGMS" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OpenGMS" type="462c0819:PsiDirectoryNode" />
-              <item name="production" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="OpenGMS" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OpenGMS" type="462c0819:PsiDirectoryNode" />
-              <item name="production" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="production" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="OpenGMS" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OpenGMS" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="OpenGMS" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OpenGMS" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="OpenGMS" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OpenGMS" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -618,30 +506,6 @@
       <envs />
       <method />
     </configuration>
-    <configuration default="true" type="tests" factoryName="Nosetests">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="preseason3_2" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="_new_regexPattern" value="&quot;&quot;" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;.&quot;" />
-      <option name="_new_targetType" value="&quot;PATH&quot;" />
-    </configuration>
-    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <gulpfile />
-      <tasks />
-      <arguments />
-      <envs />
-    </configuration>
     <configuration default="true" type="tests" factoryName="Doctests">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -660,6 +524,30 @@
       <option name="TEST_TYPE" value="TEST_SCRIPT" />
       <option name="PATTERN" value="" />
       <option name="USE_PATTERN" value="false" />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Nosetests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="preseason3_2" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="_new_regexPattern" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;.&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
     </configuration>
     <list size="3">
       <item index="0" class="java.lang.String" itemvalue="Django server.OpenGMS" />
@@ -739,12 +627,10 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3264095" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32537314" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6454006" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6780415" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22745411" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6735905" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23144454" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="manage.py@OpenGMS" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.45845696" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24581006" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3249258" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="SciView" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -755,6 +641,8 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Thumbnails" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32970452" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="manage.py@OpenGMS" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.45845696" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3249258" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Concurrent Activities Diagram" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32872504" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32933652" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -785,6 +673,9 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.env" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -822,7 +713,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="dbDummy://dbtable:/d87f2293/1315d6d6-bf87-4187-ac6b-2f05e52ce919/main.auth_client" />
     <entry file="file://$PROJECT_DIR$/officer/templates/dashboard/order_list.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="57">
@@ -866,13 +756,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.env">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/templates/client/personal_info.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="304">
@@ -904,7 +787,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="22" lean-forward="false" selection-start-line="0" selection-start-column="22" selection-end-line="0" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -912,7 +794,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="380">
           <caret line="119" column="51" lean-forward="false" selection-start-line="119" selection-start-column="51" selection-end-line="119" selection-end-column="51" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -920,7 +801,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="304">
           <caret line="127" column="51" lean-forward="false" selection-start-line="127" selection-start-column="51" selection-end-line="127" selection-end-column="51" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -928,7 +808,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="110">
           <caret line="19" column="27" lean-forward="false" selection-start-line="19" selection-start-column="27" selection-end-line="19" selection-end-column="27" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -936,7 +815,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="305">
           <caret line="119" column="51" lean-forward="false" selection-start-line="119" selection-start-column="33" selection-end-line="119" selection-end-column="51" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -944,7 +822,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -960,7 +837,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="182">
           <caret line="24" column="73" lean-forward="false" selection-start-line="24" selection-start-column="26" selection-end-line="24" selection-end-column="73" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -983,7 +859,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
           <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -991,7 +866,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="76">
           <caret line="13" column="22" lean-forward="true" selection-start-line="13" selection-start-column="22" selection-end-line="13" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1004,7 +878,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1012,7 +885,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1425">
           <caret line="6" column="18" lean-forward="true" selection-start-line="6" selection-start-column="18" selection-end-line="6" selection-end-column="18" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1020,7 +892,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="228">
           <caret line="14" column="60" lean-forward="false" selection-start-line="14" selection-start-column="52" selection-end-line="14" selection-end-column="60" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1028,18 +899,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="57">
           <caret line="5" column="15" lean-forward="false" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="15" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/templates/core/login.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="21" column="27" lean-forward="true" selection-start-line="14" selection-start-column="16" selection-end-line="21" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/core/templates/core/login.html" />
     <entry file="file://$USER_HOME$/AppData/Roaming/Python/Python27/site-packages/django/db/models/fields/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="215">
@@ -1052,7 +915,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="418">
           <caret line="25" column="75" lean-forward="true" selection-start-line="24" selection-start-column="7" selection-end-line="25" selection-end-column="75" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1060,7 +922,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
           <caret line="17" column="19" lean-forward="false" selection-start-line="17" selection-start-column="11" selection-end-line="17" selection-end-column="19" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1068,15 +929,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="190">
           <caret line="12" column="18" lean-forward="false" selection-start-line="12" selection-start-column="11" selection-end-line="12" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/OpenGMS/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="608">
-          <caret line="175" column="5" lean-forward="false" selection-start-line="175" selection-start-column="5" selection-end-line="175" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1084,7 +936,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="476">
           <caret line="30" column="24" lean-forward="true" selection-start-line="30" selection-start-column="24" selection-end-line="30" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1100,7 +951,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="438">
           <caret line="46" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1136,22 +986,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/models.py">
+    <entry file="file://$PROJECT_DIR$/officer/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
-          <caret line="9" column="57" lean-forward="true" selection-start-line="9" selection-start-column="57" selection-end-line="9" selection-end-column="57" />
+        <state relative-caret-position="643">
+          <caret line="250" column="43" lean-forward="false" selection-start-line="250" selection-start-column="43" selection-end-line="250" selection-end-column="43" />
           <folding>
             <element signature="e#24#63#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/officer/form.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="514">
-          <caret line="148" column="42" lean-forward="false" selection-start-line="148" selection-start-column="42" selection-end-line="148" selection-end-column="42" />
-          <folding>
-            <element signature="e#0#24#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1167,13 +1007,47 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/officer/views.py">
+    <entry file="file://$PROJECT_DIR$/.env">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="302">
-          <caret line="250" column="52" lean-forward="false" selection-start-line="250" selection-start-column="52" selection-end-line="250" selection-end-column="52" />
+        <state relative-caret-position="57">
+          <caret line="3" column="65" lean-forward="true" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="65" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OpenGMS/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="129">
+          <caret line="125" column="33" lean-forward="false" selection-start-line="125" selection-start-column="25" selection-end-line="125" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/officer/form.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="514">
+          <caret line="148" column="42" lean-forward="false" selection-start-line="148" selection-start-column="42" selection-end-line="148" selection-end-column="42" />
+          <folding>
+            <element signature="e#0#24#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="167">
+          <caret line="9" column="57" lean-forward="false" selection-start-line="9" selection-start-column="57" selection-end-line="9" selection-end-column="57" />
           <folding>
             <element signature="e#24#63#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/travis.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="452">
+          <caret line="32" column="37" lean-forward="false" selection-start-line="32" selection-start-column="37" selection-end-line="32" selection-end-column="37" />
+          <folding />
         </state>
       </provider>
     </entry>
