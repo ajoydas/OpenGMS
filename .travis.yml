@@ -33,4 +33,4 @@ before_script:
   - psql -c "CREATE DATABASE travisdb;" -U postgres
 
 script:
-  - python manage.py syncdb --noinput
+  - python manage.py migrate
