@@ -16,13 +16,13 @@ python:
 services: postgresql
 
 env:
-  - DEBUG=True
-  - WEB_CONCURRENCY=2
-  - SECRET_KEY="9(-8jpot70a0b=g3gvo1+!c!ujm!5(&a2c+pe+6w6@!f399^h9"
 
 before_install:
   - export DJANGO_SETTINGS_MODULE=OpenGMS.settings
   - export PYTHONPATH=$HOME/builds/shikkanobish/OpenGMS
+  - export DEBUG=True
+  - export WEB_CONCURRENCY=2
+  - export SECRET_KEY="9(-8jpot70a0b=g3gvo1+!c!ujm!5(&a2c+pe+6w6@!f399^h9"
   - export PIP_USE_MIRRORS=true
 
 install:
