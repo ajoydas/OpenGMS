@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.contrib.auth.models import User
 from django.db import models
 
-
+#onlinebookshare> mylibrary> views.py/ model.py
 class Order(models.Model):
     client = models.ForeignKey(User, related_name="client_username", null=True,
                                on_delete=models.SET_NULL)

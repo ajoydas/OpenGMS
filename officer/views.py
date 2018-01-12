@@ -271,11 +271,13 @@ def new_order(request):
 def order_list(request):
     # table = OrderTable(Order_List.objects.all())
     # RequestConfig(request).configure(table)
-    return render(request, 'dashboard/order_list.html')
+    orders = Order.objects.all()
+    return render(request, 'dashboard/order_list.html', {'orderlist': orders})
 
 
 def account_list(request):
     # table = OrderTable(Order_List.objects.all())
     # RequestConfig(request).configure(table)
-    userlist = NewUser.objects.all()
-    return render(request, 'dashboard/account_list.html', {'userlist': userlist})
+    new_user_list = NewUser.objects.all()
+    user_list = User.objects.all()
+    return render(request, 'dashboard/account_list.html', {'new_user_list':new_user_list,'user_list': user_list})

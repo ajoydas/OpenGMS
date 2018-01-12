@@ -1,0 +1,109 @@
+{% extends 'dashboard/dash.html' %}
+{% load i18n %}
+{% load staticfiles %}
+
+{#{% block head %}#}
+{#    {% block title %} Account Settings {% endblock %}#}
+{#{% endblock %}#}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
+
+
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Profile Information</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-3 col-lg-3 " align="center">
+                                {% if  user.profile.profile_picture%}
+                                  <img src="{{ user.profile.profile_picture.url }}" alt="User Pic" class="img-circle img-responsive">
+                                {% else %}
+                                  <img src="{% static 'images/user.png'%}" alt="User Pic" class="img-circle img-responsive">
+                                {% endif %}
+                            </div>
+                            <div class=" col-md-9 col-lg-9 ">
+                                <table class="table table-user-information">
+                                    <tbody>
+                                    <tr>
+                                        <td>Username:</td>
+                                        <td>{{ user.username }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>First name:</td>
+                                        <td>{{ user.first_name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Last name:</td>
+                                        <td>{{ user.last_name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Date of Birth:</td>
+                                        <td>{{ user.employee.date_of_birth }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Gender:</td>
+                                        <td>{{ user.employee.sex }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Designation:</td>
+                                        <td>{{ user.employee.designation }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Job Title:</td>
+                                        <td>{{ user.employee.job_title }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Email:</td>
+                                        <td>{{ user.email }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>About:</td>
+                                        <td>{{ user.employee.about }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Address:</td>
+                                        <td>{{ user.profile.address }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>City:</td>
+                                        <td>{{ user.profile.city }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>State:</td>
+                                        <td>{{ user.profile.state }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Country:</td>
+                                        <td>{{ user.profile.country }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Zip Code:</td>
+                                        <td>{{ user.profile.zip_code }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Phone Number:</td>
+                                        <td>{{ user.profile.phone_num }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Manager-id:</td>
+                                        <td>{{ user.employee.manager.username }}</td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block js %}
+{% endblock %}

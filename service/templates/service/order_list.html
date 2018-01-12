@@ -4,7 +4,7 @@
 
 {% block head %}
 <!-- iCheck -->
-    <link href={%  static "extra/green.css"%} rel="stylesheet">
+    <<link href="{%  static "extra/green.css"%}" rel="stylesheet">
     <!-- Datatables -->
     <link href="{% static "extra/dataTables.bootstrap.min.css" %}" rel="stylesheet">
     <link href="{% static "extra/buttons.bootstrap.min.css"%}" rel="stylesheet">
@@ -39,20 +39,21 @@
                                 <th>User Id</th>
                                 <th>Username</th>
                                 <th>State</th>
-                                <th>Order Date</th>
-                                <th>Delivery Date</th>
+                                <th>Updated at</th>
+                                <th>Deadline</th>
                                 <th>Action</th>
                               </tr>
                             </thead>
                             <tbody>
                               <tr>
-                                <td>Tiger Nixon</td>
-                                <td>System Architect</td>
+                                  {% for order in orderlist %}
+                                <tr>
+                                <td>{{ order.client.id }}</td>
+                                <td>{{ order.client_name }}</td>
                                 <td><span class="label label-success" style="width: 100%;text-align: center">
-                                    Done
-                                </span></td>
-                                <td>61</td>
-                                <td>2011/04/25</td>
+                                    {{ order.order_status }}</span></td>
+                                <td>{{ order.updated_at }}</td>
+                                <td>{{ order.deadline }}</td>
                                 <td>
 {#                                    <div>#}
 {#                                        <form action="https://www.google.com">#}
@@ -63,6 +64,7 @@
                                             type="button">Update</button>
                                 </td>
                               </tr>
+                            {% endfor %}
                             </tbody>
                           </table>
                         </div>

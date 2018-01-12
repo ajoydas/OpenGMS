@@ -6,15 +6,11 @@
 
     <link href="{% static 'css/jquery.Jcrop.min.css' %}" rel="stylesheet">
     <script src="{% static 'js/jquery.Jcrop.min.js' %}"></script>
-{#<script src="{% static 'js/picture.js' %}"></script>#}
+    {#<script src="{% static 'js/picture.js' %}"></script>#}
 {% endblock %}
 
 {% block content %}
-
-     <div class="page-header">
-    <h1>{% trans 'Account Settings' %}</h1>
-  </div>
-  <div class="row" style="margin-top: 2em">
+<div class="row" style="margin-top: 2em">
     <div class="col-md-9">
       {% if messages %}
         {% for message in messages %}
@@ -25,57 +21,20 @@
         {% endfor %}
       {% endif %}
       <h3 style="margin-top: 0">{% trans 'Change Picture' %}</h3>
-      <img src="{{ user.profile.get_picture }}" style="width: 150px; border-radius: 5px; margin-bottom: 1em;">
-      <form enctype="multipart/form-data" method="post" action="{% url 'service:upload_picture' %}"
+    {% if user.profile.profile_picture %}
+        <img src="{{ user.profile.profile_picture.url }}"  class="img-responsive avatar-view">
+    {% else %}
+        <img src="{%  static 'images/user.png' %}" style="width: 150px; border-radius: 5px; margin-bottom: 1em;">
+    {% endif %}
+      <form enctype="multipart/form-data" method="post" action="{% url 'service:picture' %}"
             id="picture-upload-form">
         {% csrf_token %}
         <input type="file" name="picture" style="display: none">
-        <button type="button" class="btn btn-default" id="btn-upload-picture">
+        <br>
+        <button type="button" class="btn btn-primary" id="btn-upload-picture">
             {% trans 'Upload new picture' %}
         </button>
       </form>
-
-      {% if uploaded_picture %}
-        <form method="post" action="{% url 'service:save_uploaded_picture' %}">
-          {% csrf_token %}
-          <div class="modal fade" id="modal-upload-picture">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                  <h4 class="modal-title">{% trans 'Crop Picture' %}</h4>
-                </div>
-                <div class="modal-body">
-                  <div class="selected-picture">
-                    <p>{% trans 'Crop the profile picture and then click on the' %}
-                        <strong>
-                            {% trans 'Save Picture' %}
-                        </strong>
-                        {% trans 'button' %}</p>
-                    <img src="{% get_media_prefix %}profile_pictures/shamsad_tmp.jpg?_={% now 'U' %}"
-                         id="crop-picture">
-                    <input type="hidden" id="x" name="x" />
-                    <input type="hidden" id="y" name="y" />
-                    <input type="hidden" id="w" name="w" />
-                    <input type="hidden" id="h" name="h" />
-                  </div>
-                  <script type="text/javascript">
-                    $(function () {
-                      $("#modal-upload-picture").modal();
-                      window.history.pushState("", "", "service/picture/");
-                    });
-                  </script>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">{% trans 'Close' %}
-                  </button>
-                  <button type="submit" class="btn btn-primary">{% trans 'Save changes' %}</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </form>
-      {% endif %}
     </div>
   </div>
 
@@ -83,6 +42,6 @@
 
 {% block js %}
     <script src="{% static 'js/jquery.Jcrop.min.js' %}"></script>
-<script src="{% static 'js/picture.js' %}"></script>
+    <script src="{% static 'js/picture.js' %}"></script>
 
 {% endblock %}
