@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+import os
 
+from PIL import Image
+from django.conf import settings as django_settings
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
@@ -106,14 +109,49 @@ def contact(request):
     return render(request, 'dashboard/contact.html', {'form': form})
 
 
+# @login_required
+# def picture(request):
+#     user = request.user
+#     if request.method == 'POST':
+#         user.profile.profile_picture = request.FILES['picture']
+#         if user.profile.account_flag == 3:
+#             user.profile.account_flag = 4
+#         user.save()
+#         if user.profile.account_flag != 0:
+#             return redirect('officer:password')
+#
+#         return render(request, 'dashboard/picture.html')
+#     print (user.profile.profile_picture)
+#     return render(request, 'dashboard/picture.html')
+
+
 @login_required
 def picture(request):
     user = request.user
+    profile_pictures = django_settings.MEDIA_ROOT + '/profile_pictures/'
+    if not os.path.exists(profile_pictures):
+        os.makedirs(profile_pictures)
     if request.method == 'POST':
-        user.profile.profile_picture = request.FILES['picture']
+        _picture = request.FILES['picture']
+        filename = profile_pictures + request.user.username + '_' + str(request.user.id) + '.jpg'
+        with open(filename, 'wb+') as destination:
+            for chunk in _picture.chunks():
+                destination.write(chunk)
+        im = Image.open(filename)
+        width, height = im.size
+        if width > 400:
+            new_width = 400
+            new_height = 300       # (height * 400) / width
+            new_size = new_width, new_height
+            im.thumbnail(new_size, Image.ANTIALIAS)
+            im.save(filename)
+
         if user.profile.account_flag == 3:
             user.profile.account_flag = 4
+
+        user.profile.profile_picture = filename
         user.save()
+
         if user.profile.account_flag != 0:
             return redirect('officer:password')
 
@@ -212,14 +250,23 @@ def reset_account_pass(request):
         return render(request, 'dashboard/reset_account_pass.html')
 
 
+DESIGN_FILE_TYPES = ['.zip', '.rar', '.gz']
 def new_order(request):
     user = request.user
     if request.method == 'POST':
         print("NewOrderForm form submitted")
-        form = NewOrderForm(request.POST)
+        form = NewOrderForm(request.POST or None, request.FILES or None)
         if form.is_valid():
             print("NewOrderForm form Valid")
-            order = Order()
+            # order = Order()
+            order = form.save(commit=False)
+            order.design = request.FILES['design']
+            file_type = order.design.url.split('.')[-1]
+            file_type = file_type.lower()
+            if file_type not in DESIGN_FILE_TYPES:
+                messages.error(request, 'Image file must be .zip, .rar or .gz')
+                return render(request, 'dashboard/new_order.html', {'form': form})
+
             client_username = form.cleaned_data.get('client_username')
             shipping_address = form.cleaned_data.get('shipping_address')
             client_address = form.cleaned_data.get('client_address')

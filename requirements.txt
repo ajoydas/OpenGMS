@@ -15,3 +15,5 @@ django-debug-toolbar
 django-tables2
 django-phonenumber-field
 django-guardian
+django-notifications-hq
+djangorestframework

@@ -13,7 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-
+import notifications
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls import include, url
@@ -22,7 +22,7 @@ from django.contrib.auth import views as auth_views
 from django.views import generic
 
 from core import views as core_views
-from core import form as core_form
+from autocompleteAPI import views as autocomplete_views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -38,6 +38,12 @@ urlpatterns = [
     url(r'^client/', include('client.urls')),
     url(r'^production/', include('production.urls')),
     url(r'^service/', include('service.urls')),
+
+    # notification
+    # url('^inbox/notifications/', include(notifications.urls, namespace='notifications')),
+
+    # rest API for autocomplete
+    url('^api.alif-marine.com/search/products/', autocomplete_views.list, name='productsAPI'),
 ]
 
 if settings.DEBUG:

@@ -16,7 +16,7 @@ class Order(models.Model):
 
     client_name = models.CharField(max_length=50, null=True)
     order_type = models.CharField(max_length=20)
-    design = models.CharField(max_length=100)
+    design = models.FileField(upload_to='media/')
     deadline = models.DateField()
     quantity = models.IntegerField(default=0)
     budget = models.IntegerField(default=0)

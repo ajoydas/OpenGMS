@@ -58,6 +58,9 @@ INSTALLED_APPS = [
     'client',
     'production',
     'service',
+    'notifications',
+    # 'Notifications',
+    'autocompleteAPI',
 ]
 
 MIDDLEWARE = [
