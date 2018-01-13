@@ -147,4 +147,4 @@ class NewOrderForm(forms.ModelForm):
     class Meta:
         model = Order
         fields = ['client_name', 'order_type', 'design', 'deadline',
-                  'quantity', 'budget','client_address', 'shipping_address', 'specification']
+                  'quantity', 'budget','client_address', 'shipping_address', 'specification', 'order_status']

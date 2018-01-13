@@ -53,7 +53,7 @@ def profile(request):
                                  messages.SUCCESS,
                                  'Your profile is successfully saved.')
             if user.profile.account_flag != 0:
-                return redirect('officer:contact')
+                return redirect('service:contact')
 
         else:
             messages.add_message(request,
@@ -97,7 +97,7 @@ def contact(request):
                                  messages.SUCCESS,
                                  'Your contact is successfully saved.')
             if user.profile.account_flag != 0:
-                return redirect('officer:picture')
+                return redirect('service:picture')
         else:
             messages.add_message(request,
                                  messages.ERROR,
@@ -181,11 +181,11 @@ def password(request):
             update_session_auth_hash(request, user)
             messages.add_message(request, messages.SUCCESS,
                                  'Your password is successfully changed.')
-            return redirect('officer:password')
+            return redirect('service:password')
         else:
             messages.add_message(request, messages.SUCCESS,
                                  'Your password isn\'t changed.')
-            return redirect('officer:password')
+            return redirect('service:password')
     else:
         form = ChangePasswordForm(instance=user)
     return render(request, 'service/password.html', {'form': form})

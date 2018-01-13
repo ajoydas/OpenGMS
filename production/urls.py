@@ -11,10 +11,11 @@ urlpatterns = [
     url(r'^profile', production_views.profile, name='profile'),
     url(r'^contact', production_views.contact, name='contact'),
     url(r'^picture', production_views.picture, name='picture'),
-    url(r'^upload_picture', production_views.upload_picture, name='upload_picture'),
-    url(r'^save_uploaded_picture', production_views.save_uploaded_picture, name='save_uploaded_picture'),
     url(r'^password', production_views.password, name='password'),
 
-    url(r'^new_order', production_views.new_order, name='new_order'),
+    url(r'^view_order/(?P<pk>[0-9]+)$', production_views.view_order, name='view_order'),
+    url(r'^update_order/(?P<pk>[0-9]+)$', production_views.update_order, name='update_order'),
+
     url(r'^order_list', production_views.order_list, name='order_list'),
+    url(r'^status_list', production_views.status_list, name='status_list'),
 ]

@@ -4,7 +4,7 @@
 
 {% block head %}
 <!-- iCheck -->
-    <link href={%  static "extra/green.css"%} rel="stylesheet">
+    <link href="{%  static "extra/green.css"%}" rel="stylesheet">
     <!-- Datatables -->
     <link href="{% static "extra/dataTables.bootstrap.min.css" %}" rel="stylesheet">
     <link href="{% static "extra/buttons.bootstrap.min.css"%}" rel="stylesheet">
@@ -17,15 +17,9 @@
     <!-- page content -->
           <div class="">
             <div class="page-title">
-
-
             </div>
-
             <div class="clearfix"></div>
-
             <div class="row">
-
-
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
@@ -42,36 +36,45 @@
                           <table id="datatable-keytable" class="table table-striped table-bordered">
                             <thead>
                               <tr>
-                                <th>User Id</th>
-                                <th>Username</th>
+                                <th>Order Id</th>
+                                <th>Client Name</th>
                                 <th>State</th>
-                                <th>Order Date</th>
-                                <th>Delivery Date</th>
+                                <th>Updated at</th>
+                                <th>Deadline</th>
                                 <th>Action</th>
                               </tr>
                             </thead>
-
-
                             <tbody>
                               <tr>
-                                <td>Tiger Nixon</td>
-                                <td>System Architect</td>
-                                <td><span class="label label-success" style="width: 100%;text-align: center">
-                                    Done
-                                </span></td>
-                                <td>61</td>
-                                <td>2011/04/25</td>
+                                  {% for order in orderlist %}
+                                <tr>
+                                <td>{{ order.id }}</td>
+                                <td>{{ order.client_name }}</td>
                                 <td>
-{#                                    <div>#}
-{#                                        <form action="https://www.google.com">#}
-{#                                            <input type="submit" value="Update"/>#}
-{#                                        </form>#}
-{#                                    </div>#}
-                                    <button onclick='location.href="https://www.google.com"'
+                                    {% if order.order_status == 'CONFIRMED' or order.order_status == 'DONE'%}
+                                    <span class="label label-success" style="width: 100%;text-align: center">
+                                        {{ order.order_status  }}
+                                    </span>
+                                    {% elif order.order_status == 'REJECTED' %}
+                                    <span class="label label-danger" style="width: 100%;text-align: center">
+                                        {{ order.order_status  }}
+                                    </span>
+                                    {% else %}
+                                    <span class="label label-info" style="width: 100%;text-align: center">
+                                        {{ order.order_status  }}
+                                    </span>
+                                    {% endif %}
+                                </td>
+                                <td>{{ order.updated_at }}</td>
+                                <td>{{ order.deadline }}</td>
+                                <td>
+                                    <button onclick='location.href="{% url 'production:view_order' order.id %}"'
+                                            type="button">View</button>
+                                    <button onclick='location.href="{% url 'production:update_order' order.id %}"'
                                             type="button">Update</button>
                                 </td>
                               </tr>
-
+                            {% endfor %}
                             </tbody>
                           </table>
                         </div>
@@ -80,8 +83,6 @@
                   </div>
                 </div>
               </div>
-
-
             </div>
           </div>
         <!-- /page content -->
