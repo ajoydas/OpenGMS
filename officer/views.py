@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 import os
 
 from PIL import Image
+from datetime import datetime
 from django.conf import settings as django_settings
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
@@ -10,6 +11,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import redirect
 from django.shortcuts import render
+from django.utils.datastructures import MultiValueDictKeyError
 
 from authentication.models import NewUser
 from core.models import Order
@@ -250,7 +252,7 @@ def reset_account_pass(request):
         return render(request, 'dashboard/reset_account_pass.html')
 
 
-DESIGN_FILE_TYPES = ['.zip', '.rar', '.gz']
+DESIGN_FILE_TYPES = ['zip', 'rar', 'gz']
 def new_order(request):
     user = request.user
     if request.method == 'POST':
@@ -260,22 +262,26 @@ def new_order(request):
             print("NewOrderForm form Valid")
             # order = Order()
             order = form.save(commit=False)
-            order.design = request.FILES['design']
-            file_type = order.design.url.split('.')[-1]
-            file_type = file_type.lower()
-            if file_type not in DESIGN_FILE_TYPES:
-                messages.error(request, 'Image file must be .zip, .rar or .gz')
-                return render(request, 'dashboard/new_order.html', {'form': form})
+            try:
+                order.design = request.FILES['design']
+                file_type = order.design.url.split('.')[-1]
+                file_type = file_type.lower()
+                if file_type not in DESIGN_FILE_TYPES:
+                    messages.error(request, 'Image file must be .zip, .rar or .gz')
+                    return render(request, 'dashboard/new_order.html', {'form': form})
+                # order.design.url = str(datetime.now())+file_type
+            except MultiValueDictKeyError:
+                None
 
-            client_username = form.cleaned_data.get('client_username')
+            client_id = request.POST['client_username']
             shipping_address = form.cleaned_data.get('shipping_address')
             client_address = form.cleaned_data.get('client_address')
-            if client_username:
-                if not User.objects.filter(username=client_username):
+            if client_id:
+                if not User.objects.filter(id=client_id):
                     messages.error(request, 'Client with given username doesn\'t exist.')
                     return render(request, 'dashboard/new_order.html', {'form': form})
 
-                client = User.objects.filter(username=client_username)
+                client = User.objects.get(id=client_id)
                 if client.profile.account_type != 0:
                     messages.error(request, 'The given client username is not of a client.')
                     if not shipping_address and client_address is True:
@@ -283,14 +289,14 @@ def new_order(request):
                     return render(request, 'dashboard/new_order.html', {'form': form})
                 order.client = client
                 if not shipping_address or client_address is True:
-                    order.shipping_address = client.profile.address + ", " + client.profile.city + ", " \
-                                             + client.profile.state + ", " + client.profile.country + ", " \
-                                             + client.profile.zip_code
+                    order.shipping_address = str(client.profile.address) + ", " + str(client.profile.city) + ", " \
+                                             + str(client.profile.state) + ", " + str(client.profile.country) + ", " \
+                                             + str(client.profile.zip_code)
                 else:
                     order.shipping_address = shipping_address
             else:
                 if client_address is True:
-                    messages.error(request, 'Ship is client address is invalid here.')
+                    messages.error(request, 'Ship in client address is invalid here.')
                     return render(request, 'dashboard/new_order.html', {'form': form})
                 else:
                     order.shipping_address = shipping_address

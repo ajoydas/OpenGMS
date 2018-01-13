@@ -22,7 +22,7 @@
                 {% endfor %}
             {% endif %}
             <h3 style="margin-top: 0">{% trans 'New Order' %}</h3>
-            <form role="form" class="form-horizontal" method="post" action="{% url 'officer:new_order' %}">
+            <form  enctype="multipart/form-data" class="form-horizontal" method="post" action="{% url 'officer:new_order' %}">
                 {% csrf_token %}
                 <div class="form-group">
                     <label for="Client Username" class="col-sm-2 control-label">Client Username</label>
@@ -31,7 +31,7 @@
 {#                        <input type="text" name="client_username" id="id_client_username" class="form-control"#}
 {#                               maxlength="50">#}
                         <select class="js-data-example-ajax" style="width: 100mm" name="client_username">
-                            <option></option>
+{#                            <option></option>#}
                         </select>
 
                     </div>
@@ -97,7 +97,7 @@
                     },
                     cache: true
                 },
-                placeholder: 'Search for a product',
+                placeholder: 'Search for a client username',
                 escapeMarkup: function (markup) {
                     return markup;
                 }, // let our custom formatter work

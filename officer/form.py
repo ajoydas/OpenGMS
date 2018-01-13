@@ -109,11 +109,11 @@ class ContactForm(forms.ModelForm):
 
 
 class NewOrderForm(forms.ModelForm):
-    client_username = forms.CharField(
-        label="Client Username",
-        widget=forms.TextInput(attrs={'class': 'form-control'}),
-        max_length=50,
-        required=False)
+    # client_username = forms.CharField(
+    #     label="Client Username",
+    #     widget=forms.TextInput(attrs={'class': 'form-control'}),
+    #     max_length=50,
+    #     required=False)
     client_name = forms.CharField(
         label="Client Name",
         widget=forms.TextInput(attrs={'class': 'form-control'}),
@@ -146,5 +146,5 @@ class NewOrderForm(forms.ModelForm):
 
     class Meta:
         model = Order
-        fields = ['client_username', 'client_name', 'order_type', 'design', 'deadline',
+        fields = ['client_name', 'order_type', 'design', 'deadline',
                   'quantity', 'budget','client_address', 'shipping_address', 'specification']
