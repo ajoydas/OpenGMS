@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+
+from django.db.models import Q
 from django.shortcuts import render
 import os
 from PIL import Image
@@ -11,7 +13,7 @@ from django.contrib.auth.models import User
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import get_object_or_404, redirect, render
 
-from authentication.models import NewUser
+from authentication.models import NewUser, Profile
 from core.models import Order
 from officer.form import ProfileForm, ChangePasswordForm, ContactForm, NewOrderForm
 from django.shortcuts import render
@@ -112,14 +114,48 @@ def contact(request):
     return render(request, 'service/contact.html', {'form': form})
 
 
+# @login_required
+# def picture(request):
+#     user = request.user
+#     if request.method == 'POST':
+#         user.profile.profile_picture = request.FILES['picture']
+#         if user.profile.account_flag == 3:
+#             user.profile.account_flag = 4
+#         user.save()
+#         if user.profile.account_flag != 0:
+#             return redirect('service:password')
+#
+#         return render(request, 'service/picture.html')
+#     print (user.profile.profile_picture)
+#     return render(request, 'service/picture.html')
+
 @login_required
 def picture(request):
     user = request.user
+    profile_pictures = django_settings.MEDIA_ROOT + '/profile_pictures/'
+    if not os.path.exists(profile_pictures):
+        os.makedirs(profile_pictures)
     if request.method == 'POST':
-        user.profile.profile_picture = request.FILES['picture']
+        _picture = request.FILES['picture']
+        filename = profile_pictures + request.user.username + '_' + str(request.user.id) + '.jpg'
+        with open(filename, 'wb+') as destination:
+            for chunk in _picture.chunks():
+                destination.write(chunk)
+        im = Image.open(filename)
+        width, height = im.size
+        if width > 400:
+            new_width = 400
+            new_height = 300       # (height * 400) / width
+            new_size = new_width, new_height
+            im.thumbnail(new_size, Image.ANTIALIAS)
+            im.save(filename)
+
         if user.profile.account_flag == 3:
             user.profile.account_flag = 4
+
+        user.profile.profile_picture = filename
         user.save()
+
         if user.profile.account_flag != 0:
             return redirect('service:password')
 
@@ -219,7 +255,35 @@ def reset_account_pass(request):
 
 
 def select_manager(request):
-    return render(request, 'service/select_manager.html')
+    if request.method == 'POST':
+        keys = request.POST.keys()
+        print(keys)
+        for key in keys:
+            try:
+                if int(key):
+                    print(key+" "+request.POST[key])
+                    tech_manager = get_object_or_404(User, id= key)
+                    if tech_manager.profile.account_type == 1:
+                        if request.POST[key] == 'SELECT' and tech_manager.employee.manager_id == None:
+                            tech_manager.employee.manager_id = request.user.id
+                            messages.success(request,"Technical manager of Id:"+key+" assigned successfully.")
+                            tech_manager.save()
+                        elif request.POST[key] == 'RELEASE' and tech_manager.employee.manager_id == request.user.id:
+                            tech_manager.employee.manager_id = None
+                            messages.success(request,"Technical manager of Id:"+key+" released successfully.")
+                            tech_manager.save()
+                    else:
+                        messages.error(request,"Technical manager of Id:"+key+" can't be assigned.")
+
+            except Exception:
+                None
+
+    managers = Profile.objects.filter(account_type=1)\
+        .filter(Q(user__employee__manager_id__isnull=True) | Q(user__employee__manager_id=request.user.id))
+    print(managers)
+
+    all_managers = Profile.objects.filter(account_type=1)
+    return render(request, 'service/select_manager.html',{'managers':managers, 'all_managers':all_managers})
 
 
 def new_order(request):

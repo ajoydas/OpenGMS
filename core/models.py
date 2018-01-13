@@ -25,6 +25,9 @@ class Order(models.Model):
     specification = models.CharField(max_length=300, null=True)
     progress = models.IntegerField(default=0)
 
+    # o-> not verified yet , 1-> approved , 2-> rejected
+    approved = models.IntegerField(default=0)
+
     class Meta:
         db_table = 'orders'
 
@@ -49,6 +52,8 @@ class OrderHistory(models.Model):
     specification = models.CharField(max_length=300, null=True)
     progress = models.IntegerField(default=0)
 
+    approved = models.IntegerField(default=0)
+
     class Meta:
         db_table = 'order_histories'
 
@@ -70,6 +75,8 @@ class OrderHistory(models.Model):
         self.shipping_address = order.shipping_address
         self.specification = order.specification
         self.progress = order.progress
+
+        self.approved = order.approved
 
 
 

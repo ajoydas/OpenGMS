@@ -141,7 +141,7 @@ class NewOrderForm(forms.ModelForm):
         max_length=300,
         required=False)
     order_statuses = (('RECEIVED', 'received'), ('CONFIRMED', 'Confirmed'), ('IN-PRODUCTION', 'In-Production')
-                      , ('IN-SHIPMENT', 'In-Shipment'), ('DONE', 'Done'))
+                      , ('IN-SHIPMENT', 'In-Shipment'), ('DONE', 'Done'), ('REJECTED', 'Rejected'),)
     order_status = forms.ChoiceField(choices=order_statuses, required=True)
 
     class Meta:

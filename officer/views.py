@@ -273,10 +273,14 @@ def new_order(request):
             except MultiValueDictKeyError:
                 None
 
-            client_id = request.POST['client_username']
+            try:
+                client_id = request.POST['client_username']
+            except MultiValueDictKeyError:
+                client_id = -1
+
             shipping_address = form.cleaned_data.get('shipping_address')
             client_address = form.cleaned_data.get('client_address')
-            if client_id:
+            if client_id > 0:
                 if not User.objects.filter(id=client_id):
                     messages.error(request, 'Client with given username doesn\'t exist.')
                     return render(request, 'dashboard/new_order.html', {'form': form})
@@ -343,10 +347,14 @@ def update_order(request, pk):
             except MultiValueDictKeyError:
                 None
 
-            client_id = request.POST['client_username']
+            try:
+                client_id = request.POST['client_username']
+            except MultiValueDictKeyError:
+                client_id = -1
+
             shipping_address = form.cleaned_data.get('shipping_address')
             client_address = form.cleaned_data.get('client_address')
-            if client_id:
+            if client_id > 0:
                 if not User.objects.filter(id=client_id):
                     messages.error(request, 'Client with given username doesn\'t exist.')
                     return render(request, 'dashboard/update_order.html', {'form': form})
@@ -407,6 +415,12 @@ def update_order(request, pk):
     return render(request, 'dashboard/update_order.html', {'form': form, 'order':order})
 
 
+def account_list(request):
+    # table = OrderTable(Order_List.objects.all())
+    # RequestConfig(request).configure(table)
+    new_user_list = NewUser.objects.all()
+    user_list = User.objects.all()
+    return render(request, 'dashboard/account_list.html', {'new_user_list':new_user_list,'user_list': user_list})
 
 
 def order_list(request):
@@ -416,9 +430,8 @@ def order_list(request):
     return render(request, 'dashboard/order_list.html', {'orderlist': orders})
 
 
-def account_list(request):
+def status_list(request):
     # table = OrderTable(Order_List.objects.all())
     # RequestConfig(request).configure(table)
-    new_user_list = NewUser.objects.all()
-    user_list = User.objects.all()
-    return render(request, 'dashboard/account_list.html', {'new_user_list':new_user_list,'user_list': user_list})
+    orders = Order.objects.filter(submitted_by=request.user).order_by('updated_at')
+    return render(request, 'dashboard/status_list.html', {'orderlist': orders})
