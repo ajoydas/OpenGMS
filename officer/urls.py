@@ -21,4 +21,6 @@ urlpatterns = [
     url(r'^new_order', officer_views.new_order, name='new_order'),
     url(r'^account_list', officer_views.account_list, name='account_list'),
     url(r'^order_list', officer_views.order_list, name='order_list'),
+
+    url(r'^update_order/(?P<pk>[0-9]+)$', officer_views.update_order, name='update_order'),
 ]

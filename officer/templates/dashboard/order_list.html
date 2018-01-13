@@ -60,7 +60,7 @@
 {#                                            <input type="submit" value="Update"/>#}
 {#                                        </form>#}
 {#                                    </div>#}
-                                    <button onclick='location.href="https://www.google.com"'
+                                    <button onclick='location.href="{% url 'officer:update_order' order.id %}"'
                                             type="button">Update</button>
                                 </td>
                               </tr>
