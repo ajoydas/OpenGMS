@@ -27,6 +27,7 @@ class Order(models.Model):
 
     # o-> not verified yet , 1-> approved , 2-> rejected
     approved = models.IntegerField(default=0)
+    review_note = models.CharField(max_length=200, null=True)
 
     class Meta:
         db_table = 'orders'
@@ -53,6 +54,7 @@ class OrderHistory(models.Model):
     progress = models.IntegerField(default=0)
 
     approved = models.IntegerField(default=0)
+    review_note = models.CharField(max_length=200, null=True)
 
     class Meta:
         db_table = 'order_histories'
@@ -77,6 +79,7 @@ class OrderHistory(models.Model):
         self.progress = order.progress
 
         self.approved = order.approved
+        self.review_note = order.review_note
 
 
 

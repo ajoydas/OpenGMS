@@ -18,6 +18,10 @@ from .models import Order_List
 
 # Create your views here.
 
+@login_required
+def personal_info(request):
+    return render(request, 'production/personal_info.html', {'user': request.user})
+
 
 __FILE_TYPES = ['zip']
 

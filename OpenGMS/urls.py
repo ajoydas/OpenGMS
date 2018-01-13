@@ -43,7 +43,7 @@ urlpatterns = [
     # url('^inbox/notifications/', include(notifications.urls, namespace='notifications')),
 
     # rest API for autocomplete
-    url('^api.alif-marine.com/search/products/', autocomplete_views.list, name='productsAPI'),
+    url('^api/clients/', autocomplete_views.list, name='clientsAPI'),
 ]
 
 if settings.DEBUG:

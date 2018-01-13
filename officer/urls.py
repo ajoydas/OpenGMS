@@ -18,9 +18,10 @@ urlpatterns = [
     url(r'^reset_account_pass', officer_views.reset_account_pass, name='reset_account_pass'),
 
     url(r'^new_order', officer_views.new_order, name='new_order'),
+    url(r'^view_order/(?P<pk>[0-9]+)$', officer_views.view_order, name='view_order'),
+    url(r'^update_order/(?P<pk>[0-9]+)$', officer_views.update_order, name='update_order'),
+
     url(r'^account_list', officer_views.account_list, name='account_list'),
     url(r'^order_list', officer_views.order_list, name='order_list'),
     url(r'^status_list', officer_views.status_list, name='status_list'),
-
-    url(r'^update_order/(?P<pk>[0-9]+)$', officer_views.update_order, name='update_order'),
 ]

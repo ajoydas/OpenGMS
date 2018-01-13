@@ -255,6 +255,11 @@ def reset_account_pass(request):
 DESIGN_FILE_TYPES = ['zip', 'rar', 'gz']
 def new_order(request):
     user = request.user
+    if user.employee.manager_id is None:
+        messages.error(request, 'Please be assigned to a Service Manager to continue.')
+        form = NewOrderForm()
+        return render(request, 'dashboard/new_order.html', {'form': form})
+
     if request.method == 'POST':
         print("NewOrderForm form submitted")
         form = NewOrderForm(request.POST or None, request.FILES or None)
@@ -328,6 +333,11 @@ def new_order(request):
 @login_required()
 def update_order(request, pk):
     user = request.user
+    if user.employee.manager_id is None:
+        messages.error(request, 'Please be assigned to a Service Manager to continue.')
+        form = NewOrderForm()
+        return render(request, 'dashboard/new_order.html', {'form': form})
+
     if request.method == 'POST':
         print("Updated Order form submitted")
         form = NewOrderForm(request.POST or None, request.FILES or None)
@@ -400,8 +410,6 @@ def update_order(request, pk):
             return render(request, 'dashboard/update_order.html', {'form': form})
 
     order = get_object_or_404(Order, id=pk)
-    fields = ['client_name', 'order_type', 'design', 'deadline',
-              'quantity', 'budget', 'client_address', 'shipping_address', 'specification']
     form = NewOrderForm(instance=Order, initial={
         'client_name': order.client_name,
         'order_type' : order.order_type,
@@ -409,10 +417,16 @@ def update_order(request, pk):
         'quantity' : order.quantity,
         'budget' : order.budget,
         'shipping_address' : order.shipping_address,
-        'specification' : order.specification
+        'specification' : order.specification,
+        'order_status': order.order_status
     })
     # print(form)
     return render(request, 'dashboard/update_order.html', {'form': form, 'order':order})
+
+
+def view_order(request, pk):
+    order = get_object_or_404(Order, id=pk)
+    return render(request, 'service/view_order.html', {'order': order, 'user':request.user})
 
 
 def account_list(request):
@@ -431,7 +445,5 @@ def order_list(request):
 
 
 def status_list(request):
-    # table = OrderTable(Order_List.objects.all())
-    # RequestConfig(request).configure(table)
     orders = Order.objects.filter(submitted_by=request.user).order_by('updated_at')
     return render(request, 'dashboard/status_list.html', {'orderlist': orders})

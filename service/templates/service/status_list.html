@@ -1,4 +1,4 @@
-{% extends 'dashboard/dash.html' %}
+{% extends 'service/dash.html' %}
 {% load staticfiles %}
 {% load i18n %}
 
@@ -68,9 +68,7 @@
                                 <td>{{ order.updated_at }}</td>
                                 <td>{{ order.progress }} %</td>
                                 <td>
-                                    <button onclick='location.href="{% url 'officer:update_order' order.id %}"'
-                                            type="button">Update</button>
-                                    <button onclick='location.href="{% url 'officer:view_order' order.id %}"'
+                                    <button onclick='location.href="{% url 'service:view_order' order.id %}"'
                                             type="button">View</button>
                                 </td>
                               </tr>

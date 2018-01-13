@@ -12,9 +12,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import get_object_or_404, redirect, render
+from django.utils.datastructures import MultiValueDictKeyError
 
-from authentication.models import NewUser, Profile
-from core.models import Order
+from authentication.models import NewUser, Profile, Employee
+from core.models import Order, OrderHistory
 from officer.form import ProfileForm, ChangePasswordForm, ContactForm, NewOrderForm
 from django.shortcuts import render
 from django_tables2 import RequestConfig
@@ -286,9 +287,200 @@ def select_manager(request):
     return render(request, 'service/select_manager.html',{'managers':managers, 'all_managers':all_managers})
 
 
+# def new_order(request):
+#     form = NewOrderForm()
+#     return render(request, 'service/new_order.html', {'form': form})
+#
+#
+# def update_order(request, pk):
+#     form = NewOrderForm()
+#     return render(request, 'service/new_order.html', {'form': form})
+
+
+DESIGN_FILE_TYPES = ['zip', 'rar', 'gz']
 def new_order(request):
+    user = request.user
+
+    if request.method == 'POST':
+        print("NewOrderForm form submitted")
+        form = NewOrderForm(request.POST or None, request.FILES or None)
+        if form.is_valid():
+            print("NewOrderForm form Valid")
+            # order = Order()
+            order = form.save(commit=False)
+            try:
+                order.design = request.FILES['design']
+                file_type = order.design.url.split('.')[-1]
+                file_type = file_type.lower()
+                if file_type not in DESIGN_FILE_TYPES:
+                    messages.error(request, 'Image file must be .zip, .rar or .gz')
+                    return render(request, 'service/new_order.html', {'form': form})
+            except MultiValueDictKeyError:
+                None
+
+            try:
+                client_id = request.POST['client_username']
+            except MultiValueDictKeyError:
+                client_id = -1
+
+            shipping_address = form.cleaned_data.get('shipping_address')
+            client_address = form.cleaned_data.get('client_address')
+            if client_id > 0:
+                if not User.objects.filter(id=client_id):
+                    messages.error(request, 'Client with given username doesn\'t exist.')
+                    return render(request, 'service/new_order.html', {'form': form})
+
+                client = User.objects.get(id=client_id)
+                if client.profile.account_type != 0:
+                    messages.error(request, 'The given client username is not of a client.')
+                    if not shipping_address and client_address is True:
+                        messages.error(request, 'Ship is client address is invalid here.')
+                    return render(request, 'service/new_order.html', {'form': form})
+                order.client = client
+                if not shipping_address or client_address is True:
+                    order.shipping_address = str(client.profile.address) + ", " + str(client.profile.city) + ", " \
+                                             + str(client.profile.state) + ", " + str(client.profile.country) + ", " \
+                                             + str(client.profile.zip_code)
+                else:
+                    order.shipping_address = shipping_address
+            else:
+                if client_address is True:
+                    messages.error(request, 'Ship in client address is invalid here.')
+                    return render(request, 'service/new_order.html', {'form': form})
+                else:
+                    order.shipping_address = shipping_address
+
+            order.submitted_by = user
+            order.approved_by = user
+            order.approved = 1
+            order.review_note = request.POST['review_note']
+            order.client_name = form.cleaned_data.get('client_name')
+            order.order_type = form.cleaned_data.get('order_type')
+            order.deadline = form.cleaned_data.get('deadline')
+            order.quantity = form.cleaned_data.get('quantity')
+            order.budget = form.cleaned_data.get('budget')
+            order.specification = form.cleaned_data.get('specification')
+            order.order_status = form.cleaned_data.get('order_status')
+            order.save()
+            messages.success(request, 'The order is saved successfully.')
+        else:
+            messages.error(request, 'Order save failed.')
+            return render(request, 'service/new_order.html', {'form': form})
     form = NewOrderForm()
     return render(request, 'service/new_order.html', {'form': form})
+
+
+@login_required()
+def update_order(request, pk):
+    user = request.user
+
+    if request.method == 'POST':
+        print("Updated Order form submitted")
+        form = NewOrderForm(request.POST or None, request.FILES or None)
+        if form.is_valid():
+            print("Updated Order form Validated")
+
+            order = get_object_or_404(Order, id=pk)
+            prv_order = order
+            try:
+                order.design = request.FILES['design']
+                file_type = order.design.url.split('.')[-1]
+                file_type = file_type.lower()
+                if file_type not in DESIGN_FILE_TYPES:
+                    messages.error(request, 'Image file must be .zip, .rar or .gz')
+                    return render(request, 'service/update_order.html', {'form': form})
+                # order.design.url = str(datetime.now())+file_type
+            except MultiValueDictKeyError:
+                None
+
+            try:
+                client_id = request.POST['client_username']
+            except MultiValueDictKeyError:
+                client_id = -1
+
+            shipping_address = form.cleaned_data.get('shipping_address')
+            client_address = form.cleaned_data.get('client_address')
+            if client_id > 0:
+                if not User.objects.filter(id=client_id):
+                    messages.error(request, 'Client with given username doesn\'t exist.')
+                    return render(request, 'service/update_order.html', {'form': form})
+
+                client = User.objects.get(id=client_id)
+                if client.profile.account_type != 0:
+                    messages.error(request, 'The given client username is not of a client.')
+                    if not shipping_address and client_address is True:
+                        messages.error(request, 'Ship is client address is invalid here.')
+                    return render(request, 'service/update_order.html', {'form': form})
+                order.client = client
+                if not shipping_address or client_address is True:
+                    order.shipping_address = str(client.profile.address) + ", " + str(client.profile.city) + ", " \
+                                             + str(client.profile.state) + ", " + str(client.profile.country) + ", " \
+                                             + str(client.profile.zip_code)
+                else:
+                    order.shipping_address = shipping_address
+            else:
+                if client_address is True:
+                    messages.error(request, 'Ship in client address is invalid here.')
+                    return render(request, 'service/update_order.html', {'form': form})
+                else:
+                    order.shipping_address = shipping_address
+
+            # design = form.cleaned_data.get('design')
+            # order.design = "Hello"
+
+            order.submitted_by = user
+            order.approved_by = user
+            order.approved = 1
+            order.review_note = request.POST['review_note']
+            order.client_name = form.cleaned_data.get('client_name')
+            order.order_type = form.cleaned_data.get('order_type')
+            order.deadline = form.cleaned_data.get('deadline')
+            order.quantity = form.cleaned_data.get('quantity')
+            order.budget = form.cleaned_data.get('budget')
+            order.specification = form.cleaned_data.get('specification')
+            order.order_status = form.cleaned_data.get('order_status')
+            order.save()
+
+            order_history = OrderHistory(prv_order)
+            order_history.save()
+            messages.success(request, 'The order is updated successfully.')
+        else:
+            messages.error(request, 'Order save failed.')
+            return render(request, 'service/update_order.html', {'form': form})
+
+    order = get_object_or_404(Order, id=pk)
+
+    form = NewOrderForm(instance=Order, initial={
+        'client_name': order.client_name,
+        'order_type' : order.order_type,
+        'deadline' : order.deadline,
+        'quantity' : order.quantity,
+        'budget' : order.budget,
+        'shipping_address' : order.shipping_address,
+        'specification' : order.specification,
+        'order_status' : order.order_status
+    })
+    # print(form)
+    return render(request, 'service/update_order.html', {'form': form, 'order':order})
+
+
+def view_order(request, pk):
+    order = get_object_or_404(Order, id=pk)
+    if request.method == 'POST':
+        if '_edit' in request.POST:
+            return update_order(request,pk)
+        elif '_approve' in request.POST:
+            order.review_note = request.POST['review_note']
+            order.approved = 1
+            order.approved_by = request.user
+            order.save()
+        elif '_reject' in request.POST:
+            order.review_note = request.POST['review_note']
+            order.approved = 2
+            order.approved_by = request.user
+            order.save()
+
+    return render(request, 'service/view_order.html', {'order': order, 'user':request.user})
 
 
 def order_list(request):
@@ -296,3 +488,10 @@ def order_list(request):
     # RequestConfig(request).configure(table)
     orders = Order.objects.all()
     return render(request, 'service/order_list.html', {'orderlist': orders})
+
+
+def status_list(request):
+    tech_managers = User.objects.filter(employee__manager_id=request.user.id)
+    orders = Order.objects.filter(submitted_by=tech_managers).order_by('updated_at')
+    return render(request, 'service/status_list.html', {'orderlist': orders})
+
