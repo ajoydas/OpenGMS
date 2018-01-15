@@ -24,4 +24,6 @@ urlpatterns = [
     url(r'^account_list', officer_views.account_list, name='account_list'),
     url(r'^order_list', officer_views.order_list, name='order_list'),
     url(r'^status_list', officer_views.status_list, name='status_list'),
+
+    url(r'^notification', officer_views.notification, name='notification'),
 ]

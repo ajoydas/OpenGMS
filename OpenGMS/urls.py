@@ -20,6 +20,7 @@ from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 from django.views import generic
+import notifications.urls
 
 from core import views as core_views
 from autocompleteAPI import views as autocomplete_views
@@ -40,10 +41,11 @@ urlpatterns = [
     url(r'^service/', include('service.urls')),
 
     # notification
-    # url('^inbox/notifications/', include(notifications.urls, namespace='notifications')),
+    url('^inbox/notifications/', include(notifications.urls, namespace='notifications')),
 
     # rest API for autocomplete
     url('^api/clients/', autocomplete_views.list, name='clientsAPI'),
+
 ]
 
 if settings.DEBUG:

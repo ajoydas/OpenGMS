@@ -12,6 +12,9 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.datastructures import MultiValueDictKeyError
 
+from Notifications.models import Notifications
+from Notifications.views import general_notification
+from OpenGMS.function_util import group_required
 from authentication.models import NewUser
 from core.models import Order, OrderHistory
 from officer.form import ProfileForm, ChangePasswordForm, ContactForm, NewOrderForm
@@ -23,13 +26,13 @@ from .models import Order_List
 # Create your views here.
 
 @login_required
+@group_required('production_group')
 def personal_info(request):
     return render(request, 'production/personal_info.html', {'user': request.user})
 
 
-__FILE_TYPES = ['zip']
-
 @login_required
+@group_required('production_group')
 def profile(request):
     user = request.user
     if request.method == 'POST':
@@ -76,6 +79,7 @@ def profile(request):
 
 
 @login_required
+@group_required('production_group')
 def contact(request):
     # form = ContactForm()
     user = request.user
@@ -131,6 +135,7 @@ def contact(request):
 #     return render(request, 'service/picture.html')
 
 @login_required
+@group_required('production_group')
 def picture(request):
     user = request.user
     profile_pictures = django_settings.MEDIA_ROOT + '/profile_pictures/'
@@ -166,6 +171,7 @@ def picture(request):
 
 
 @login_required
+@group_required('production_group')
 def password(request):
     user = request.user
     if request.method == 'POST':
@@ -193,8 +199,10 @@ def password(request):
 
 DESIGN_FILE_TYPES = ['zip', 'rar', 'gz']
 @login_required()
+@group_required('production_group')
 def update_order(request, pk):
     user = request.user
+    order = get_object_or_404(Order, id=pk)
 
     if request.method == 'POST':
         print("Updated Order form submitted")
@@ -202,7 +210,6 @@ def update_order(request, pk):
         if form.is_valid():
             print("Updated Order form Validated")
 
-            order = get_object_or_404(Order, id=pk)
             prv_order = order
             try:
                 order.design = request.FILES['design']
@@ -210,7 +217,7 @@ def update_order(request, pk):
                 file_type = file_type.lower()
                 if file_type not in DESIGN_FILE_TYPES:
                     messages.error(request, 'Image file must be .zip, .rar or .gz')
-                    return render(request, 'production/update_order.html', {'form': form})
+                    return render(request, 'production/update_order.html', {'form': form, 'order':order})
                 # order.design.url = str(datetime.now())+file_type
             except MultiValueDictKeyError:
                 None
@@ -225,14 +232,14 @@ def update_order(request, pk):
             if client_id > 0:
                 if not User.objects.filter(id=client_id):
                     messages.error(request, 'Client with given username doesn\'t exist.')
-                    return render(request, 'production/update_order.html', {'form': form})
+                    return render(request, 'production/update_order.html', {'form': form, 'order':order})
 
                 client = User.objects.get(id=client_id)
                 if client.profile.account_type != 0:
                     messages.error(request, 'The given client username is not of a client.')
                     if not shipping_address and client_address is True:
                         messages.error(request, 'Ship is client address is invalid here.')
-                    return render(request, 'production/update_order.html', {'form': form})
+                    return render(request, 'production/update_order.html', {'form': form, 'order':order})
                 order.client = client
                 if not shipping_address or client_address is True:
                     order.shipping_address = str(client.profile.address) + ", " + str(client.profile.city) + ", " \
@@ -243,7 +250,7 @@ def update_order(request, pk):
             else:
                 if client_address is True:
                     messages.error(request, 'Ship in client address is invalid here.')
-                    return render(request, 'production/update_order.html', {'form': form})
+                    return render(request, 'production/update_order.html', {'form': form, 'order':order})
                 else:
                     order.shipping_address = shipping_address
 
@@ -269,9 +276,7 @@ def update_order(request, pk):
             messages.success(request, 'The order is updated successfully.')
         else:
             messages.error(request, 'Order save failed.')
-            return render(request, 'production/update_order.html', {'form': form})
-
-    order = get_object_or_404(Order, id=pk)
+            return render(request, 'production/update_order.html', {'form': form, 'order':order})
 
     form = NewOrderForm(instance=Order, initial={
         'client_name': order.client_name,
@@ -287,18 +292,29 @@ def update_order(request, pk):
     return render(request, 'production/update_order.html', {'form': form, 'order':order})
 
 
+@login_required
+@group_required('production_group')
 def view_order(request, pk):
     order = get_object_or_404(Order, id=pk)
     return render(request, 'production/view_order.html', {'order': order, 'user':request.user})
 
 
+@login_required
+@group_required('production_group')
 def order_list(request):
     orders = Order.objects.all()
     return render(request, 'production/order_list.html', {'orderlist': orders})
 
 
+@login_required
+@group_required('production_group')
 def status_list(request):
     tech_managers = User.objects.filter(employee__manager_id=request.user.id)
     orders = Order.objects.filter(submitted_by=tech_managers).order_by('updated_at')
     return render(request, 'production/status_list.html', {'orderlist': orders})
 
+
+@login_required
+@group_required('production_group')
+def notification(request):
+    return general_notification(request, 'production/notification.html')

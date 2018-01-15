@@ -14,22 +14,26 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.datastructures import MultiValueDictKeyError
 
+from Notifications.models import Notifications
+from Notifications.views import general_notification
+from OpenGMS.function_util import group_required
 from authentication.models import NewUser, Profile, Employee
 from core.models import Order, OrderHistory
 from officer.form import ProfileForm, ChangePasswordForm, ContactForm, NewOrderForm
 from django.shortcuts import render
 from django_tables2 import RequestConfig
 from .models import Order_List
-
-__FILE_TYPES = ['zip']
+from notifications.signals import notify
 
 
 @login_required
+@group_required('service_group')
 def personal_info(request):
     return render(request, 'service/personal_info.html', {'user': request.user})
 
 
 @login_required
+@group_required('service_group')
 def profile(request):
     user = request.user
     if request.method == 'POST':
@@ -76,6 +80,7 @@ def profile(request):
 
 
 @login_required
+@group_required('service_group')
 def contact(request):
     # form = ContactForm()
     user = request.user
@@ -131,6 +136,7 @@ def contact(request):
 #     return render(request, 'service/picture.html')
 
 @login_required
+@group_required('service_group')
 def picture(request):
     user = request.user
     profile_pictures = django_settings.MEDIA_ROOT + '/profile_pictures/'
@@ -166,6 +172,7 @@ def picture(request):
 
 
 @login_required
+@group_required('service_group')
 def password(request):
     user = request.user
     if request.method == 'POST':
@@ -191,6 +198,8 @@ def password(request):
     return render(request, 'service/password.html', {'form': form})
 
 
+@login_required
+@group_required('service_group')
 def create_account(request):
     if request.method == 'POST':
         username = request.POST.get('user', False)
@@ -220,10 +229,14 @@ def create_account(request):
         return render(request, 'service/create_account.html')
 
 
+@login_required
+@group_required('service_group')
 def delete_account(request):
     return render(request, 'service/delete_account.html')
 
 
+@login_required
+@group_required('service_group')
 def reset_account_pass(request):
     if request.method == 'POST':
         username = request.POST.get('user', False)
@@ -255,6 +268,8 @@ def reset_account_pass(request):
         return render(request, 'service/reset_account_pass.html')
 
 
+@login_required
+@group_required('service_group')
 def select_manager(request):
     if request.method == 'POST':
         keys = request.POST.keys()
@@ -298,6 +313,8 @@ def select_manager(request):
 
 
 DESIGN_FILE_TYPES = ['zip', 'rar', 'gz']
+@login_required
+@group_required('service_group')
 def new_order(request):
     user = request.user
 
@@ -371,8 +388,10 @@ def new_order(request):
 
 
 @login_required()
+@group_required('service_group')
 def update_order(request, pk):
     user = request.user
+    order = get_object_or_404(Order, id=pk)
 
     if request.method == 'POST':
         print("Updated Order form submitted")
@@ -380,7 +399,6 @@ def update_order(request, pk):
         if form.is_valid():
             print("Updated Order form Validated")
 
-            order = get_object_or_404(Order, id=pk)
             prv_order = order
             try:
                 order.design = request.FILES['design']
@@ -388,7 +406,7 @@ def update_order(request, pk):
                 file_type = file_type.lower()
                 if file_type not in DESIGN_FILE_TYPES:
                     messages.error(request, 'Image file must be .zip, .rar or .gz')
-                    return render(request, 'service/update_order.html', {'form': form})
+                    return render(request, 'service/update_order.html', {'form': form, 'order':order})
                 # order.design.url = str(datetime.now())+file_type
             except MultiValueDictKeyError:
                 None
@@ -403,14 +421,14 @@ def update_order(request, pk):
             if client_id > 0:
                 if not User.objects.filter(id=client_id):
                     messages.error(request, 'Client with given username doesn\'t exist.')
-                    return render(request, 'service/update_order.html', {'form': form})
+                    return render(request, 'service/update_order.html', {'form': form, 'order':order})
 
                 client = User.objects.get(id=client_id)
                 if client.profile.account_type != 0:
                     messages.error(request, 'The given client username is not of a client.')
                     if not shipping_address and client_address is True:
                         messages.error(request, 'Ship is client address is invalid here.')
-                    return render(request, 'service/update_order.html', {'form': form})
+                    return render(request, 'service/update_order.html', {'form': form, 'order':order})
                 order.client = client
                 if not shipping_address or client_address is True:
                     order.shipping_address = str(client.profile.address) + ", " + str(client.profile.city) + ", " \
@@ -421,7 +439,7 @@ def update_order(request, pk):
             else:
                 if client_address is True:
                     messages.error(request, 'Ship in client address is invalid here.')
-                    return render(request, 'service/update_order.html', {'form': form})
+                    return render(request, 'service/update_order.html', {'form': form, 'order':order})
                 else:
                     order.shipping_address = shipping_address
 
@@ -443,12 +461,20 @@ def update_order(request, pk):
 
             order_history = OrderHistory(prv_order)
             order_history.save()
+
+            if prv_order.approved == 0:
+                # generate notification for production manager
+                msg = "Your changes in Order {0} has been discarded by {1}".format(order.id,
+                                                     request.user.profile.get_screen_name())
+                _recipient = prv_order.submitted_by
+                print ("notify to ")
+                print(_recipient)
+                notify.send(request.user, recipient=_recipient, verb=msg, action_object=order)
+
             messages.success(request, 'The order is updated successfully.')
         else:
             messages.error(request, 'Order save failed.')
-            return render(request, 'service/update_order.html', {'form': form})
-
-    order = get_object_or_404(Order, id=pk)
+            return render(request, 'service/update_order.html', {'form': form, 'order':order})
 
     form = NewOrderForm(instance=Order, initial={
         'client_name': order.client_name,
@@ -464,6 +490,8 @@ def update_order(request, pk):
     return render(request, 'service/update_order.html', {'form': form, 'order':order})
 
 
+@login_required
+@group_required('service_group')
 def view_order(request, pk):
     order = get_object_or_404(Order, id=pk)
     if request.method == 'POST':
@@ -474,15 +502,34 @@ def view_order(request, pk):
             order.approved = 1
             order.approved_by = request.user
             order.save()
+
+            # generate notification for production manager
+            msg = "Your changes in Order {0} has been approved by {1}".format( order.id,
+                request.user.profile.get_screen_name())
+            _recipient = order.submitted_by
+            print ("notify to ")
+            print(_recipient)
+            notify.send(request.user, recipient=_recipient, verb=msg, action_object=order)
+
         elif '_reject' in request.POST:
             order.review_note = request.POST['review_note']
             order.approved = 2
             order.approved_by = request.user
             order.save()
 
+            # generate notification for production manager
+            msg = "Your changes in Order {0} has been rejected by {1}".format(order.id,
+                                                request.user.profile.get_screen_name())
+            _recipient = order.submitted_by
+            print ("notify to ")
+            print(_recipient)
+            notify.send(request.user, recipient=_recipient, verb=msg, action_object=order)
+
     return render(request, 'service/view_order.html', {'order': order, 'user':request.user})
 
 
+@login_required
+@group_required('service_group')
 def order_list(request):
     # table = OrderTable(Order_List.objects.all())
     # RequestConfig(request).configure(table)
@@ -490,8 +537,15 @@ def order_list(request):
     return render(request, 'service/order_list.html', {'orderlist': orders})
 
 
+@login_required
+@group_required('service_group')
 def status_list(request):
     tech_managers = User.objects.filter(employee__manager_id=request.user.id)
     orders = Order.objects.filter(submitted_by=tech_managers).order_by('updated_at')
     return render(request, 'service/status_list.html', {'orderlist': orders})
 
+
+@login_required
+@group_required('service_group')
+def notification(request):
+    return general_notification(request, 'service/notification.html')

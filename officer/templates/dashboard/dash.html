@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load notifications_tags %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -141,6 +142,14 @@
                                 <li><a href="{% url 'logout' %}"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
                                 </li>
                             </ul>
+                        </li>
+                        <li role="presentation" class="dropdown">
+                            <a href="{% url 'officer:notification' %}" id="notifications" title="Notification">
+                                <i class="fa fa-bell-o"></i>
+                                {% live_notify_badge classes="badge" %}
+                                {% register_notify_callbacks callbacks='fill_notification_list,fill_notification_badge' %}
+                                {% live_notify_list classes="dropdown-menu" %}
+                            </a>
                         </li>
                     </ul>
                 </nav>

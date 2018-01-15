@@ -25,4 +25,6 @@ urlpatterns = [
     url(r'^order_list', service_views.order_list, name='order_list'),
     url(r'^status_list', service_views.status_list, name='status_list'),
 
+    url(r'^notification', service_views.notification, name='notification'),
+
 ]

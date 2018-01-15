@@ -2,7 +2,8 @@
 from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import User
-from order.models import Order
+# from order.models import Order
+from core.models import Order
 
 # Create your models here.
 

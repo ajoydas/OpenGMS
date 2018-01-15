@@ -18,4 +18,6 @@ urlpatterns = [
 
     url(r'^order_list', production_views.order_list, name='order_list'),
     url(r'^status_list', production_views.status_list, name='status_list'),
+
+    url(r'^notification', production_views.notification, name='notification'),
 ]

@@ -5,7 +5,7 @@ import hashlib
 import os
 import urllib
 
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.db.models.signals import post_save
@@ -37,22 +37,23 @@ class Profile(models.Model):
 
     # def get_picture(self):
     #     no_picture = 'http://trybootcamp.vitorfs.com/static/img/user.png'
-    #     try:
-    #         filename = settings.MEDIA_ROOT + '/profile_pictures/' + \
-    #                    self.user.username + '.jpg'
-    #         picture_url = settings.MEDIA_URL + 'profile_pictures/' + \
-    #                       self.user.username + '.jpg'
-    #         if os.path.isfile(filename):
-    #             return picture_url
-    #         else:
-    #             gravatar_url = 'http://www.gravatar.com/avatar/{0}?{1}'.format(
-    #                 hashlib.md5(self.user.email.lower()).hexdigest(),
-    #                 urllib.urlencode({'d': no_picture, 's': '256'})
-    #             )
-    #             return gravatar_url
+    #     if self.profile_picture:
+    #         gravatar_url = 'http://www.gravatar.com/avatar/{0}?{1}'.format(
+    #                         hashlib.md5(self.user.email.lower()).hexdigest(),
+    #                         urllib.urlencode({'d': no_picture, 's': '256'}))
+    #         return gravatar_url
     #
-    #     except Exception:
-    #         return no_picture
+    #     return self.profile_picture
+
+    def get_picture(self):
+        if self.profile_picture and hasattr(self.profile_picture, 'url'):
+            return self.profile_picture.url
+
+        no_picture = 'http://trybootcamp.vitorfs.com/static/img/user.png'
+        gravatar_url = 'http://www.gravatar.com/avatar/{0}?{1}'.format(
+                                hashlib.md5(self.user.email.lower()).hexdigest(),
+                                urllib.urlencode({'d': no_picture, 's': '256'}))
+        return gravatar_url
 
     def get_screen_name(self):
         try:
@@ -143,12 +144,16 @@ def update_user_profile(sender, instance, created, **kwargs):
         #     Employee.objects.create(user=instance)
 
     instance.profile.save()
+    print(instance.profile.account_type)
     if instance.profile.account_type == 0:
         if not Client.objects.filter(user=instance).exists():
             Client.objects.create(user=instance)
             instance.client.save()
         else:
             instance.client.save()
+
+        client_group, created = Group.objects.get_or_create(name='client_group')
+        instance.groups.add(client_group)
 
         # try:
         #     client = Client.objects.filter(user=instance)
@@ -163,6 +168,18 @@ def update_user_profile(sender, instance, created, **kwargs):
             instance.employee.save()
         else:
             instance.employee.save()
+
+    if instance.profile.account_type == 1:
+        officer_group, created = Group.objects.get_or_create(name='officer_group')
+        instance.groups.add(officer_group)
+
+    if instance.profile.account_type == 2:
+        service_group, created = Group.objects.get_or_create(name='service_group')
+        instance.groups.add(service_group)
+
+    if instance.profile.account_type == 3:
+        production_group, created = Group.objects.get_or_create(name='production_group')
+        instance.groups.add(production_group)
 
 
 class NewUser(models.Model):

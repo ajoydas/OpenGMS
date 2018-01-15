@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load notifications_tags %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -64,7 +65,7 @@
             <!-- sidebar menu -->
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
-                <h2>Client Module</h2>
+                <h2>Production Manager</h2>
                 <ul class="nav side-menu">
                   <li><a><i class="fa fa-edit"></i> Update Info <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -132,6 +133,14 @@
                                 </li>
                             </ul>
                         </li>
+                   <li role="presentation" class="dropdown">
+                       <a href="{% url 'production:notification' %}" id="notifications" title="Notification">
+                           <i class="fa fa-bell-o"></i>
+                           {% live_notify_badge classes="badge" %}
+                           {% register_notify_callbacks callbacks='fill_notification_list,fill_notification_badge' %}
+                           {% live_notify_list classes="dropdown-menu" %}
+                       </a>
+                   </li>
                     </ul>
             </nav>
           </div>

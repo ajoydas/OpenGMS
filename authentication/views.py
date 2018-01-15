@@ -13,31 +13,3 @@ from django.template.loader import render_to_string
 from django.core.mail import send_mail
 
 from authentication.form import RegistrationForm
-
-
-def signup(request):
-    if request.method == 'POST':
-        form = RegistrationForm(request.POST)
-        if not form.is_valid():
-            return render(request, 'authentication/signup.html',
-                          {'form': form})
-
-        else:
-            user = form.save(commit=False)
-            username = form.cleaned_data.get('username')
-            email = form.cleaned_data.get('email')
-            password = form.cleaned_data.get('password')
-            user.set_password(password)
-            user.is_active = True
-            user.save()
-
-            user = authenticate(username=username, password=password)
-
-            if user is not None:
-                if user.is_active:
-                    login(request, user)
-                    return redirect('OpenGMS:base')
-
-    else:
-        return render(request, 'authentication/signup.html',
-                      {'form': RegistrationForm()})

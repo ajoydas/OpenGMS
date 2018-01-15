@@ -1,0 +1,182 @@
+{% extends 'client/dash.html' %}
+{% load staticfiles %}
+{% load notifications_tags %}
+{% load review_tag %}
+
+{% block head %}
+    <link href="{% static 'css/album.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <!-- page content -->
+        <div class="right_col" role="main">
+          <div class="">
+            <div class="page-title">
+              <div class="title_left">
+                <h3>Notification</h3>
+              </div>
+
+              <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" type="button">Go!</button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Notification Report</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                      <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                        <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                          <li role="presentation" class="active">
+                              <a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab"
+                                 aria-expanded="true">Unread Notifications
+                              </a>
+                          </li>
+                          <li role="presentation" class="">
+                              <a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab"
+                                 aria-expanded="false">Previous Notifications
+                              </a>
+                        </ul>
+                        <div id="myTabContent" class="tab-content">
+                          <div role="tabpanel" class="tab-pane fade active in" id="tab_content1"
+                               aria-labelledby="home-tab">
+
+                            <!-- start recent activity -->
+                            <ul class="messages">
+                              <li>
+                                {% notifications_unread as unread_count %}
+                                {% if unread_count %}
+                                    {% for q in unread %}
+                                        <img src="{{ q.actor.profile.get_picture }}" class="avatar"
+                                             alt="Avatar">
+                                        <div class="message_date">
+                                            <h3 class="date text-info">
+                                                {{ q.timesince }} 
+                                            </h3>
+{#                                            <p class="month">May</p>#}
+                                        </div>
+                                        <div class="message_wrapper">
+                                            <h4 class="heading">{{ q.actor }}</h4>
+                                            <blockquote class="message">
+                                                {{ q.verb }}
+                                            </blockquote>
+                                            <br />
+                                            <p class="url">
+                                                <span class="fs1 text-info" aria-hidden="true"
+                                                      data-icon="">
+                                                </span>
+                                                <a href="{% url 'client:order_view' q.action_object.id %}">
+                                                    <i class="fa fa-paperclip"></i>
+                                                    View Order
+                                                </a>
+                                            </p>
+                                        </div>
+                                        {{ q.mark_as_read }}
+                                    {% endfor %}
+                                {% else %}
+                                    <p>
+                                       You have no new notifications.
+                                    </p>
+                                {% endif %}
+                              </li>
+                            </ul>
+                            <!-- end recent activity -->
+
+                          </div>
+                          <div role="tabpanel" class="tab-pane fade" id="tab_content2"
+                               aria-labelledby="profile-tab">
+
+                            <!-- start user projects -->
+                            <ul class="messages">
+                              <li>
+                                  {% for notification in notification_list %}
+                                        <img src="{{ notification.from_user.profile.get_picture }}" class="avatar"
+                                             alt="Avatar">
+                                        <div class="message_date">
+                                            <h3 class="date text-info">
+                                                {% get_time notification.notification_time %} ago
+                                            </h3>
+{#                                            <p class="month">May</p>#}
+                                        </div>
+                                        <div class="message_wrapper">
+                                            <h4 class="heading">
+                                                {{notification.from_user.profile.get_screen_name}}
+                                            </h4>
+                                            <blockquote class="message">
+                                                {{ notification.notification_message }}
+                                            </blockquote>
+                                            <br />
+                                            <p class="url">
+                                                <span class="fs1 text-info" aria-hidden="true"
+                                                      data-icon="">
+                                                </span>
+                                                <a href="{% url 'client:order_view' notification.order.id %}">
+                                                    <i class="fa fa-paperclip"></i>
+                                                    View Order
+                                                </a>
+                                            </p>
+                                        </div>
+                                    {% endfor %}
+                              </li>
+                            </ul>
+                            <!-- end user projects -->
+
+                          <div class="center">
+                            <div class="pagination ">
+                                {% if notification_list.has_previous %}
+                                    <li><a href="?page={{ notification_list.previous_page_number }}">&laquo;</a></li>
+                                {% else %}
+                                    <li class="disabled"><a><span>&laquo;</span></a></li>
+                                {% endif %}
+                                {% for i in notification_list.paginator.page_range %}
+                                    {% if notification_list.number == i %}
+                                        <li class="active">
+                                            <span>
+                                                <a style="color: #ffffff" href="?page={{ i }}" class="active"> {{ i }} </a>
+                                                <span class="sr-only">
+                                                    (current)
+                                                </span>
+                                            </span>
+                                        </li>
+                                    {% else %}
+                                        <li><a href="?page={{ i }}">{{ i }}</a></li>
+                                    {% endif %}
+                                {% endfor %}
+                                {% if notification_list.has_next %}
+                                    <li><a href="?page={{ notification_list.next_page_number }}">&raquo;</a></li>
+                                {% else %}
+                                    <li class="disabled"><a><span>&raquo;</span></a></li>
+                                {% endif %}
+                                </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /page content -->
+{% endblock %}

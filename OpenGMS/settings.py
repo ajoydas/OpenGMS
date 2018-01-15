@@ -59,7 +59,7 @@ INSTALLED_APPS = [
     'production',
     'service',
     'notifications',
-    # 'Notifications',
+    'Notifications',
     'autocompleteAPI',
 ]
 

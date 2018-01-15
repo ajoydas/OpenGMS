@@ -1,173 +1,315 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from django.shortcuts import render
+
 import os
+
 from PIL import Image
 from django.conf import settings as django_settings
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
-from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-from django.shortcuts import get_object_or_404, redirect, render
-from client.form import ProfileForm, ChangePasswordForm, ContactForm, NewOrderForm
+from django.shortcuts import redirect, get_object_or_404
 from django.shortcuts import render
-from django_tables2 import RequestConfig
-from .models import Order_List
+from django.utils.datastructures import MultiValueDictKeyError
+
+from Notifications.views import general_notification
+from OpenGMS.function_util import group_required
+from authentication.models import NewUser
+from client.form import ProfileForm, NewOrderForm
+# Create your views here.
+from core.models import Order, OrderHistory
+from officer.form import ContactForm, ChangePasswordForm
+from django.contrib.auth.models import User
+
 # from .tables import OrderTable
 
-# Create your views here.
-
-
-__FILE_TYPES = ['zip']
 
 @login_required
-def personalInfo(request):
+@group_required('client_group')
+def personal_info(request):
     return render(request, 'client/personal_info.html', {'user': request.user})
 
-# @login_required
+
+@login_required
+@group_required('client_group')
 def profile(request):
-    # user = request.user
-    # if request.method == 'POST':
-    #     form = ProfileForm(request.POST)
-    #     if form.is_valid():
-    #         user.first_name = form.cleaned_data.get('first_name')
-    #         user.last_name = form.cleaned_data.get('last_name')
-    #         user.profile.job_title = form.cleaned_data.get('job_title')  # profile is for user profile
-    #         user.email = form.cleaned_data.get('email')
-    #         user.profile.url = form.cleaned_data.get('url')
-    #         user.profile.location = form.cleaned_data.get('location')
-    #         user.profile.about = form.cleaned_data.get('about')
-    #         user.save()
-    #         messages.add_message(request,
-    #                              messages.SUCCESS,
-    #                              'Your profile was successfully edited.')
-    #
-    # else:
-    #     form = ProfileForm(instance=user, initial={
-    #         'job_title': user.profile.job_title,
-    #         'url': user.profile.url,
-    #         'location': user.profile.location
-    #         })
-    form = ProfileForm()
-    return render(request, 'client/client_profile.html', {'form': form})
+    user = request.user
+    if request.method == 'POST':
+        print("Profile form submitted")
+        form = ProfileForm(request.POST)
+        if form.is_valid():
+            print("Profile form Valid")
+            user.client.company_name = form.cleaned_data.get('company_name')
+            user.client.registration_info = form.cleaned_data.get('registration_info')
+            user.client.website = form.cleaned_data.get('website')
+            user.client.additional_info = form.cleaned_data.get('additional_info')
 
-#@login_required
+            if user.profile.account_flag == 1:
+                user.profile.account_flag = 2
+            user.save()
+            messages.add_message(request,
+                                 messages.SUCCESS,
+                                 'Your profile is successfully saved.')
+            if user.profile.account_flag != 0:
+                return redirect('client:contact')
+
+        else:
+            messages.add_message(request,
+                                 messages.ERROR,
+                                 'Your profile isn\'t saved.')
+
+    else:
+        form = ProfileForm(instance=user, initial={
+            'company_name': user.client.company_name,
+            'registration_info': user.client.registration_info,
+            'website': user.client.website,
+            'additional_info': user.client.additional_info,
+        })
+    # form = ProfileForm()
+    return render(request, 'client/profile.html', {'form': form})
+
+
+@login_required
+@group_required('client_group')
 def contact(request):
-    form = ContactForm()
-    return render(request, 'client/client_contact.html', {'form': form})
+    # form = ContactForm()
+    user = request.user
+    if request.method == 'POST':
+        print("Contact form submitted")
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            print("Contact form Valid")
+            user.profile.address = form.cleaned_data.get('address')
+            user.profile.city = form.cleaned_data.get('city')
+            user.profile.state = form.cleaned_data.get('state')
+            user.profile.country = form.cleaned_data.get('country')
+            user.profile.zip_code = form.cleaned_data.get('zip_code')
+            user.profile.phone_num = form.cleaned_data.get('phone_num')
+            if user.profile.account_flag == 2:
+                user.profile.account_flag = 1
+            user.save()
+            messages.add_message(request,
+                                 messages.SUCCESS,
+                                 'Your contact is successfully saved.')
+            if user.profile.account_flag != 0:
+                return redirect('client:picture')
+        else:
+            messages.add_message(request,
+                                 messages.ERROR,
+                                 'Your contact isn\'t saved.')
+
+    else:
+        form = ContactForm(instance=user, initial={
+            'address': user.profile.address,
+            'city': user.profile.city,
+            'state': user.profile.state,
+            'country': user.profile.country,
+            'zip_code': user.profile.zip_code,
+            'phone_num': user.profile.phone_num,
+        })
+    return render(request, 'client/contact.html', {'form': form})
 
 
-# @login_required
+@login_required
+@group_required('client_group')
 def picture(request):
-    uploaded_picture = False
-    try:
-        if request.GET.get('upload_picture') == 'uploaded':
-            uploaded_picture = True
-
-    except Exception:
-        pass
-
-    print(uploaded_picture)
-    return render(request, 'client/client_picture.html',
-                  {'uploaded_picture': uploaded_picture})
-
-
-# @login_required
-def upload_picture(request):
-    try:
-        profile_pictures = django_settings.MEDIA_ROOT + '/profile_pictures/'
-        if not os.path.exists(profile_pictures):
-            os.makedirs(profile_pictures)
-        f = request.FILES['picture']
-        filename = profile_pictures + request.user.username + '_tmp.jpg'
+    user = request.user
+    profile_pictures = django_settings.MEDIA_ROOT + '/profile_pictures/'
+    if not os.path.exists(profile_pictures):
+        os.makedirs(profile_pictures)
+    if request.method == 'POST':
+        _picture = request.FILES['picture']
+        filename = profile_pictures + request.user.username + '_' + str(request.user.id) + '.jpg'
         with open(filename, 'wb+') as destination:
-            for chunk in f.chunks():
+            for chunk in _picture.chunks():
                 destination.write(chunk)
         im = Image.open(filename)
         width, height = im.size
-        if width > 350:
-            new_width = 350
-            new_height = (height * 350) / width
+        if width > 400:
+            new_width = 400
+            new_height = 300       # (height * 400) / width
             new_size = new_width, new_height
             im.thumbnail(new_size, Image.ANTIALIAS)
             im.save(filename)
 
-        return redirect('picture/?upload_picture=uploaded')
+        if user.profile.account_flag == 3:
+            user.profile.account_flag = 4
 
-    except Exception as e:
-        print(e)
-        return redirect('/picture/')
+        user.profile.profile_picture = filename
+        user.save()
 
+        if user.profile.account_flag != 0:
+            return redirect('client:password')
 
-# @login_required
-def save_uploaded_picture(request):
-    try:
-        x = int(request.POST.get('x'))
-        y = int(request.POST.get('y'))
-        w = int(request.POST.get('w'))
-        h = int(request.POST.get('h'))
-        tmp_filename = django_settings.MEDIA_ROOT + '/profile_pictures/' +\
-            request.user.username + '_tmp.jpg'
-        filename = django_settings.MEDIA_ROOT + '/profile_pictures/' +\
-            request.user.username + '.jpg'
-        im = Image.open(tmp_filename)
-        cropped_im = im.crop((x, y, w+x, h+y))
-        cropped_im.thumbnail((200, 200), Image.ANTIALIAS)
-        cropped_im.save(filename)
-        os.remove(tmp_filename)
-
-    except Exception:
-        pass
-
-    return redirect('picture/')
+        return render(request, 'client/picture.html')
+    print (user.profile.profile_picture)
+    return render(request, 'client/picture.html')
 
 
-# @login_required
+@login_required
+@group_required('client_group')
 def password(request):
-    # user = request.user
-    # if request.method == 'POST':
-    #     form = ChangePasswordForm(request.POST)
-    #     if form.is_valid():
-    #         new_password = form.cleaned_data.get('new_password')
-    #         user.set_password(new_password)
-    #         user.save()
-    #         update_session_auth_hash(request, user)
-    #         messages.add_message(request, messages.SUCCESS,
-    #                              'Your password was successfully changed.')
-    #         return redirect('password')
-    #
-    # else:
-    #     form = ChangePasswordForm(instance=user)
-    form = ChangePasswordForm()
-    return render(request, 'client/client_password.html', {'form': form})
+    user = request.user
+    if request.method == 'POST':
+        form = ChangePasswordForm(request.POST)
+        if form.is_valid():
+            new_password = form.cleaned_data.get('new_password')
+            user.set_password(new_password)
+            if user.profile.account_flag == 4:
+                user.profile.account_flag = 0
+                new_user = NewUser.objects.get(user=user)
+                new_user.delete()
+            user.save()
+            update_session_auth_hash(request, user)
+            messages.add_message(request, messages.SUCCESS,
+                                 'Your password is successfully changed.')
+            return redirect('client:password')
+        else:
+            messages.add_message(request, messages.SUCCESS,
+                                 'Your password isn\'t changed.')
+            return redirect('client:password')
+    else:
+        form = ChangePasswordForm(instance=user)
+    return render(request, 'client/password.html', {'form': form})
 
 
-# def create_account(request):
-#     return render(request, 'dashboard/create_account.html')
-#
-#
-# def delete_account(request):
-#     return render(request, 'dashboard/delete_account.html')
-#
-#
-# def reset_account_pass(request):
-#     return render(request, 'dashboard/reset_account_pass.html')
-
-
+DESIGN_FILE_TYPES = ['zip', 'rar', 'gz']
+@login_required
+@group_required('client_group')
 def new_order(request):
+    user = request.user
+    if request.method == 'POST':
+        print("NewOrderForm form submitted")
+        form = NewOrderForm(request.POST or None, request.FILES or None)
+        if form.is_valid():
+            print("NewOrderForm form Valid")
+            # order = Order()
+            order = form.save(commit=False)
+            try:
+                order.design = request.FILES['design']
+                file_type = order.design.url.split('.')[-1]
+                file_type = file_type.lower()
+                if file_type not in DESIGN_FILE_TYPES:
+                    messages.error(request, 'Image file must be .zip, .rar or .gz')
+                    return render(request, 'client/new_order.html', {'form': form})
+                # order.design.url = str(datetime.now())+file_type
+            except MultiValueDictKeyError:
+                None
+
+            shipping_address = form.cleaned_data.get('shipping_address')
+            client_address = form.cleaned_data.get('client_address')
+
+            order.client = user
+            if not shipping_address or client_address is True:
+                order.shipping_address = str(user.profile.address) + ", " + str(user.profile.city) + ", " \
+                                         + str(user.profile.state) + ", " + str(user.profile.country) + ", " \
+                                         + str(user.profile.zip_code)
+            else:
+                order.shipping_address = shipping_address
+
+            order.submitted_by = user
+            order.client_name = user.profile.get_screen_name()
+            order.order_type = form.cleaned_data.get('order_type')
+            order.deadline = form.cleaned_data.get('deadline')
+            order.quantity = form.cleaned_data.get('quantity')
+            order.budget = form.cleaned_data.get('budget')
+            order.specification = form.cleaned_data.get('specification')
+            order.order_status = 'RECEIVED'
+            order.save()
+            messages.success(request, 'The order is saved successfully.')
+        else:
+            messages.error(request, 'Order save failed.')
+            return render(request, 'client/new_order.html', {'form': form})
     form = NewOrderForm()
-    return render(request, 'client/client_new_order.html', {'form': form})
+    return render(request, 'client/new_order.html', {'form': form})
 
 
+@login_required()
+@group_required('client_group')
+def update_order(request, pk):
+    user = request.user
+    order = get_object_or_404(Order, id=pk)
+
+    if request.method == 'POST':
+        print("Updated Order form submitted")
+        form = NewOrderForm(request.POST or None, request.FILES or None)
+        if form.is_valid():
+            print("Updated Order form Validated")
+
+            prv_order = order
+            try:
+                order.design = request.FILES['design']
+                file_type = order.design.url.split('.')[-1]
+                file_type = file_type.lower()
+                if file_type not in DESIGN_FILE_TYPES:
+                    messages.error(request, 'Image file must be .zip, .rar or .gz')
+                    return render(request, 'dashboard/update_order.html', {'form': form, 'order':order})
+                # order.design.url = str(datetime.now())+file_type
+            except MultiValueDictKeyError:
+                None
+
+            shipping_address = form.cleaned_data.get('shipping_address')
+            client_address = form.cleaned_data.get('client_address')
+
+            order.client = user
+            if not shipping_address or client_address is True:
+                order.shipping_address = str(user.profile.address) + ", " + str(user.profile.city) + ", " \
+                                         + str(user.profile.state) + ", " + str(user.profile.country) + ", " \
+                                         + str(user.profile.zip_code)
+            else:
+                order.shipping_address = shipping_address
+
+            order.submitted_by = user
+            order.client_name = user.profile.get_screen_name()
+            order.order_type = form.cleaned_data.get('order_type')
+            order.deadline = form.cleaned_data.get('deadline')
+            order.quantity = form.cleaned_data.get('quantity')
+            order.budget = form.cleaned_data.get('budget')
+            order.specification = form.cleaned_data.get('specification')
+            order.order_status = prv_order.order_status
+            order.save()
+
+            order_history = OrderHistory(prv_order)
+            order_history.save()
+            messages.success(request, 'The order is updated successfully.')
+        else:
+            messages.error(request, 'Order save failed.')
+            return render(request, 'client/update_order.html', {'form': form, 'order':order})
+
+    form = NewOrderForm(instance=Order, initial={
+        'order_type' : order.order_type,
+        'deadline' : order.deadline,
+        'quantity' : order.quantity,
+        'budget' : order.budget,
+        'shipping_address' : order.shipping_address,
+        'specification' : order.specification,
+    })
+    # print(form)
+    return render(request, 'client/update_order.html', {'form': form, 'order':order})
+
+
+@login_required()
+@group_required('client_group')
+def view_order(request, pk):
+    order = get_object_or_404(Order, id=pk)
+    return render(request, 'client/view_order.html', {'order': order, 'user':request.user})
+
+
+@login_required()
+@group_required('client_group')
 def order_list(request):
-    return render(request, 'client/order_list.html')
+    orders = Order.objects.all()
+    return render(request, 'client/order_list.html', {'orderlist': orders})
 
 
-def order_view(request):
-    return render(request, 'client/order_view.html')
+@login_required()
+@group_required('client_group')
+def status_list(request):
+    orders = Order.objects.filter(submitted_by=request.user).order_by('updated_at')
+    return render(request, 'client/status_list.html', {'orderlist': orders})
 
 
-def order_edit(request):
-    form = NewOrderForm()
-    return render(request, 'client/order_edit.html', {'form': form})
+@login_required()
+@group_required('client_group')
+def notification(request):
+    return general_notification(request ,'client/notification.html')
