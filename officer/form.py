@@ -123,7 +123,7 @@ class NewOrderForm(forms.ModelForm):
     order_type = forms.ChoiceField(choices=order_types, required=True)
     design = forms.FileField(required=False)
     deadline = forms.DateField(
-        widget=forms.DateInput,
+        widget=forms.DateTimeInput(attrs={'class': 'datetime-input'}),
         help_text="'%Y-%m-%d', '%m/%d/%Y', '%m/%d/%y'",
         input_formats=['%Y-%m-%d', '%m/%d/%Y', '%m/%d/%y'],
         required=True)

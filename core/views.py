@@ -1,13 +1,13 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, logout, login
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 
 from core.form import LogInForm
 
 
+@login_required(login_url='login/')
 def home(request):
-    if request.user is None:
-        return redirect('login')
     return redirect_user(request, request.user)
 
 
@@ -28,7 +28,7 @@ def loginview(request):
             if user is not None:
                 if user.is_active:
                     login(request,user)
-                    redirect_user(request, user)
+                    return redirect_user(request, user)
 
             else:
                 messages.add_message(request,

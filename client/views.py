@@ -8,9 +8,11 @@ from django.conf import settings as django_settings
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.shortcuts import redirect, get_object_or_404
 from django.shortcuts import render
 from django.utils.datastructures import MultiValueDictKeyError
+from notifications.signals import notify
 
 from Notifications.views import general_notification
 from OpenGMS.function_util import group_required
@@ -216,6 +218,14 @@ def new_order(request):
             order.specification = form.cleaned_data.get('specification')
             order.order_status = 'RECEIVED'
             order.save()
+
+            # generate notification for submitter
+            msg = "Client : {0} submitted a new order with id:{1}".format(
+                               request.user.profile.get_screen_name(), order.id)
+            _recipient = User.objects.filter(Q(profile__account_type=1) | Q(profile__account_type=2))
+            print(_recipient)
+            notify.send(request.user, recipient=_recipient, verb=msg, action_object=order)
+
             messages.success(request, 'The order is saved successfully.')
         else:
             messages.error(request, 'Order save failed.')
@@ -271,6 +281,12 @@ def update_order(request, pk):
 
             order_history = OrderHistory(prv_order)
             order_history.save()
+
+            msg = "Client :{0} updated the order with id:{1}".format(
+                request.user.profile.get_screen_name(), order.id)
+            _recipient = User.objects.filter(Q(profile__account_type=1) | Q(profile__account_type=2))
+            print(_recipient)
+            notify.send(request.user, recipient=_recipient, verb=msg, action_object=order)
             messages.success(request, 'The order is updated successfully.')
         else:
             messages.error(request, 'Order save failed.')

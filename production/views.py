@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+
+from django.db.models import Q
 from django.shortcuts import render
 import os
 from PIL import Image
@@ -11,6 +13,7 @@ from django.contrib.auth.models import User
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.datastructures import MultiValueDictKeyError
+from notifications.signals import notify
 
 from Notifications.models import Notifications
 from Notifications.views import general_notification
@@ -273,6 +276,16 @@ def update_order(request, pk):
 
             order_history = OrderHistory(prv_order)
             order_history.save()
+
+            if order.client is not None:
+                msg = "A production manager updated your order with id:{0}".format(order.id)
+                _recipient = order.client
+                notify.send(user, recipient=_recipient, verb=msg, action_object=order)
+
+            msg = "Production manager :{0} updated the order with id:{1}".format(
+                user.profile.get_screen_name(), order.id)
+            _recipient = User.objects.filter(Q(profile__account_type=1) | Q(profile__account_type=2))
+            notify.send(user, recipient=_recipient, verb=msg, action_object=order)
             messages.success(request, 'The order is updated successfully.')
         else:
             messages.error(request, 'Order save failed.')

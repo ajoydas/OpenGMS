@@ -83,7 +83,7 @@
                                                 <span class="fs1 text-info" aria-hidden="true"
                                                       data-icon="">
                                                 </span>
-                                                <a href="{% url 'client:order_view' q.action_object.id %}">
+                                                <a href="{% url 'service:view_order' q.action_object.id %}">
                                                     <i class="fa fa-paperclip"></i>
                                                     View Order
                                                 </a>
@@ -128,7 +128,7 @@
                                                 <span class="fs1 text-info" aria-hidden="true"
                                                       data-icon="">
                                                 </span>
-                                                <a href="{% url 'client:order_view' notification.order.id %}">
+                                                <a href="{% url 'service:view_order' notification.order.id %}">
                                                     <i class="fa fa-paperclip"></i>
                                                     View Order
                                                 </a>

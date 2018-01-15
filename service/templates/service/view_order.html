@@ -29,6 +29,10 @@
                                         <td>{{ order.order_status }}</td>
                                     </tr>
                                     <tr>
+                                        <td>Order Progress:</td>
+                                        <td>{{ order.progress }} %</td>
+                                    </tr>
+                                    <tr>
                                         <td>Client Username:</td>
                                         <td>{{ order.client.username }}</td>
                                     </tr>
@@ -102,7 +106,7 @@
 
                                     </tbody>
                                 </table>
-                                {% if order.submitted_by.employee.manager_id == user.id %}
+                                {% if order.submitted_by.profile.account_type == 0 or order.submitted_by.employee.manager_id == user.id %}
                                     {#                                    <div class="col-sm-offset-5 col-sm-10">#}
                                     {#                                        <form method="post" action="{% url 'service:view_order' order.id %}">#}
                                     {#                                            <input type="submit" class="btn btn-success">{% trans 'Approve' %}</input>#}

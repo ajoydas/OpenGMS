@@ -4,6 +4,7 @@
 
 {% block head %}
     {#    {% block title %} Account Settings {% endblock %}#}
+    <link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
 {% endblock %}
 {% block content %}
@@ -22,16 +23,17 @@
                 {% endfor %}
             {% endif %}
             <h3 style="margin-top: 0">{% trans 'Update Order' %}</h3>
-            <form  enctype="multipart/form-data" class="form-horizontal" method="post" action="{% url 'officer:update_order' order.id %}">
+            <form enctype="multipart/form-data" class="form-horizontal" method="post"
+                  action="{% url 'officer:update_order' order.id %}">
                 {% csrf_token %}
                 <div class="form-group">
                     <label for="Client Username" class="col-sm-2 control-label">Client Username</label>
                     <div class="col-sm-10">
 
-{#                        <input type="text" name="client_username" id="id_client_username" class="form-control"#}
-{#                               maxlength="50">#}
+                        {#                        <input type="text" name="client_username" id="id_client_username" class="form-control"#}
+                        {#                               maxlength="50">#}
                         <select class="js-data-example-ajax" style="width: 100mm" name="client_username">
-{#                            <option></option>#}
+                            {#                            <option></option>#}
                             {% if order.client.get_username %}
                                 <option value="{{ order.client.id }}">{{ order.client.get_username }}</option>
                             {% endif %}
@@ -123,4 +125,18 @@
             }
         });
     </script>
+
+    <link href="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.44/css/bootstrap-datetimepicker.min.css"
+          rel="stylesheet">
+    <script src="//cdn.bootcss.com/moment.js/2.17.1/moment.min.js"></script>
+    <script src="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.44/js/bootstrap-datetimepicker.min.js"></script>
+
+    <script>
+        $(function () {
+            $('.datetime-input').datetimepicker({
+                format: 'YYYY-MM-DD'
+            });
+        });
+    </script>
+
 {% endblock %}

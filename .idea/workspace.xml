@@ -2,138 +2,30 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f4685000-58c5-4bff-a3db-e7acb0b2981f" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/client/templates/client/status_list.html" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/client/templates/client/update_order.html" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/client/templates/client/view_order.html" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/media/defaults/user.png" />
-      <change beforePath="$PROJECT_DIR$/.idea/.name" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/OpenGMS.iml" afterPath="$PROJECT_DIR$/.idea/OpenGMS.iml" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1315d6d6-bf87-4187-ac6b-2f05e52ce919.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1315d6d6-bf87-4187-ac6b-2f05e52ce919/_metadata_/metadata" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1315d6d6-bf87-4187-ac6b-2f05e52ce919/_metadata_/metadata.keystream" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1315d6d6-bf87-4187-ac6b-2f05e52ce919/_metadata_/metadata.keystream.len" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1315d6d6-bf87-4187-ac6b-2f05e52ce919/_metadata_/metadata.len" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1315d6d6-bf87-4187-ac6b-2f05e52ce919/_metadata_/metadata.values.at" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1315d6d6-bf87-4187-ac6b-2f05e52ce919/_metadata_/metadata_i" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1315d6d6-bf87-4187-ac6b-2f05e52ce919/_metadata_/metadata_i.len" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1315d6d6-bf87-4187-ac6b-2f05e52ce919/storage.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1315d6d6-bf87-4187-ac6b-2f05e52ce919/storage_v2/_src_/schema/main.uQUzAA.meta" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/44bc82a6-5b05-44aa-ab1d-81be720078d4/_metadata_/metadata" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/44bc82a6-5b05-44aa-ab1d-81be720078d4/_metadata_/metadata.keystream" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/44bc82a6-5b05-44aa-ab1d-81be720078d4/_metadata_/metadata.keystream.len" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/44bc82a6-5b05-44aa-ab1d-81be720078d4/_metadata_/metadata.len" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/44bc82a6-5b05-44aa-ab1d-81be720078d4/_metadata_/metadata.values.at" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/44bc82a6-5b05-44aa-ab1d-81be720078d4/_metadata_/metadata_i" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/44bc82a6-5b05-44aa-ab1d-81be720078d4/_metadata_/metadata_i.len" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/44bc82a6-5b05-44aa-ab1d-81be720078d4/storage.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/7e9f480e-6806-4c9c-ae63-7752dd641964.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/7e9f480e-6806-4c9c-ae63-7752dd641964/storage_v2/_src_/schema/main.uQUzAA.meta" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/bcfb6aad-cbe5-4c2a-b80f-9fc6e376a4dd/_metadata_/metadata" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/bcfb6aad-cbe5-4c2a-b80f-9fc6e376a4dd/_metadata_/metadata.keystream" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/bcfb6aad-cbe5-4c2a-b80f-9fc6e376a4dd/_metadata_/metadata.keystream.len" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/bcfb6aad-cbe5-4c2a-b80f-9fc6e376a4dd/_metadata_/metadata.len" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/bcfb6aad-cbe5-4c2a-b80f-9fc6e376a4dd/_metadata_/metadata.values.at" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/bcfb6aad-cbe5-4c2a-b80f-9fc6e376a4dd/_metadata_/metadata_i" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/bcfb6aad-cbe5-4c2a-b80f-9fc6e376a4dd/_metadata_/metadata_i.len" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/bcfb6aad-cbe5-4c2a-b80f-9fc6e376a4dd/storage.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/Notifications/migrations/0001_initial.py" afterPath="$PROJECT_DIR$/Notifications/migrations/0001_initial.py" />
-      <change beforePath="$PROJECT_DIR$/Notifications/migrations/0002_auto_20171219_0308.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/Notifications/migrations/0003_notifications_order.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/Notifications/models.py" afterPath="$PROJECT_DIR$/Notifications/models.py" />
-      <change beforePath="$PROJECT_DIR$/Notifications/views.py" afterPath="$PROJECT_DIR$/Notifications/views.py" />
-      <change beforePath="$PROJECT_DIR$/OpenGMS/settings.py" afterPath="$PROJECT_DIR$/OpenGMS/settings.py" />
-      <change beforePath="$PROJECT_DIR$/OpenGMS/urls.py" afterPath="$PROJECT_DIR$/OpenGMS/urls.py" />
-      <change beforePath="$PROJECT_DIR$/authentication/migrations/0001_initial.py" afterPath="$PROJECT_DIR$/authentication/migrations/0001_initial.py" />
-      <change beforePath="$PROJECT_DIR$/authentication/migrations/0002_auto_20171015_2214.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/authentication/migrations/0003_auto_20171015_2304.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/authentication/migrations/0004_auto_20171017_1305.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/authentication/migrations/0005_newuser.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/authentication/migrations/0006_auto_20171017_2134.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/authentication/migrations/0007_profile_state.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/authentication/migrations/0008_auto_20171125_2042.py" afterPath="$PROJECT_DIR$/authentication/migrations/0002_auto_20180115_0008.py" />
-      <change beforePath="$PROJECT_DIR$/authentication/migrations/0009_auto_20171125_2258.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/authentication/models.py" afterPath="$PROJECT_DIR$/authentication/models.py" />
-      <change beforePath="$PROJECT_DIR$/authentication/views.py" afterPath="$PROJECT_DIR$/authentication/views.py" />
-      <change beforePath="$PROJECT_DIR$/autocompleteAPI/migrations/__init__.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/client/form.py" afterPath="$PROJECT_DIR$/client/form.py" />
-      <change beforePath="$PROJECT_DIR$/client/migrations/0001_initial.py" afterPath="$PROJECT_DIR$/client/migrations/0001_initial.py" />
-      <change beforePath="$PROJECT_DIR$/client/static/images/american-express.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/client/static/images/cropper.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/client/static/images/img.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/client/static/images/inbox.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/client/static/images/mastercard.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/client/static/images/media.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/client/static/images/paypal.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/client/static/images/picture.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/client/static/images/prod-1.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/client/static/images/prod-2.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/client/static/images/prod-3.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/client/static/images/prod-4.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/client/static/images/prod-5.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/client/static/images/visa.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/client/templates/client/client_contact.html" afterPath="$PROJECT_DIR$/client/templates/client/contact.html" />
-      <change beforePath="$PROJECT_DIR$/client/templates/client/client_new_order.html" afterPath="$PROJECT_DIR$/client/templates/client/new_order.html" />
-      <change beforePath="$PROJECT_DIR$/client/templates/client/client_password.html" afterPath="$PROJECT_DIR$/client/templates/client/password.html" />
-      <change beforePath="$PROJECT_DIR$/client/templates/client/client_picture.html" afterPath="$PROJECT_DIR$/client/templates/client/picture.html" />
-      <change beforePath="$PROJECT_DIR$/client/templates/client/client_profile.html" afterPath="$PROJECT_DIR$/client/templates/client/profile.html" />
-      <change beforePath="$PROJECT_DIR$/client/templates/client/dash.html" afterPath="$PROJECT_DIR$/client/templates/client/dash.html" />
-      <change beforePath="$PROJECT_DIR$/client/templates/client/order_list.html" afterPath="$PROJECT_DIR$/client/templates/client/order_list.html" />
-      <change beforePath="$PROJECT_DIR$/client/templates/client/personal_info.html" afterPath="$PROJECT_DIR$/client/templates/client/personal_info.html" />
-      <change beforePath="$PROJECT_DIR$/client/urls.py" afterPath="$PROJECT_DIR$/client/urls.py" />
+      <change beforePath="$PROJECT_DIR$/client/templates/client/notification.html" afterPath="$PROJECT_DIR$/client/templates/client/notification.html" />
+      <change beforePath="$PROJECT_DIR$/client/templates/client/order_view.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/client/templates/client/view_order.html" afterPath="$PROJECT_DIR$/client/templates/client/view_order.html" />
       <change beforePath="$PROJECT_DIR$/client/views.py" afterPath="$PROJECT_DIR$/client/views.py" />
-      <change beforePath="$PROJECT_DIR$/core/migrations/0001_initial.py" afterPath="$PROJECT_DIR$/core/migrations/0001_initial.py" />
-      <change beforePath="$PROJECT_DIR$/core/migrations/0002_auto_20180113_1332.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/core/migrations/0003_auto_20180113_1720.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/core/migrations/0004_auto_20180113_1736.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/core/migrations/0005_auto_20180113_1738.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/core/migrations/0006_auto_20180113_1931.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/core/migrations/0007_auto_20180113_2044.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/core/migrations/0008_auto_20180114_0102.py" afterPath="" />
       <change beforePath="$PROJECT_DIR$/core/views.py" afterPath="$PROJECT_DIR$/core/views.py" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
-      <change beforePath="$PROJECT_DIR$/media/designs/1305054.zip" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/media/designs/1305063.zip" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/media/designs/design.zip" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/media/designs/design_7RWspkf.zip" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/media/designs/design_PUd8OlY.zip" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/media/designs/design_pCT6hMG.zip" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/media/profile_pictures/emp1_20.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/media/profile_pictures/joyda_dslr.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/media/profile_pictures/shamsad.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/officer/migrations/0001_initial.py" afterPath="$PROJECT_DIR$/officer/migrations/0001_initial.py" />
-      <change beforePath="$PROJECT_DIR$/officer/static/images/american-express.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/officer/static/images/cropper.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/officer/static/images/img.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/officer/static/images/inbox.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/officer/static/images/mastercard.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/officer/static/images/media.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/officer/static/images/paypal.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/officer/static/images/picture.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/officer/static/images/prod-1.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/officer/static/images/prod-2.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/officer/static/images/prod-3.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/officer/static/images/prod-4.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/officer/static/images/prod-5.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/officer/static/images/visa.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/officer/form.py" afterPath="$PROJECT_DIR$/officer/form.py" />
       <change beforePath="$PROJECT_DIR$/officer/templates/dashboard/dash.html" afterPath="$PROJECT_DIR$/officer/templates/dashboard/dash.html" />
-      <change beforePath="$PROJECT_DIR$/officer/urls.py" afterPath="$PROJECT_DIR$/officer/urls.py" />
+      <change beforePath="$PROJECT_DIR$/officer/templates/dashboard/new_order.html" afterPath="$PROJECT_DIR$/officer/templates/dashboard/new_order.html" />
+      <change beforePath="$PROJECT_DIR$/officer/templates/dashboard/update_order.html" afterPath="$PROJECT_DIR$/officer/templates/dashboard/update_order.html" />
+      <change beforePath="$PROJECT_DIR$/officer/templates/dashboard/view_order.html" afterPath="$PROJECT_DIR$/officer/templates/dashboard/view_order.html" />
       <change beforePath="$PROJECT_DIR$/officer/views.py" afterPath="$PROJECT_DIR$/officer/views.py" />
-      <change beforePath="$PROJECT_DIR$/production/migrations/0001_initial.py" afterPath="$PROJECT_DIR$/production/migrations/0001_initial.py" />
       <change beforePath="$PROJECT_DIR$/production/templates/production/dash.html" afterPath="$PROJECT_DIR$/production/templates/production/dash.html" />
-      <change beforePath="$PROJECT_DIR$/production/urls.py" afterPath="$PROJECT_DIR$/production/urls.py" />
+      <change beforePath="$PROJECT_DIR$/production/templates/production/new_order.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/production/templates/production/notification.html" afterPath="$PROJECT_DIR$/production/templates/production/notification.html" />
+      <change beforePath="$PROJECT_DIR$/production/templates/production/update_order.html" afterPath="$PROJECT_DIR$/production/templates/production/update_order.html" />
+      <change beforePath="$PROJECT_DIR$/production/templates/production/view_order.html" afterPath="$PROJECT_DIR$/production/templates/production/view_order.html" />
       <change beforePath="$PROJECT_DIR$/production/views.py" afterPath="$PROJECT_DIR$/production/views.py" />
-      <change beforePath="$PROJECT_DIR$/service/migrations/0001_initial.py" afterPath="$PROJECT_DIR$/service/migrations/0001_initial.py" />
       <change beforePath="$PROJECT_DIR$/service/templates/service/dash.html" afterPath="$PROJECT_DIR$/service/templates/service/dash.html" />
-      <change beforePath="$PROJECT_DIR$/service/templates/service/profile.html" afterPath="$PROJECT_DIR$/service/templates/service/profile.html" />
-      <change beforePath="$PROJECT_DIR$/service/urls.py" afterPath="$PROJECT_DIR$/service/urls.py" />
+      <change beforePath="$PROJECT_DIR$/service/templates/service/new_order.html" afterPath="$PROJECT_DIR$/service/templates/service/new_order.html" />
+      <change beforePath="$PROJECT_DIR$/service/templates/service/notification.html" afterPath="$PROJECT_DIR$/service/templates/service/notification.html" />
+      <change beforePath="$PROJECT_DIR$/service/templates/service/update_order.html" afterPath="$PROJECT_DIR$/service/templates/service/update_order.html" />
+      <change beforePath="$PROJECT_DIR$/service/templates/service/view_order.html" afterPath="$PROJECT_DIR$/service/templates/service/view_order.html" />
       <change beforePath="$PROJECT_DIR$/service/views.py" afterPath="$PROJECT_DIR$/service/views.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -161,98 +53,100 @@
   <component name="FileEditorManager">
     <leaf>
       <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="581">
-              <caret line="256" column="50" lean-forward="true" selection-start-line="256" selection-start-column="50" selection-end-line="256" selection-end-column="50" />
-              <folding>
-                <element signature="e#24#63#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="dash.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/templates/client/dash.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="13" column="23" lean-forward="false" selection-start-line="13" selection-start-column="23" selection-end-line="13" selection-end-column="23" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="update_order.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/templates/client/update_order.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="262">
-              <caret line="23" column="129" lean-forward="false" selection-start-line="23" selection-start-column="124" selection-end-line="23" selection-end-column="129" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/urls.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="249">
-              <caret line="19" column="38" lean-forward="false" selection-start-line="19" selection-start-column="38" selection-end-line="19" selection-end-column="38" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="form.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/form.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="368">
-              <caret line="54" column="18" lean-forward="true" selection-start-line="54" selection-start-column="18" selection-end-line="54" selection-end-column="18" />
-              <folding>
-                <element signature="e#0#24#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="392">
-              <caret line="30" column="47" lean-forward="false" selection-start-line="30" selection-start-column="43" selection-end-line="30" selection-end-column="47" />
-              <folding>
-                <element signature="e#0#35#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/officer/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-782">
-              <caret line="369" column="66" lean-forward="false" selection-start-line="369" selection-start-column="54" selection-end-line="369" selection-end-column="66" />
-              <folding>
-                <element signature="e#24#63#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/production/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2101">
-              <caret line="279" column="0" lean-forward="true" selection-start-line="279" selection-start-column="0" selection-end-line="279" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/service/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1585">
-              <caret line="476" column="86" lean-forward="false" selection-start-line="476" selection-start-column="86" selection-end-line="476" selection-end-column="86" />
+            <state relative-caret-position="650">
+              <caret line="533" column="43" lean-forward="false" selection-start-line="533" selection-start-column="43" selection-end-line="533" selection-end-column="43" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="view_order.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/service/templates/service/view_order.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="480">
+              <caret line="32" column="66" lean-forward="false" selection-start-line="32" selection-start-column="66" selection-end-line="32" selection-end-column="66" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="new_order.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/templates/client/new_order.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="704">
+              <caret line="63" column="0" lean-forward="true" selection-start-line="51" selection-start-column="4" selection-end-line="63" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="notification.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/templates/client/notification.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="476">
+              <caret line="133" column="52" lean-forward="true" selection-start-line="133" selection-start-column="52" selection-end-line="133" selection-end-column="52" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="view_order.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/templates/client/view_order.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="289">
+              <caret line="32" column="65" lean-forward="false" selection-start-line="32" selection-start-column="65" selection-end-line="32" selection-end-column="65" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="view_order.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/officer/templates/dashboard/view_order.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="391">
+              <caret line="32" column="66" lean-forward="false" selection-start-line="32" selection-start-column="66" selection-end-line="32" selection-end-column="66" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="view_order.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/production/templates/production/view_order.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="442">
+              <caret line="32" column="64" lean-forward="true" selection-start-line="32" selection-start-column="64" selection-end-line="32" selection-end-column="66" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="notification.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/service/templates/service/notification.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="406">
+              <caret line="85" column="83" lean-forward="false" selection-start-line="85" selection-start-column="83" selection-end-line="85" selection-end-column="83" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="notification.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/production/templates/production/notification.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="96">
+              <caret line="85" column="86" lean-forward="false" selection-start-line="85" selection-start-column="86" selection-end-line="85" selection-end-column="86" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="notification.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/officer/templates/dashboard/notification.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="121">
+              <caret line="85" column="83" lean-forward="false" selection-start-line="85" selection-start-column="73" selection-end-line="85" selection-end-column="83" />
               <folding />
             </state>
           </provider>
@@ -282,9 +176,11 @@
       <find>status</find>
       <find>officer</find>
       <find>clien</find>
+      <find>update_order</find>
       <find>user</find>
       <find>order</find>
-      <find>update_order</find>
+      <find>client</find>
+      <find>order_</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -301,11 +197,7 @@
         <option value="$PROJECT_DIR$/OpenGMS/urls.py" />
         <option value="$PROJECT_DIR$/client/templatetags/__init__.py" />
         <option value="$PROJECT_DIR$/client/templatetags/review_tag.py" />
-        <option value="$PROJECT_DIR$/client/templates/client/notification.html" />
         <option value="$PROJECT_DIR$/client/static/css/album.css" />
-        <option value="$PROJECT_DIR$/service/templates/service/notification.html" />
-        <option value="$PROJECT_DIR$/production/templates/production/notification.html" />
-        <option value="$PROJECT_DIR$/officer/templates/dashboard/dash.html" />
         <option value="$PROJECT_DIR$/officer/urls.py" />
         <option value="$PROJECT_DIR$/production/urls.py" />
         <option value="$PROJECT_DIR$/service/urls.py" />
@@ -320,17 +212,31 @@
         <option value="$PROJECT_DIR$/client/templates/client/status_list.html" />
         <option value="$PROJECT_DIR$/client/templates/client/new_order.html" />
         <option value="$PROJECT_DIR$/service/templates/service/profile.html" />
-        <option value="$PROJECT_DIR$/service/templates/service/dash.html" />
-        <option value="$PROJECT_DIR$/production/templates/production/dash.html" />
-        <option value="$PROJECT_DIR$/core/views.py" />
         <option value="$PROJECT_DIR$/client/form.py" />
         <option value="$PROJECT_DIR$/client/templates/client/dash.html" />
-        <option value="$PROJECT_DIR$/client/templates/client/view_order.html" />
         <option value="$PROJECT_DIR$/client/templates/client/update_order.html" />
-        <option value="$PROJECT_DIR$/client/views.py" />
-        <option value="$PROJECT_DIR$/officer/views.py" />
-        <option value="$PROJECT_DIR$/service/views.py" />
+        <option value="$PROJECT_DIR$/officer/templates/dashboard/new_order.html" />
+        <option value="$PROJECT_DIR$/officer/form.py" />
+        <option value="$PROJECT_DIR$/officer/templates/dashboard/update_order.html" />
+        <option value="$PROJECT_DIR$/service/templates/service/new_order.html" />
+        <option value="$PROJECT_DIR$/service/templates/service/update_order.html" />
+        <option value="$PROJECT_DIR$/production/templates/production/new_order.html" />
+        <option value="$PROJECT_DIR$/production/templates/production/update_order.html" />
         <option value="$PROJECT_DIR$/production/views.py" />
+        <option value="$PROJECT_DIR$/officer/views.py" />
+        <option value="$PROJECT_DIR$/core/views.py" />
+        <option value="$PROJECT_DIR$/production/templates/production/dash.html" />
+        <option value="$PROJECT_DIR$/service/templates/service/dash.html" />
+        <option value="$PROJECT_DIR$/officer/templates/dashboard/dash.html" />
+        <option value="$PROJECT_DIR$/client/views.py" />
+        <option value="$PROJECT_DIR$/service/views.py" />
+        <option value="$PROJECT_DIR$/production/templates/production/notification.html" />
+        <option value="$PROJECT_DIR$/service/templates/service/notification.html" />
+        <option value="$PROJECT_DIR$/client/templates/client/notification.html" />
+        <option value="$PROJECT_DIR$/production/templates/production/view_order.html" />
+        <option value="$PROJECT_DIR$/officer/templates/dashboard/view_order.html" />
+        <option value="$PROJECT_DIR$/client/templates/client/view_order.html" />
+        <option value="$PROJECT_DIR$/service/templates/service/view_order.html" />
       </list>
     </option>
   </component>
@@ -403,11 +309,55 @@
             <path>
               <item name="OpenGMS" type="b2602c69:ProjectViewProjectNode" />
               <item name="OpenGMS" type="462c0819:PsiDirectoryNode" />
+              <item name="officer" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OpenGMS" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OpenGMS" type="462c0819:PsiDirectoryNode" />
+              <item name="officer" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="dashboard" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OpenGMS" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OpenGMS" type="462c0819:PsiDirectoryNode" />
+              <item name="OpenGMS" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OpenGMS" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OpenGMS" type="462c0819:PsiDirectoryNode" />
               <item name="production" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="OpenGMS" type="b2602c69:ProjectViewProjectNode" />
               <item name="OpenGMS" type="462c0819:PsiDirectoryNode" />
+              <item name="production" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OpenGMS" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OpenGMS" type="462c0819:PsiDirectoryNode" />
+              <item name="production" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="production" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OpenGMS" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OpenGMS" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OpenGMS" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OpenGMS" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OpenGMS" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OpenGMS" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
               <item name="service" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -496,7 +446,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32949308" sideWeight="0.50323623" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32949308" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32949308" sideWeight="0.49676377" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.48617512" sideWeight="0.49676377" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32949308" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19417475" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -538,88 +488,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/officer/templates/dashboard/profile.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/officer/templates/dashboard/picture.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="39" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="46" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/templates/client/status_list.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1224">
-          <caret line="72" column="82" lean-forward="false" selection-start-line="72" selection-start-column="82" selection-end-line="72" selection-end-column="82" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/templates/client/order_list.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1275">
-          <caret line="75" column="82" lean-forward="false" selection-start-line="75" selection-start-column="82" selection-end-line="75" selection-end-column="82" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/templates/client/picture.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="28" column="78" lean-forward="false" selection-start-line="28" selection-start-column="78" selection-end-line="28" selection-end-column="78" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/templates/client/profile.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="477">
-          <caret line="36" column="16" lean-forward="true" selection-start-line="36" selection-start-column="16" selection-end-line="36" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/officer/form.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="412">
-          <caret line="149" column="109" lean-forward="false" selection-start-line="148" selection-start-column="8" selection-end-line="149" selection-end-column="109" />
-          <folding>
-            <element signature="e#0#24#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/authentication/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="138" column="0" lean-forward="false" selection-start-line="138" selection-start-column="0" selection-end-line="138" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/service/templates/service/profile.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="19" lean-forward="false" selection-start-line="0" selection-start-column="19" selection-end-line="0" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/service/templates/service/picture.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/service/templates/service/password.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -636,34 +504,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/service/templates/service/notification.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/service/templates/service/new_order.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/service/templates/service/delete_account.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/service/templates/service/dash.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="129">
-          <caret line="66" column="40" lean-forward="true" selection-start-line="66" selection-start-column="40" selection-end-line="66" selection-end-column="40" />
           <folding />
         </state>
       </provider>
@@ -677,14 +521,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/service/templates/service/create_account.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/service/templates/service/update_order.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -708,14 +544,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/service/templates/service/view_order.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/production/templates/production/contact.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -732,31 +560,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/production/templates/production/dash.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="129">
-          <caret line="66" column="40" lean-forward="true" selection-start-line="66" selection-start-column="40" selection-end-line="66" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/production/templates/production/delete_account.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/production/templates/production/new_order.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/production/templates/production/notification.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -820,124 +624,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/production/templates/production/update_order.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/production/templates/production/view_order.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/authentication/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding>
             <element signature="e#24#63#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="9" column="35" lean-forward="false" selection-start-line="9" selection-start-column="31" selection-end-line="9" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/form.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="54" column="18" lean-forward="true" selection-start-line="54" selection-start-column="18" selection-end-line="54" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#24#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/templates/client/dash.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="23" lean-forward="false" selection-start-line="13" selection-start-column="23" selection-end-line="13" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/templates/client/view_order.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="20" lean-forward="true" selection-start-line="0" selection-start-column="20" selection-end-line="0" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/templates/client/new_order.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="90" lean-forward="true" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="90" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
-          <caret line="19" column="38" lean-forward="false" selection-start-line="19" selection-start-column="38" selection-end-line="19" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/templates/client/update_order.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="23" column="129" lean-forward="false" selection-start-line="23" selection-start-column="124" selection-end-line="23" selection-end-column="129" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="581">
-          <caret line="256" column="50" lean-forward="true" selection-start-line="256" selection-start-column="50" selection-end-line="256" selection-end-column="50" />
-          <folding>
-            <element signature="e#24#63#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/service/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1585">
-          <caret line="476" column="86" lean-forward="false" selection-start-line="476" selection-start-column="86" selection-end-line="476" selection-end-column="86" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="392">
-          <caret line="30" column="47" lean-forward="false" selection-start-line="30" selection-start-column="43" selection-end-line="30" selection-end-column="47" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/officer/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-782">
-          <caret line="369" column="66" lean-forward="false" selection-start-line="369" selection-start-column="54" selection-end-line="369" selection-end-column="66" />
-          <folding>
-            <element signature="e#24#63#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -950,10 +642,268 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/client/templates/client/update_order.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="262">
+          <caret line="23" column="129" lean-forward="false" selection-start-line="23" selection-start-column="124" selection-end-line="23" selection-end-column="129" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="19" column="38" lean-forward="false" selection-start-line="19" selection-start-column="38" selection-end-line="19" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/form.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="460">
+          <caret line="35" column="70" lean-forward="true" selection-start-line="35" selection-start-column="8" selection-end-line="35" selection-end-column="70" />
+          <folding>
+            <element signature="e#0#24#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/officer/templates/dashboard/new_order.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="783">
+          <caret line="132" column="0" lean-forward="true" selection-start-line="132" selection-start-column="0" selection-end-line="132" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/officer/form.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="466">
+          <caret line="125" column="70" lean-forward="false" selection-start-line="125" selection-start-column="70" selection-end-line="125" selection-end-column="70" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/templates/service/new_order.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="569">
+          <caret line="141" column="0" lean-forward="false" selection-start-line="141" selection-start-column="0" selection-end-line="141" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/templates/service/update_order.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="129" column="38" lean-forward="false" selection-start-line="129" selection-start-column="38" selection-end-line="129" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/production/templates/production/new_order.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="569">
+          <caret line="62" column="0" lean-forward="false" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/production/templates/production/update_order.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="518">
+          <caret line="155" column="0" lean-forward="true" selection-start-line="155" selection-start-column="0" selection-end-line="155" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/officer/templates/dashboard/update_order.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="569">
+          <caret line="140" column="0" lean-forward="false" selection-start-line="140" selection-start-column="0" selection-end-line="140" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/production/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2101">
-          <caret line="279" column="0" lean-forward="true" selection-start-line="279" selection-start-column="0" selection-end-line="279" selection-end-column="0" />
+        <state relative-caret-position="449">
+          <caret line="282" column="86" lean-forward="true" selection-start-line="279" selection-start-column="12" selection-end-line="282" selection-end-column="86" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/officer/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="340" column="91" lean-forward="true" selection-start-line="340" selection-start-column="16" selection-end-line="340" selection-end-column="91" />
+          <folding>
+            <element signature="e#24#63#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="752">
+          <caret line="67" column="23" lean-forward="false" selection-start-line="67" selection-start-column="13" selection-end-line="67" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/production/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="19" lean-forward="true" selection-start-line="18" selection-start-column="19" selection-end-line="18" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OpenGMS/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="32" column="16" lean-forward="false" selection-start-line="32" selection-start-column="11" selection-end-line="32" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/officer/templates/dashboard/dash.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="55" column="59" lean-forward="false" selection-start-line="55" selection-start-column="59" selection-end-line="55" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="103">
+          <caret line="283" column="0" lean-forward="true" selection-start-line="283" selection-start-column="0" selection-end-line="283" selection-end-column="0" />
+          <folding>
+            <element signature="e#24#63#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/templates/service/dash.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-789">
+          <caret line="57" column="51" lean-forward="false" selection-start-line="57" selection-start-column="51" selection-end-line="57" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/production/templates/production/dash.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="384">
+          <caret line="57" column="59" lean-forward="true" selection-start-line="57" selection-start-column="36" selection-end-line="57" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="416">
+          <caret line="32" column="17" lean-forward="true" selection-start-line="32" selection-start-column="17" selection-end-line="32" selection-end-column="17" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/templates/client/dash.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-238">
+          <caret line="13" column="23" lean-forward="false" selection-start-line="13" selection-start-column="23" selection-end-line="13" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/officer/templates/dashboard/notification.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="121">
+          <caret line="85" column="83" lean-forward="false" selection-start-line="85" selection-start-column="73" selection-end-line="85" selection-end-column="83" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/production/templates/production/notification.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="85" column="86" lean-forward="false" selection-start-line="85" selection-start-column="86" selection-end-line="85" selection-end-column="86" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/templates/service/notification.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="406">
+          <caret line="85" column="83" lean-forward="false" selection-start-line="85" selection-start-column="83" selection-end-line="85" selection-end-column="83" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="650">
+          <caret line="533" column="43" lean-forward="false" selection-start-line="533" selection-start-column="43" selection-end-line="533" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/templates/client/order_view.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-387">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/templates/client/new_order.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="704">
+          <caret line="63" column="0" lean-forward="true" selection-start-line="51" selection-start-column="4" selection-end-line="63" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/templates/client/notification.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="133" column="52" lean-forward="true" selection-start-line="133" selection-start-column="52" selection-end-line="133" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/production/templates/production/view_order.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="32" column="64" lean-forward="true" selection-start-line="32" selection-start-column="64" selection-end-line="32" selection-end-column="66" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/officer/templates/dashboard/view_order.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="32" column="66" lean-forward="false" selection-start-line="32" selection-start-column="66" selection-end-line="32" selection-end-column="66" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/templates/client/view_order.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="32" column="65" lean-forward="false" selection-start-line="32" selection-start-column="65" selection-end-line="32" selection-end-column="65" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/templates/service/view_order.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="32" column="66" lean-forward="false" selection-start-line="32" selection-start-column="66" selection-end-line="32" selection-end-column="66" />
           <folding />
         </state>
       </provider>

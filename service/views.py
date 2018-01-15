@@ -379,6 +379,12 @@ def new_order(request):
             order.specification = form.cleaned_data.get('specification')
             order.order_status = form.cleaned_data.get('order_status')
             order.save()
+
+            if order.client is not None:
+                msg = "An officer created a new order with id:{0} for you".format(order.id)
+                _recipient = order.client
+                notify.send(user, recipient=_recipient, verb=msg, action_object=order)
+
             messages.success(request, 'The order is saved successfully.')
         else:
             messages.error(request, 'Order save failed.')
@@ -503,26 +509,26 @@ def view_order(request, pk):
             order.approved_by = request.user
             order.save()
 
-            # generate notification for production manager
+            # generate notification for submitter
             msg = "Your changes in Order {0} has been approved by {1}".format( order.id,
                 request.user.profile.get_screen_name())
             _recipient = order.submitted_by
-            print ("notify to ")
-            print(_recipient)
             notify.send(request.user, recipient=_recipient, verb=msg, action_object=order)
 
         elif '_reject' in request.POST:
+            # prv_approved = OrderHistory.objects.filter(Q(order_id=order.id) & Q(approved=1))\
+            #     .latest('updated_at')
+            # print(prv_approved)
+
             order.review_note = request.POST['review_note']
             order.approved = 2
             order.approved_by = request.user
             order.save()
 
-            # generate notification for production manager
+            # generate notification for submitter
             msg = "Your changes in Order {0} has been rejected by {1}".format(order.id,
                                                 request.user.profile.get_screen_name())
             _recipient = order.submitted_by
-            print ("notify to ")
-            print(_recipient)
             notify.send(request.user, recipient=_recipient, verb=msg, action_object=order)
 
     return render(request, 'service/view_order.html', {'order': order, 'user':request.user})
@@ -531,8 +537,6 @@ def view_order(request, pk):
 @login_required
 @group_required('service_group')
 def order_list(request):
-    # table = OrderTable(Order_List.objects.all())
-    # RequestConfig(request).configure(table)
     orders = Order.objects.all()
     return render(request, 'service/order_list.html', {'orderlist': orders})
 
