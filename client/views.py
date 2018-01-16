@@ -121,7 +121,8 @@ def picture(request):
         os.makedirs(profile_pictures)
     if request.method == 'POST':
         _picture = request.FILES['picture']
-        filename = profile_pictures + request.user.username + '_' + str(request.user.id) + '.jpg'
+        user_str = request.user.username + '_' + str(request.user.id) + '.jpg'
+        filename = profile_pictures + user_str
         with open(filename, 'wb+') as destination:
             for chunk in _picture.chunks():
                 destination.write(chunk)
@@ -137,7 +138,7 @@ def picture(request):
         if user.profile.account_flag == 3:
             user.profile.account_flag = 4
 
-        user.profile.profile_picture = filename
+        user.profile.profile_picture = '/profile_pictures/' + user_str
         user.save()
 
         if user.profile.account_flag != 0:
