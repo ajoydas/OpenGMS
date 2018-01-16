@@ -19,7 +19,6 @@ import raven
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
@@ -51,7 +50,7 @@ INSTALLED_APPS = [
     # 'debug_toolbar',
     'phonenumber_field',
     # 'raven.contrib.django.raven_compat',
-    #app
+    # app
     'core',
     'authentication',
     'officer',
@@ -116,21 +115,19 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'OpenGMS.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-
 
 
 if 'TRAVIS' in os.environ:
     DATABASES = {
         'default': {
-            'ENGINE':   'django.db.backends.postgresql_psycopg2',
-            'NAME':     'travisci',
-            'USER':     'postgres',
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'travisci',
+            'USER': 'postgres',
             'PASSWORD': '',
-            'HOST':     'localhost',
-            'PORT':     '',
+            'HOST': 'localhost',
+            'PORT': '',
         }
     }
 elif config('HEROKU') == 'True':
@@ -141,7 +138,7 @@ elif config('HEROKU') == 'True':
             'USER': 'postgres',
             'PASSWORD': '',
             'HOST': 'localhost',
-            'PORT': '',
+            'PORT': '5432',
         }
     }
 else:
@@ -192,6 +189,7 @@ ALLOWED_HOSTS = ['*']
 try:
     # shortcut for in form templates
     from django.template.base import add_to_builtins
+
     add_to_builtins('material.templatetags.material_form')
     # add_to_builtins('template_debug.templatetags.debug_tags')
 except ImportError:
@@ -202,7 +200,6 @@ except ImportError:
         'material.templatetags.material_form',
         # 'template_debug.templatetags.debug_tags'
     ]
-
 
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 STATIC_URL = '/static/'
@@ -221,7 +218,6 @@ STATICFILES_DIRS = [
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
 
 #### Sentry #####
 #
