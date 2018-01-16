@@ -1,1 +1,1 @@
-web: gunicorn preseason3_2.wsgi
+web: gunicorn  OpenGMS.wsgi --log-file -
