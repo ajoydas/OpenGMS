@@ -7,6 +7,8 @@
 # * your_github_username
 # * your_repo
 
+# Use Travis-ci.org
+
 language: python
 
 python:

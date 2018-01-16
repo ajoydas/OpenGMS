@@ -133,6 +133,17 @@ if 'TRAVIS' in os.environ:
             'PORT':     '',
         }
     }
+elif config('HEROKU') == 'True':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'heroku',
+            'USER': 'postgres',
+            'PASSWORD': '',
+            'HOST': 'localhost',
+            'PORT': '',
+        }
+    }
 else:
     DATABASES = {
         'default': {
