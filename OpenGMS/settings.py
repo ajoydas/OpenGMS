@@ -131,16 +131,8 @@ if 'TRAVIS' in os.environ:
         }
     }
 elif config('HEROKU') == 'True':
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'heroku',
-            'USER': 'postgres',
-            'PASSWORD': '',
-            'HOST': 'localhost',
-            'PORT': '5432',
-        }
-    }
+    DATABASES['default'] = dj_database_url.config(conn_max_age=500)
+
 else:
     DATABASES = {
         'default': {
