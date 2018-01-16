@@ -157,7 +157,7 @@ def picture(request):
             user.profile.account_flag = 4
 
         # user.profile.profile_picture = filename
-        user.profile.profile_picture = request.user.username + '_' + str(request.user.id) + '.jpg'
+        user.profile.profile_picture = '/profile_pictures/' + request.user.username + '_' + str(request.user.id) + '.jpg'
         user.save()
 
         if user.profile.account_flag != 0:
