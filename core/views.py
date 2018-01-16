@@ -4,7 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 
 from core.form import LogInForm
-
+import logging
+logger = logging.getLogger(__name__)
 
 @login_required(login_url='login/')
 def home(request):
@@ -34,6 +35,10 @@ def loginview(request):
                 messages.add_message(request,
                                      messages.ERROR,
                                      "Please enter valid username & password.")
+
+                logger.error('Login failed for username:'+username, exc_info=True, extra={
+                    'request': request,
+                })
 
     print ("Rendering get form")
     return render(request, 'core/base_form.html',
