@@ -81,5 +81,7 @@ class OrderHistory(models.Model):
         self.approved = order.approved
         self.review_note = order.review_note
 
+    def __init__(self, *args, **kwargs):
+        super(OrderHistory, self).__init__(*args, **kwargs)
 
 

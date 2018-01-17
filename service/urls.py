@@ -19,10 +19,13 @@ urlpatterns = [
     url(r'^select_manager', service_views.select_manager, name='select_manager'),
 
     url(r'^new_order', service_views.new_order, name='new_order'),
-    url(r'^view_order/(?P<pk>[0-9]+)$', service_views.view_order, name='view_order'),
     url(r'^update_order/(?P<pk>[0-9]+)$', service_views.update_order, name='update_order'),
+    url(r'^view_order/(?P<pk>[0-9]+)$', service_views.view_order, name='view_order'),
+    url(r'^view_order_history/(?P<pk>[0-9]+)$', service_views.view_order_history, name='view_order_history'),
 
     url(r'^order_list', service_views.order_list, name='order_list'),
+    url(r'^history_list$', service_views.history_list, name='history_list'),
+    url(r'^history_list/(?P<pk>[0-9]+)$', service_views.history_list_pk, name='history_list_pk'),
     url(r'^status_list', service_views.status_list, name='status_list'),
     url(r'^order_graphs', service_views.order_graphs, name='order_graphs'),
 

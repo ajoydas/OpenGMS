@@ -21,3 +21,4 @@ matplotlib
 numpy
 seaborn
 pandas
+sklearn

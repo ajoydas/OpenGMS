@@ -503,7 +503,9 @@ def view_order(request, pk):
     order = get_object_or_404(Order, id=pk)
     if request.method == 'POST':
         if '_edit' in request.POST:
-            return update_order(request,pk)
+            return redirect('service:update_order', pk = pk)
+        elif '_histories' in request.POST:
+            return redirect('service:history_list_pk', pk=pk)
         elif '_approve' in request.POST:
             order.review_note = request.POST['review_note']
             order.approved = 1
@@ -537,6 +539,49 @@ def view_order(request, pk):
 
 @login_required
 @group_required('service_group')
+def view_order_history(request, pk):
+    order_history = get_object_or_404(OrderHistory, id=pk)
+    if request.method == 'POST':
+        if '_view_order' in request.POST:
+            return redirect('service:view_order', pk = order_history.order.id)
+        elif '_update_order' in request.POST:
+            return redirect('service:update_order', pk= order_history.order.id)
+        elif '_revert_order' in request.POST:
+            order = order_history.order
+            _recipient = order.submitted_by
+
+            order.client = order_history.client
+            order.submitted_by = order_history.submitted_by
+            order.approved_by = order_history.approved_by
+            order.updated_at = order_history.updated_at
+            order.order_status = order_history.order_status
+
+            order.client_name = order_history.client_name
+            order.order_type = order_history.order_type
+            order.design = order_history.design
+            order.deadline = order_history.deadline
+            order.quantity = order_history.quantity
+            order.budget = order_history.budget
+            order.shipping_address = order_history.shipping_address
+            order.specification = order_history.specification
+            order.progress = order_history.progress
+
+            order.approved = order_history.approved
+            order.review_note = order_history.review_note
+            order.save()
+
+            # generate notification for submitter
+            msg = "Your changes in Order {0} has been reverted by {1} to the " \
+                  "state of history id:{2}".format(order_history.order.id,
+                    request.user.profile.get_screen_name(),order_history.id)
+            notify.send(request.user, recipient=_recipient, verb=msg, action_object=order)
+            return redirect('service:view_order', pk= order_history.order.id)
+
+    return render(request, 'service/view_order_history.html', {'order': order_history, 'user':request.user})
+
+
+@login_required
+@group_required('service_group')
 def order_list(request):
     orders = Order.objects.all()
     return render(request, 'service/order_list.html', {'orderlist': orders})
@@ -544,8 +589,22 @@ def order_list(request):
 
 @login_required
 @group_required('service_group')
+def history_list(request):
+    orders = OrderHistory.objects.all()
+    return render(request, 'service/order_history_list.html', {'orderlist': orders})
+
+
+@login_required
+@group_required('service_group')
+def history_list_pk(request, pk):
+    orders = OrderHistory.objects.filter(order_id=pk)
+    return render(request, 'service/order_history_list.html', {'orderlist': orders})
+
+
+@login_required
+@group_required('service_group')
 def status_list(request):
-    tech_managers = User.objects.filter(employee__manager_id=request.user.id)
+    tech_managers = User.objects.filter(employee__manager_id=request.user.employee.id)
     orders = Order.objects.filter(submitted_by=tech_managers).order_by('updated_at')
     return render(request, 'service/status_list.html', {'orderlist': orders})
 

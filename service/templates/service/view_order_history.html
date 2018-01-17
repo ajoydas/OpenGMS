@@ -21,8 +21,12 @@
                                 <table class="table table-user-information">
                                     <tbody>
                                     <tr>
-                                        <td>Order Id:</td>
+                                        <td>Order History Id:</td>
                                         <td>{{ order.id }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Order Id:</td>
+                                        <td>{{ order.order.id }}</td>
                                     </tr>
                                     <tr>
                                         <td>Order Status:</td>
@@ -106,64 +110,56 @@
                                     {% if order.design %}
                                         <tr>
                                             <td>Design</td>
-                                            <td>
-                                                <a href="{{ order.design.url }}">
+                                                <td>
+                                                    <a href="{{ order.design.url }}">
                                                         <span class="label label-success">
                                                             <i class="fa fa-download"></i>
                                                             Download
                                                         </span>
-                                                </a>
-                                                {#                                                    <button>#}
-                                                {#                                                        <a href="{{ order.design.url }}"></a>#}
-                                                {#                                                    </button>#}
-                                            </td>
+                                                    </a>
+{#                                                    <button>#}
+{#                                                        <a href="{{ order.design.url }}"></a>#}
+{#                                                    </button>#}
+                                                </td>
                                         </tr>
                                     {% endif %}
+
                                     </tbody>
                                 </table>
-                                {#                                    <div class="col-sm-offset-5 col-sm-10">#}
-                                {#                                        <form method="post" action="{% url 'service:view_order' order.id %}">#}
-                                {#                                            <input type="submit" class="btn btn-success">{% trans 'Approve' %}</input>#}
-                                {#                                            <input type="submit" class="btn btn-danger">{% trans 'Reject' %}</input>#}
-                                {#                                        </form>#}
-                                {#                                    </div>#}
+                                {% if order.submitted_by.profile.account_type == 0 or order.submitted_by.employee.manager_id == user.employee.id %}
+                                    {#                                    <div class="col-sm-offset-5 col-sm-10">#}
+                                    {#                                        <form method="post" action="{% url 'service:view_order' order.id %}">#}
+                                    {#                                            <input type="submit" class="btn btn-success">{% trans 'Approve' %}</input>#}
+                                    {#                                            <input type="submit" class="btn btn-danger">{% trans 'Reject' %}</input>#}
+                                    {#                                        </form>#}
+                                    {#                                    </div>#}
 
-                                <div class="col-sm-offset-3 col-sm-10">
-
-                                    <form method="post" action="{% url 'service:view_order' order.id %}">
-                                        {% csrf_token %}
-                                        <table>
-                                            {% if order.submitted_by.profile.account_type == 0 or order.submitted_by.employee.manager_id == user.employee.id %}
+                                    <div class="col-sm-offset-3 col-sm-10">
+                                        <form method="post" action="{% url 'service:view_order_history' order.id %}">
+                                            {% csrf_token %}
+                                            <table>
                                                 <tr>
-                                                    <td><label> Write your review note:</label></td>
-                                                </tr>
+                                                    <td>
+                                                        <input class="btn btn-success" type="submit" value="View Order"
+                                                               name="_view_order">
+                                                    </td>
+                                                    </tr>
                                                 <tr>
-                                                    <td><textarea name="review_note" cols="80" rows="5"></textarea></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><br/></td>
+                                                    <td>
+                                                        <input class="btn btn-info" type="submit" value="Update Order"
+                                                               name="_update_order">
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <input class="btn btn-success" type="submit" value="Approve"
-                                                               name="_approve">
-                                                        <input class="btn btn-danger" type="submit" value="Reject"
-                                                               name="_reject">
-                                                        <input class="btn btn-info" type="submit" value="Edit"
-                                                               name="_edit">
+                                                        <input class="btn btn-danger" type="submit" value="Revert order here"
+                                                               name="_revert_order">
                                                     </td>
                                                 </tr>
-                                            {% endif %}
-                                            <tr>
-                                                    <td>
-                                                        <input class="btn btn-info" type="submit" value=" View Order Histories"
-                                                               name="_histories">
-                                                    </td>
-                                                </tr>
-                                        </table>
-                                    </form>
-                                </div>
-
+                                            </table>
+                                        </form>
+                                    </div>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
