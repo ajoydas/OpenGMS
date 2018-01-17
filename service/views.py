@@ -1,7 +1,14 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+import random
+
+import numpy
+import pandas
 from django.db.models import Q
+import datetime
+
+from django.http import HttpResponse
 from django.shortcuts import render
 import os
 from PIL import Image
@@ -14,6 +21,7 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.datastructures import MultiValueDictKeyError
 
+
 from Notifications.models import Notifications
 from Notifications.views import general_notification
 from OpenGMS.function_util import group_required
@@ -24,6 +32,8 @@ from django.shortcuts import render
 from django_tables2 import RequestConfig
 from .models import Order_List
 from notifications.signals import notify
+from django.db.models import Sum
+
 
 
 @login_required
@@ -282,7 +292,7 @@ def select_manager(request):
                     tech_manager = get_object_or_404(User, id= key)
                     if tech_manager.profile.account_type == 1:
                         if request.POST[key] == 'SELECT' and tech_manager.employee.manager_id == None:
-                            tech_manager.employee.manager_id = request.user.id
+                            tech_manager.employee.manager_id = request.user.employee.id
                             messages.success(request,"Technical manager of Id:"+key+" assigned successfully.")
                             tech_manager.save()
                         elif request.POST[key] == 'RELEASE' and tech_manager.employee.manager_id == request.user.id:
@@ -296,7 +306,7 @@ def select_manager(request):
                 None
 
     managers = Profile.objects.filter(account_type=1)\
-        .filter(Q(user__employee__manager_id__isnull=True) | Q(user__employee__manager_id=request.user.id))
+        .filter(Q(user__employee__manager_id__isnull=True) | Q(user__employee__manager_id=request.user.employee.id))
     print(managers)
 
     all_managers = Profile.objects.filter(account_type=1)
@@ -554,3 +564,55 @@ def status_list(request):
 @group_required('service_group')
 def notification(request):
     return general_notification(request, 'service/notification.html')
+
+
+@login_required
+@group_required('service_group')
+def order_graphs(request):
+    from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+    from matplotlib.figure import Figure
+    from matplotlib.dates import DateFormatter
+    fig = Figure(figsize=(8, 6))
+    ax = fig.add_subplot(111)
+    x = []
+    y = []
+    # now = datetime.datetime.now()
+    # delta = datetime.timedelta(days=1)
+    # for i in range(10):
+    #     x.append(now)
+    #     now += delta
+    #     y.append(random.randint(0, 1000))
+
+    data = []
+    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
+              'October', 'November', 'December']
+    months = [['January'], ['February'], ['March'], ['April'], ['May'], ['June'], ['July'], ['August'],
+              ['September'], ['October'], ['November'], ['December']]
+    type_list = ['SHIRT', 'PANT','T-SHIRT']
+    this_year = datetime.datetime.now().year
+    for i in range(0, 3):
+        quantities = []
+        for j in range(1, 13):
+            order = Order.objects.filter(Q(created_at__month=j) & Q(order_type=type_list[i]) &
+                                         Q(created_at__year=this_year))\
+                .aggregate(Sum("quantity"))
+            quantities.append(int(order['quantity__sum'] or 0))
+            print(order)
+        data.append(quantities)
+    quantity_array = numpy.array(data).transpose()
+    quantity_array = numpy.append(months, quantity_array, axis=1)
+    pd = pandas.DataFrame(data=quantity_array)
+    var = pd[:][0]
+    ax.set_xticklabels(pd[:][0], rotation=30)
+    ax.bar(pd[:][0], pd[:][1])
+
+    # ax.xaxis.set_major_formatter(DateFormatter('%Y-%m-%d'))
+    # fig.autofmt_xdate()
+    canvas = FigureCanvas(fig)
+    graph_path = django_settings.MEDIA_URL + '/graphs/' + 'graph1.jpg'
+    canvas.print_png(django_settings.MEDIA_ROOT + '/graphs/' + 'graph1.jpg')
+
+    # seaborn.distplot(movies.AudienceRating, bins=30)
+    # pyplot.plot(pd[0])
+    # pyplot.savefig(django_settings.MEDIA_ROOT+'/graph1.jpg')
+    return render(request, 'service/order_graphs.html', {'graph1': graph_path})

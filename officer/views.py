@@ -16,7 +16,7 @@ from notifications.signals import notify
 
 from Notifications.views import general_notification
 from OpenGMS.function_util import group_required
-from authentication.models import NewUser
+from authentication.models import NewUser, Employee
 from core.models import Order, OrderHistory
 from officer.form import ProfileForm, ChangePasswordForm, ContactForm, NewOrderForm
 
@@ -346,7 +346,8 @@ def new_order(request):
 
             msg = "Officer :{0} added a new order with id:{1}".format(
                             user.profile.get_screen_name(), order.id)
-            _recipient = user.employee.manager
+            print(user.employee.manager_id)
+            _recipient = Employee.objects.get(id = user.employee.manager_id).user
             notify.send(user, recipient=_recipient, verb=msg, action_object=order)
             messages.success(request, 'The order is saved successfully.')
         else:
@@ -440,7 +441,7 @@ def update_order(request, pk):
 
             msg = "Officer :{0} added updated  the order with id:{1}".format(
                 user.profile.get_screen_name(), order.id)
-            _recipient = user.employee.manager
+            _recipient = user.employee.manager.user
             notify.send(user, recipient=_recipient, verb=msg, action_object=order)
             messages.success(request, 'The order is updated successfully.')
         else:

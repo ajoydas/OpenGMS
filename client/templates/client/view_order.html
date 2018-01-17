@@ -103,7 +103,22 @@
                                             {% endif %}
                                         </td>
                                     </tr>
-
+                                    {% if order.design %}
+                                        <tr>
+                                            <td>Design</td>
+                                                <td>
+                                                    <a href="{{ order.design.url }}">
+                                                        <span class="label label-success">
+                                                            <i class="fa fa-download"></i>
+                                                            Download
+                                                        </span>
+                                                    </a>
+{#                                                    <button>#}
+{#                                                        <a href="{{ order.design.url }}"></a>#}
+{#                                                    </button>#}
+                                                </td>
+                                        </tr>
+                                    {% endif %}
                                     </tbody>
                                 </table>
                             </div>

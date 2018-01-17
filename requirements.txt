@@ -1,5 +1,5 @@
 dj-database-url
-django==1.11
+django==1.11.6
 gunicorn
 psycopg2
 whitenoise
@@ -17,3 +17,7 @@ django-phonenumber-field
 django-guardian
 django-notifications-hq
 djangorestframework
+matplotlib
+numpy
+seaborn
+pandas
