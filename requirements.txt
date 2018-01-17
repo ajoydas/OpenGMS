@@ -1,5 +1,5 @@
 dj-database-url
-django==1.11.6
+django==1.11
 gunicorn
 psycopg2
 whitenoise

@@ -1,39 +1,29 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-import random
+import datetime
+import os
 
 import numpy
 import pandas
-from django.db.models import Q
-import datetime
-
-from django.http import HttpResponse
-from django.shortcuts import render
-import os
 from PIL import Image
 from django.conf import settings as django_settings
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-from django.shortcuts import get_object_or_404, redirect, render
+from django.db.models import Q
+from django.db.models import Sum
+from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import render
 from django.utils.datastructures import MultiValueDictKeyError
+from notifications.signals import notify
 
-
-from Notifications.models import Notifications
 from Notifications.views import general_notification
 from OpenGMS.function_util import group_required
-from authentication.models import NewUser, Profile, Employee
+from authentication.models import NewUser, Profile
 from core.models import Order, OrderHistory
 from officer.form import ProfileForm, ChangePasswordForm, ContactForm, NewOrderForm
-from django.shortcuts import render
-from django_tables2 import RequestConfig
-from .models import Order_List
-from notifications.signals import notify
-from django.db.models import Sum
-
 
 
 @login_required
@@ -571,21 +561,12 @@ def notification(request):
 def order_graphs(request):
     from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
     from matplotlib.figure import Figure
-    from matplotlib.dates import DateFormatter
-    fig = Figure(figsize=(8, 6))
-    ax = fig.add_subplot(111)
-    x = []
-    y = []
-    # now = datetime.datetime.now()
-    # delta = datetime.timedelta(days=1)
-    # for i in range(10):
-    #     x.append(now)
-    #     now += delta
-    #     y.append(random.randint(0, 1000))
 
+    fig = Figure(figsize=(9.5, 5.5))
+    ax = fig.add_subplot(111)
     data = []
-    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
-              'October', 'November', 'December']
+    # months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
+    #           'October', 'November', 'December']
     months = [['January'], ['February'], ['March'], ['April'], ['May'], ['June'], ['July'], ['August'],
               ['September'], ['October'], ['November'], ['December']]
     type_list = ['SHIRT', 'PANT','T-SHIRT']
@@ -602,17 +583,57 @@ def order_graphs(request):
     quantity_array = numpy.array(data).transpose()
     quantity_array = numpy.append(months, quantity_array, axis=1)
     pd = pandas.DataFrame(data=quantity_array)
-    var = pd[:][0]
+    x_pos = numpy.arange(12)
     ax.set_xticklabels(pd[:][0], rotation=30)
-    ax.bar(pd[:][0], pd[:][1])
+    ax.set_xticks(x_pos)
+    # ax.bar(x_pos, pd[:][1], align='center', alpha=0.5)
+    ax.plot(x_pos, pd[:][1].astype(float), label='Shirt', color='r', marker='o')
+    ax.plot(x_pos, pd[:][2].astype(float), label='Pant', color='g', marker='o')
+    ax.plot(x_pos, pd[:][3].astype(float), label='T-Shirt', color='b', marker='o')
+    ax.set_title('Total numbers of products ordered per month per type in this year')
+    ax.set_ylabel('Numbers of products')
+    handles, labels = ax.get_legend_handles_labels()
+    lgd = ax.legend(handles, labels)
+    ax.grid('on')
 
-    # ax.xaxis.set_major_formatter(DateFormatter('%Y-%m-%d'))
-    # fig.autofmt_xdate()
     canvas = FigureCanvas(fig)
-    graph_path = django_settings.MEDIA_URL + '/graphs/' + 'graph1.jpg'
+    graph1 = django_settings.MEDIA_URL + '/graphs/' + 'graph1.jpg'
     canvas.print_png(django_settings.MEDIA_ROOT + '/graphs/' + 'graph1.jpg')
+
+
+    fig = Figure(figsize=(9.5, 5.5))
+    ax = fig.add_subplot(111)
+    data = []
+    for i in range(0, 3):
+        quantities = []
+        for j in range(1, 13):
+            order = Order.objects.filter(Q(created_at__month=j) & Q(order_type=type_list[i]) &
+                                         Q(created_at__year=this_year))\
+                .aggregate(Sum("budget"))
+            quantities.append(int(order['budget__sum'] or 0))
+            print(order)
+        data.append(quantities)
+    quantity_array = numpy.array(data).transpose()
+    quantity_array = numpy.append(months, quantity_array, axis=1)
+    pd = pandas.DataFrame(data=quantity_array)
+    x_pos = numpy.arange(12)
+    ax.set_xticklabels(pd[:][0], rotation=30)
+    ax.set_xticks(x_pos)
+    # ax.bar(x_pos, pd[:][1], align='center', alpha=0.5)
+    ax.plot(x_pos, pd[:][1].astype(float), label='Shirt', color='r', marker='o')
+    ax.plot(x_pos, pd[:][2].astype(float), label='Pant', color='g', marker='o')
+    ax.plot(x_pos, pd[:][3].astype(float), label='T-Shirt', color='b', marker='o')
+    ax.set_title('Total budget per month per type in this year')
+    ax.set_ylabel('Total Budget')
+    handles, labels = ax.get_legend_handles_labels()
+    lgd = ax.legend(handles, labels)
+    ax.grid('on')
+
+    canvas = FigureCanvas(fig)
+    graph2 = django_settings.MEDIA_URL + '/graphs/' + 'graph2.jpg'
+    canvas.print_png(django_settings.MEDIA_ROOT + '/graphs/' + 'graph2.jpg')
 
     # seaborn.distplot(movies.AudienceRating, bins=30)
     # pyplot.plot(pd[0])
     # pyplot.savefig(django_settings.MEDIA_ROOT+'/graph1.jpg')
-    return render(request, 'service/order_graphs.html', {'graph1': graph_path})
+    return render(request, 'service/order_graphs.html', {'graph1': graph1, 'graph2': graph2})
