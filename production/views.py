@@ -470,7 +470,8 @@ def train_estimator(requset):
     return redirect('production:estimate_list')
 
 
-
+@login_required
+@group_required('production_group')
 def train_order(order):
 
     file1 = storage.open('ml_models/scaler_X.save', 'rb')

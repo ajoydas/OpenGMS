@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-import os
+try:
+    from BytesIO import BytesIO
+except ImportError:
+    from io import BytesIO
+from django.core.files.storage import default_storage as storage
 
 from PIL import Image
 from django.conf import settings as django_settings
@@ -116,24 +120,30 @@ def contact(request):
 @group_required('client_group')
 def picture(request):
     user = request.user
-    profile_pictures = django_settings.MEDIA_ROOT + '/profile_pictures/'
-    if not os.path.exists(profile_pictures):
-        os.makedirs(profile_pictures)
+    profile_pictures = 'profile_pictures/'
     if request.method == 'POST':
         _picture = request.FILES['picture']
         user_str = request.user.username + '_' + str(request.user.id) + '.jpg'
         filename = profile_pictures + user_str
-        with open(filename, 'wb+') as destination:
+        with storage.open(filename, 'wb+') as destination:
             for chunk in _picture.chunks():
                 destination.write(chunk)
-        im = Image.open(filename)
+        destination = storage.open(filename, 'rb+')
+        im = Image.open(destination)
         width, height = im.size
         if width > 400:
             new_width = 400
-            new_height = 300       # (height * 400) / width
+            new_height = 300  # (height * 400) / width
             new_size = new_width, new_height
             im.thumbnail(new_size, Image.ANTIALIAS)
-            im.save(filename)
+
+            sfile = BytesIO()
+            im.save(sfile, format='JPEG')
+            destination.close()
+
+            destination = storage.open(filename, 'wb+')
+            destination.write(sfile.getvalue())
+            destination.close()
 
         if user.profile.account_flag == 3:
             user.profile.account_flag = 4

@@ -4,6 +4,12 @@ from __future__ import unicode_literals
 import datetime
 import os
 
+try:
+    from BytesIO import BytesIO
+except ImportError:
+    from io import BytesIO
+from django.core.files.storage import default_storage as storage
+
 import numpy
 import pandas
 from PIL import Image
@@ -139,24 +145,30 @@ def contact(request):
 @group_required('service_group')
 def picture(request):
     user = request.user
-    profile_pictures = django_settings.MEDIA_ROOT + '/profile_pictures/'
-    if not os.path.exists(profile_pictures):
-        os.makedirs(profile_pictures)
+    profile_pictures = 'profile_pictures/'
     if request.method == 'POST':
         _picture = request.FILES['picture']
         user_str = request.user.username + '_' + str(request.user.id) + '.jpg'
         filename = profile_pictures + user_str
-        with open(filename, 'wb+') as destination:
+        with storage.open(filename, 'wb+') as destination:
             for chunk in _picture.chunks():
                 destination.write(chunk)
-        im = Image.open(filename)
+        destination = storage.open(filename, 'rb+')
+        im = Image.open(destination)
         width, height = im.size
         if width > 400:
             new_width = 400
-            new_height = 300       # (height * 400) / width
+            new_height = 300  # (height * 400) / width
             new_size = new_width, new_height
             im.thumbnail(new_size, Image.ANTIALIAS)
-            im.save(filename)
+
+            sfile = BytesIO()
+            im.save(sfile, format='JPEG')
+            destination.close()
+
+            destination = storage.open(filename, 'wb+')
+            destination.write(sfile.getvalue())
+            destination.close()
 
         if user.profile.account_flag == 3:
             user.profile.account_flag = 4
@@ -659,9 +671,12 @@ def order_graphs(request):
     ax.grid('on')
 
     canvas = FigureCanvas(fig)
-    graph1 = django_settings.MEDIA_URL + '/graphs/' + 'graph1.jpg'
-    canvas.print_png(django_settings.MEDIA_ROOT + '/graphs/' + 'graph1.jpg')
+    graph1 = django_settings.MEDIA_URL + 'graphs/' + 'graph1.jpg'
+    # canvas.print_png(django_settings.MEDIA_ROOT + '/graphs/' + 'graph1.jpg')
 
+    file1 = storage.open('graphs/' + 'graph1.jpg', 'wb')
+    canvas.print_png(file1)
+    file1.close()
 
     fig = Figure(figsize=(9.5, 5.5))
     ax = fig.add_subplot(111)
@@ -692,10 +707,16 @@ def order_graphs(request):
     ax.grid('on')
 
     canvas = FigureCanvas(fig)
-    graph2 = django_settings.MEDIA_URL + '/graphs/' + 'graph2.jpg'
-    canvas.print_png(django_settings.MEDIA_ROOT + '/graphs/' + 'graph2.jpg')
+    graph2 = django_settings.MEDIA_URL + 'graphs/' + 'graph2.jpg'
+    # canvas.print_png(django_settings.MEDIA_ROOT + '/graphs/' + 'graph2.jpg')
+
+    file2 = storage.open('graphs/' + 'graph2.jpg', 'wb')
+    canvas.print_png(file2)
+    file2.close()
 
     # seaborn.distplot(movies.AudienceRating, bins=30)
     # pyplot.plot(pd[0])
     # pyplot.savefig(django_settings.MEDIA_ROOT+'/graph1.jpg')
     return render(request, 'service/order_graphs.html', {'graph1': graph1, 'graph2': graph2})
+
+
