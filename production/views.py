@@ -5,6 +5,11 @@ import os
 import pickle
 from datetime import timedelta
 
+try:
+    from BytesIO import BytesIO
+except ImportError:
+    from io import BytesIO
+
 import numpy as np
 import pandas as pd
 from PIL import Image
@@ -142,24 +147,35 @@ def contact(request):
 @group_required('production_group')
 def picture(request):
     user = request.user
-    profile_pictures = django_settings.MEDIA_ROOT + '/profile_pictures/'
-    if not os.path.exists(profile_pictures):
-        os.makedirs(profile_pictures)
+
+    from django.core.files.storage import default_storage as storage
+    # profile_pictures = django_settings.MEDIA_ROOT + 'profile_pictures/'
+    profile_pictures = 'profile_pictures/'
+    # if not storage.exists(profile_pictures):
+    #     storage.makedirs(profile_pictures)
     if request.method == 'POST':
         _picture = request.FILES['picture']
         user_str = request.user.username + '_' + str(request.user.id) + '.jpg'
         filename = profile_pictures + user_str
-        with open(filename, 'wb+') as destination:
+        with storage.open(filename, 'wb+') as destination:
             for chunk in _picture.chunks():
                 destination.write(chunk)
-        im = Image.open(filename)
+        destination = storage.open(filename, 'rb+')
+        im = Image.open(destination)
         width, height = im.size
         if width > 400:
             new_width = 400
             new_height = 300       # (height * 400) / width
             new_size = new_width, new_height
             im.thumbnail(new_size, Image.ANTIALIAS)
-            im.save(filename)
+
+            sfile = BytesIO()
+            im.save(sfile, format='JPEG')
+            destination.close()
+
+            destination = storage.open(filename, 'wb+')
+            destination.write(sfile.getvalue())
+            destination.close()
 
         if user.profile.account_flag == 3:
             user.profile.account_flag = 4

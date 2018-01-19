@@ -22,3 +22,5 @@ numpy
 seaborn
 pandas
 sklearn
+boto3
+django-storages

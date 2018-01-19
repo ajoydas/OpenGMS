@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'notifications',
     'Notifications',
     'autocompleteAPI',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -196,8 +197,23 @@ except ImportError:
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 STATIC_URL = '/static/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+
+
+if config('AWS_MEDIA') == 'False':
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+    MEDIA_URL = '/media/'
+
+else:
+    # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+    MEDIA_URL = 'https://s3.amazonaws.com/opengms/'
+    MEDIA_ROOT = MEDIA_URL
+    AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+    AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
+    DEFAULT_FILE_STORAGE = 'OpenGMS.storage_backends.MediaStorage'
+    AWS_S3_CUSTOM_DOMAIN = 's3.amazonaws.com/opengms'
+
+
 
 LOGIN_URL = '/'
 LOGIN_REDIRECT_URL = '/core/'
