@@ -20,4 +20,9 @@ urlpatterns = [
     url(r'^status_list', production_views.status_list, name='status_list'),
 
     url(r'^notification', production_views.notification, name='notification'),
+    url(r'^estimate/(?P<pk>[0-9]+)', production_views.estimate, name='estimate'),
+    url(r'^estimate_list/', production_views.estimate_list, name='estimate'),
+
+    url(r'^estimate/train', production_views.train_estimator, name='estimate'),
+
 ]

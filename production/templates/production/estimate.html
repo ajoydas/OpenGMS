@@ -1,0 +1,84 @@
+{% extends 'production/dash.html' %}
+{% load i18n %}
+{% load staticfiles %}
+
+{#{% block head %}#}
+{#    {% block title %} Account Settings {% endblock %}#}
+{#{% endblock %}#}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
+
+
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Order Information</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class=" col-md-9 col-lg-9 ">
+                                <table class="table table-user-information">
+                                    <tbody>
+                                    <tr>
+                                        <td>Order Id:</td>
+                                        <td>{{ order.id }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Order Status:</td>
+                                        <td>{{ order.order_status }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Order Progress:</td>
+                                        <td>{{ order.progress }} %</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Client Username:</td>
+                                        <td>{{ order.client.username }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Order Type:</td>
+                                        <td>{{ order.order_type }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Deadline:</td>
+                                        <td>{{ order.deadline }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Quantity:</td>
+                                        <td>{{ order.quantity }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Budget:</td>
+                                        <td>{{ order.budget }}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Created At:</td>
+                                        <td>{{ order.created_at }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Modified At:</td>
+                                        <td>{{ order.updated_at }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Estimated Finish Time:</td>
+                                        <td>{{ estimated_date }}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}
+
+{% block js %}
+{% endblock %}

@@ -1,29 +1,30 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db.models import Q
-from django.shortcuts import render
 import os
+import pickle
+from datetime import timedelta
+
+import numpy as np
+import pandas as pd
 from PIL import Image
 from django.conf import settings as django_settings
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-from django.shortcuts import get_object_or_404, redirect, render
+from django.db.models import Q
+from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import render
 from django.utils.datastructures import MultiValueDictKeyError
 from notifications.signals import notify
+from sklearn.externals import joblib
 
-from Notifications.models import Notifications
 from Notifications.views import general_notification
 from OpenGMS.function_util import group_required
 from authentication.models import NewUser
 from core.models import Order, OrderHistory
 from officer.form import ProfileForm, ChangePasswordForm, ContactForm, NewOrderForm
-from django.shortcuts import render
-from django_tables2 import RequestConfig
-from .models import Order_List
 
 
 # Create your views here.
@@ -275,8 +276,12 @@ def update_order(request, pk):
             order.order_status = form.cleaned_data.get('order_status')
             order.save()
 
-            order_history = OrderHistory(prv_order)
+            order_history = OrderHistory(order)
             order_history.save()
+
+            # train the model using current data
+            if(order.progress== 100 and order.progress != prv_order.progress):
+                train_order(order)
 
             if order.client is not None:
                 msg = "A production manager updated your order with id:{0}".format(order.id)
@@ -332,3 +337,125 @@ def status_list(request):
 @group_required('production_group')
 def notification(request):
     return general_notification(request, 'production/notification.html')
+
+
+@login_required
+@group_required('production_group')
+def estimate(request, pk):
+    order = get_object_or_404(Order, id=pk)
+    if order.progress == 100:
+        render(request, 'production/estimate.html', {'order': order, 'estimated_date': order.updated_at})
+
+    # train_estimator()
+
+    sc_X = joblib.load(django_settings.MEDIA_ROOT + '/ml_models/scaler_X.save')
+    sc_y = joblib.load(django_settings.MEDIA_ROOT + '/ml_models/scaler_y.save')
+
+    X_test = np.array([[order.quantity, order.budget]])
+    X_test = sc_X.transform(X_test)
+
+    regressor = pickle.load(open(django_settings.MEDIA_ROOT + '/ml_models/estimator.sav', 'rb'))
+    y_pred = sc_y.inverse_transform(regressor.predict(X_test))
+
+    estimated_date = order.created_at + timedelta(days=y_pred[0])
+    return render(request, 'production/estimate.html', {'order': order,
+                                                        'estimated_date': estimated_date})
+
+
+@login_required
+@group_required('production_group')
+def estimate_list(request):
+    orders = Order.objects.filter(progress__lte=100)
+    dataset = pd.DataFrame(data=list(orders.values()))
+
+    sc_X = joblib.load(django_settings.MEDIA_ROOT + '/ml_models/scaler_X.save')
+    sc_y = joblib.load(django_settings.MEDIA_ROOT + '/ml_models/scaler_y.save')
+
+    X = dataset[['quantity', 'budget']].values
+    X_test = sc_X.transform(X)
+
+    regressor = pickle.load(open(django_settings.MEDIA_ROOT + '/ml_models/estimator.sav', 'rb'))
+    y_pred = sc_y.inverse_transform(regressor.predict(X_test))
+
+    return render(request, 'production/estimate_list.html', {'orderlist': orders, 'estimations': y_pred})
+
+
+def train_estimator():
+    print("Training the estimator")
+
+    orders = Order.objects.filter(progress=100)
+    dataset = pd.DataFrame(data=list(orders.values()))
+    durations = []
+    for i in range(0,len(dataset.index)):
+        # print(dataset['created_at'][i])
+        # print(dataset['updated_at'][i])
+        duration = []
+        val =  pd.to_datetime(dataset['updated_at'][i] ) - pd.to_datetime(dataset['created_at'][i])
+        # we are calculating for days now
+        print(val.days)
+        duration.append(val.days)
+        durations.append(duration)
+
+    # Preparing the dataset
+    X = dataset[['quantity','budget']].values
+    y = np.array(durations, dtype=np.int32)
+
+    # Splitting the dataset into the Training set and Test set
+    from sklearn.cross_validation import train_test_split
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0, random_state = 0)
+
+    # Feature Scaling
+    from sklearn.preprocessing import StandardScaler
+    sc_X = StandardScaler()
+    X_train = sc_X.fit_transform(X_train)
+    X_test = sc_X.transform(X_test)
+    sc_y = StandardScaler()
+    y_train = sc_y.fit_transform(y_train)
+    y_test = sc_y.transform(y_test)
+
+    # Fitting Random Forest Regression to the dataset
+    from sklearn.ensemble import RandomForestRegressor
+    regressor = RandomForestRegressor(n_estimators=100, random_state=0)
+    regressor.fit(X_train, y_train)
+
+    # save the scalers to disk
+    scaler_file_X = django_settings.MEDIA_ROOT + '/ml_models/scaler_X.save'
+    joblib.dump(sc_X, scaler_file_X)
+
+    scaler_file_y = django_settings.MEDIA_ROOT + '/ml_models/scaler_y.save'
+    joblib.dump(sc_y, scaler_file_y)
+
+    # save the model to disk
+    filename = django_settings.MEDIA_ROOT + '/ml_models/estimator.sav'
+    pickle.dump(regressor, open(filename, 'wb'))
+
+    y_pred = sc_y.inverse_transform(regressor.predict(X_test))
+
+    return
+
+
+
+def train_order(order):
+    sc_X = joblib.load(django_settings.MEDIA_ROOT + '/ml_models/scaler_X.save')
+    sc_y = joblib.load(django_settings.MEDIA_ROOT + '/ml_models/scaler_y.save')
+
+    X_train = np.array([[order.quantity, order.budget]])
+    val = order.updated_at - order.created_at
+    y_train = np.array([[val]], dtype=np.int32)
+
+    X_train = sc_X.transform(X_train)
+    y_train = sc_y.fit_transform(y_train)
+
+    regressor = pickle.load(open(django_settings.MEDIA_ROOT + '/ml_models/estimator.sav', 'rb'))
+    regressor.fit(X_train, y_train)
+
+    # save the scalers to disk
+    scaler_file_X = django_settings.MEDIA_ROOT + '/ml_models/scaler_X.save'
+    joblib.dump(sc_X, scaler_file_X)
+
+    scaler_file_y = django_settings.MEDIA_ROOT + '/ml_models/scaler_y.save'
+    joblib.dump(sc_y, scaler_file_y)
+
+    # save the model to disk
+    filename = django_settings.MEDIA_ROOT + '/ml_models/estimator.sav'
+    pickle.dump(regressor, open(filename, 'wb'))

@@ -220,6 +220,9 @@ def new_order(request):
             order.order_status = 'RECEIVED'
             order.save()
 
+            order_history = OrderHistory(order)
+            order_history.save()
+
             # generate notification for submitter
             msg = "Client : {0} submitted a new order with id:{1}".format(
                                request.user.profile.get_screen_name(), order.id)
@@ -280,7 +283,7 @@ def update_order(request, pk):
             order.order_status = prv_order.order_status
             order.save()
 
-            order_history = OrderHistory(prv_order)
+            order_history = OrderHistory(order)
             order_history.save()
 
             msg = "Client :{0} updated the order with id:{1}".format(

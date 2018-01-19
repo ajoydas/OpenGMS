@@ -6,13 +6,11 @@ it will show to write a review.
 """
 
 from django.template import Library
-from decimal import getcontext, Decimal
-from core.models import Order
 from  django.utils.timesince import timesince
 
 register = Library()
 
-# return time of notifications - current time
-@register.assignment_tag()
-def get_time(time):
-    return timesince(time)
+
+@register.simple_tag()
+def get_item(arr, indx):
+    return arr[indx]

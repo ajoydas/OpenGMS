@@ -381,6 +381,9 @@ def new_order(request):
             order.order_status = form.cleaned_data.get('order_status')
             order.save()
 
+            order_history = OrderHistory(order)
+            order_history.save()
+
             if order.client is not None:
                 msg = "An officer created a new order with id:{0} for you".format(order.id)
                 _recipient = order.client
@@ -466,7 +469,7 @@ def update_order(request, pk):
             order.order_status = form.cleaned_data.get('order_status')
             order.save()
 
-            order_history = OrderHistory(prv_order)
+            order_history = OrderHistory(order)
             order_history.save()
 
             if prv_order.approved == 0:
