@@ -5,10 +5,13 @@ import os
 import pickle
 from datetime import timedelta
 
+
 try:
     from BytesIO import BytesIO
 except ImportError:
     from io import BytesIO
+
+from django.core.files.storage import default_storage as storage
 
 import numpy as np
 import pandas as pd
@@ -148,7 +151,7 @@ def contact(request):
 def picture(request):
     user = request.user
 
-    from django.core.files.storage import default_storage as storage
+
     # profile_pictures = django_settings.MEDIA_ROOT + 'profile_pictures/'
     profile_pictures = 'profile_pictures/'
     # if not storage.exists(profile_pictures):
@@ -370,7 +373,10 @@ def estimate(request, pk):
     X_test = np.array([[order.quantity, order.budget]])
     X_test = sc_X.transform(X_test)
 
-    regressor = pickle.load(open(django_settings.MEDIA_ROOT + '/ml_models/estimator.sav', 'rb'))
+    file = storage.open('/ml_models/estimator.save', 'rb')
+    regressor = pickle.load(file)
+    file.close()
+
     y_pred = sc_y.inverse_transform(regressor.predict(X_test))
 
     estimated_date = order.created_at + timedelta(days=y_pred[0])
@@ -384,19 +390,28 @@ def estimate_list(request):
     orders = Order.objects.filter(progress__lte=100)
     dataset = pd.DataFrame(data=list(orders.values()))
 
-    sc_X = joblib.load(django_settings.MEDIA_ROOT + '/ml_models/scaler_X.save')
-    sc_y = joblib.load(django_settings.MEDIA_ROOT + '/ml_models/scaler_y.save')
+    file1 = storage.open('ml_models/scaler_X.save', 'rb')
+    sc_X = joblib.load(file1 )
+    file1.close()
+
+    file2 = storage.open('ml_models/scaler_y.save', 'rb')
+    sc_y = joblib.load(file2)
+    file2.close()
 
     X = dataset[['quantity', 'budget']].values
     X_test = sc_X.transform(X)
 
-    regressor = pickle.load(open(django_settings.MEDIA_ROOT + '/ml_models/estimator.sav', 'rb'))
+    file = storage.open('ml_models/estimator.save', 'rb')
+    regressor = pickle.load(file)
+    file.close()
     y_pred = sc_y.inverse_transform(regressor.predict(X_test))
 
     return render(request, 'production/estimate_list.html', {'orderlist': orders, 'estimations': y_pred})
 
 
-def train_estimator():
+@login_required
+@group_required('production_group')
+def train_estimator(requset):
     print("Training the estimator")
 
     orders = Order.objects.filter(progress=100)
@@ -424,10 +439,10 @@ def train_estimator():
     from sklearn.preprocessing import StandardScaler
     sc_X = StandardScaler()
     X_train = sc_X.fit_transform(X_train)
-    X_test = sc_X.transform(X_test)
+    # X_test = sc_X.transform(X_test)
     sc_y = StandardScaler()
     y_train = sc_y.fit_transform(y_train)
-    y_test = sc_y.transform(y_test)
+    # y_test = sc_y.transform(y_test)
 
     # Fitting Random Forest Regression to the dataset
     from sklearn.ensemble import RandomForestRegressor
@@ -435,25 +450,40 @@ def train_estimator():
     regressor.fit(X_train, y_train)
 
     # save the scalers to disk
-    scaler_file_X = django_settings.MEDIA_ROOT + '/ml_models/scaler_X.save'
-    joblib.dump(sc_X, scaler_file_X)
+    # scaler_file_X = django_settings.MEDIA_ROOT + 'ml_models/scaler_X.save'
+    file1 = storage.open('ml_models/scaler_X.save', 'wb')
+    joblib.dump(sc_X, file1)
+    file1.close()
 
-    scaler_file_y = django_settings.MEDIA_ROOT + '/ml_models/scaler_y.save'
-    joblib.dump(sc_y, scaler_file_y)
+    # scaler_file_y = django_settings.MEDIA_ROOT + 'ml_models/scaler_y.save'
+    file2 = storage.open('ml_models/scaler_y.save', 'wb')
+    joblib.dump(sc_y, file2)
+    file2.close()
 
     # save the model to disk
-    filename = django_settings.MEDIA_ROOT + '/ml_models/estimator.sav'
-    pickle.dump(regressor, open(filename, 'wb'))
+    file3 =storage.open('ml_models/estimator.save', 'wb')
+    pickle.dump(regressor, file3)
+    file3.close()
 
-    y_pred = sc_y.inverse_transform(regressor.predict(X_test))
+    # y_pred = sc_y.inverse_transform(regressor.predict(X_test))
 
-    return
+    return redirect('production:estimate_list')
 
 
 
 def train_order(order):
-    sc_X = joblib.load(django_settings.MEDIA_ROOT + '/ml_models/scaler_X.save')
-    sc_y = joblib.load(django_settings.MEDIA_ROOT + '/ml_models/scaler_y.save')
+
+    file1 = storage.open('ml_models/scaler_X.save', 'rb')
+    sc_X = joblib.load(file1 )
+    file1.close()
+
+    file2 = storage.open('ml_models/scaler_y.save', 'rb')
+    sc_y = joblib.load(file2)
+    file2.close()
+
+    file = storage.open('ml_models/estimator.save', 'rb')
+    regressor = pickle.load(file)
+    file.close()
 
     X_train = np.array([[order.quantity, order.budget]])
     val = order.updated_at - order.created_at
@@ -462,16 +492,19 @@ def train_order(order):
     X_train = sc_X.transform(X_train)
     y_train = sc_y.fit_transform(y_train)
 
-    regressor = pickle.load(open(django_settings.MEDIA_ROOT + '/ml_models/estimator.sav', 'rb'))
     regressor.fit(X_train, y_train)
 
     # save the scalers to disk
-    scaler_file_X = django_settings.MEDIA_ROOT + '/ml_models/scaler_X.save'
-    joblib.dump(sc_X, scaler_file_X)
+    file1 = storage.open('ml_models/scaler_X.save', 'wb')
+    joblib.dump(sc_X, file1)
+    file1.close()
 
-    scaler_file_y = django_settings.MEDIA_ROOT + '/ml_models/scaler_y.save'
-    joblib.dump(sc_y, scaler_file_y)
+    # scaler_file_y = django_settings.MEDIA_ROOT + 'ml_models/scaler_y.save'
+    file2 = storage.open('ml_models/scaler_y.save', 'wb')
+    joblib.dump(sc_y, file2)
+    file2.close()
 
     # save the model to disk
-    filename = django_settings.MEDIA_ROOT + '/ml_models/estimator.sav'
-    pickle.dump(regressor, open(filename, 'wb'))
+    file3 = storage.open('ml_models/estimator.save', 'wb')
+    pickle.dump(regressor, file3)
+    file3.close()
