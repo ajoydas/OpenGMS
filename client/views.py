@@ -275,7 +275,7 @@ def update_order(request, pk):
                 file_type = file_type.lower()
                 if file_type not in DESIGN_FILE_TYPES:
                     messages.error(request, 'Image file must be .zip, .rar or .gz')
-                    return render(request, 'dashboard/update_order.html', {'form': form, 'order':order})
+                    return render(request, 'client/update_order.html', {'form': form, 'order':order})
                 # order.design.url = str(datetime.now())+file_type
             except MultiValueDictKeyError:
                 None
@@ -350,14 +350,14 @@ def view_order(request, pk):
 @login_required()
 @group_required('client_group')
 def order_list(request):
-    orders = Order.objects.all()
+    orders = Order.objects.filter(client = request.user)
     return render(request, 'client/order_list.html', {'orderlist': orders})
 
 
 @login_required()
 @group_required('client_group')
 def status_list(request):
-    orders = Order.objects.filter(submitted_by=request.user).order_by('updated_at')
+    orders = Order.objects.filter(Q(client = request.user) & Q(submitted_by=request.user)).order_by('updated_at')
     return render(request, 'client/status_list.html', {'orderlist': orders})
 
 

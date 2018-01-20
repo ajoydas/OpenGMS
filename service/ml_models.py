@@ -47,8 +47,10 @@ def get_priority(request):
     file = storage.open('ml_models/estimator_priority.save', 'rb')
     regressor = pickle.load(file)
     file.close()
-    y_pred = sc_y.inverse_transform(regressor.predict(X_test)).sort()
-    return render(request, 'service/priority_list.html', {'orderlist': orders, 'estimations': y_pred})
+    y_data = regressor.predict(X_test)
+    y_pred = sc_y.inverse_transform(y_data)
+    y_sorted = np.sort(y_pred)
+    return render(request, 'service/priority_list.html', {'orderlist': orders, 'estimations': y_sorted})
 
 
 def train_model(requset):
