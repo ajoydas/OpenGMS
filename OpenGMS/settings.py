@@ -230,7 +230,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 #### Sentry #####
 #
 RAVEN_CONFIG = {
-    # 'dsn': config('SENTRY'),
+    'dsn': config('SENTRY'),
     # If you are using git, you can also automatically configure the
     # release based on the git info.
     # 'release': raven.fetch_git_sha(os.path.dirname(os.pardir)),
