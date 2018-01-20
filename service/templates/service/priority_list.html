@@ -1,0 +1,117 @@
+{% extends 'service/dash.html' %}
+{% load staticfiles %}
+{% load production_tag %}
+{% load i18n %}
+
+{% block head %}
+    <!-- iCheck -->
+    <link href="{% static "extra/green.css" %}" rel="stylesheet">
+    <!-- Datatables -->
+    <link href="{% static "extra/dataTables.bootstrap.min.css" %}" rel="stylesheet">
+    <link href="{% static "extra/buttons.bootstrap.min.css" %}" rel="stylesheet">
+    <link href="{% static "extra/fixedHeader.bootstrap.min.css" %}" rel="stylesheet">
+    <link href="{% static "extra/responsive.bootstrap.min.css" %}" rel="stylesheet">
+    <link href="{% static "extra/scroller.bootstrap.min.css" %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <!-- page content -->
+    <div class="">
+        <div class="page-title">
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2> Order List </h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="card-box table-responsive">
+
+                                    <table id="datatable-keytable" class="table table-striped table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th>Order Id</th>
+                                            <th>Client Name</th>
+                                            <th>Status</th>
+                                            <th>Updated at</th>
+                                            <th>Progress</th>
+                                            <th>Estimated Finish Time:</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            {% for order in orderlist %}
+                                                <tr>
+                                                    <td>{{ order.id }}</td>
+                                                    <td>{{ order.client_name }}</td>
+                                                    <td>
+                                                        {% if order.approved == 0 %}
+                                                            <span class="label label-info"
+                                                                  style="width: 100%;text-align: center">
+                                        Not Approved
+                                    </span>
+                                                        {% elif order.approved == 1 %}
+                                                            <span class="label label-success"
+                                                                  style="width: 100%;text-align: center">
+                                        Approved
+                                    </span>
+                                                        {% else %}
+                                                            <span class="label label-danger"
+                                                                  style="width: 100%;text-align: center">
+                                        Rejected
+                                    </span>
+                                                        {% endif %}
+                                                    </td>
+                                                    <td>{{ order.updated_at }}</td>
+                                                    <td>{{ order.progress }} %</td>
+
+                                                    <td>{% get_item estimations forloop.counter0 %}</td>
+                                                    <td>
+                                                        <button onclick='location.href="{% url 'production:view_order' order.id %}"'
+                                                                type="button">View
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /page content -->
+{% endblock %}
+
+{% block js %}
+    <!-- iCheck -->
+    <script src="{% static 'extra/iCheck/icheck.min.js' %}"></script>
+    <!-- Datatables -->
+    <script src="{% static 'extra/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'extra/datatables.net-bs/js/dataTables.bootstrap.min.js' %}"></script>
+    <script src="{% static 'extra/datatables.net-buttons/js/dataTables.buttons.min.js' %}"></script>
+    <script src="{% static 'extra/datatables.net-buttons-bs/js/buttons.bootstrap.min.js' %}"></script>
+    <script src="{% static 'extra/datatables.net-buttons/js/buttons.flash.min.js' %}"></script>
+    <script src="{% static 'extra/datatables.net-buttons/js/buttons.html5.min.js' %}"></script>
+    <script src="{% static 'extra/datatables.net-buttons/js/buttons.print.min.js' %}"></script>
+    <script src="{% static 'extra/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js' %}"></script>
+    <script src="{% static 'extra/datatables.net-keytable/js/dataTables.keyTable.min.js' %}"></script>
+    <script src="{% static 'extra/datatables.net-responsive/js/dataTables.responsive.min.js' %}"></script>
+    <script src="{% static 'extra/datatables.net-responsive-bs/js/responsive.bootstrap.js' %}"></script>
+    <script src="{% static 'extra/datatables.net-scroller/js/dataTables.scroller.min.js' %}"></script>
+    <script src="{% static 'extra/jszip/dist/jszip.min.js' %}"></script>
+    {#    <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>#}
+    {#    <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>#}
+
+{% endblock %}

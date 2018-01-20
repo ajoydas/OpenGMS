@@ -31,4 +31,7 @@ urlpatterns = [
 
     url(r'^notification', service_views.notification, name='notification'),
 
+    url(r'^priority_list/', service_views.priority_list, name='priority_list'),
+    url(r'^train_calculator', service_views.train_calculator, name='train_calculator'),
+
 ]

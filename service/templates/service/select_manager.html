@@ -35,7 +35,7 @@
                 {% endfor %}
             {% endif %}
 
-            <div class="clearfix"></div>
+{#            <div class="clearfix"></div>#}
 
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
@@ -117,7 +117,7 @@
                                         <td class=" ">{{ tech_manager.user_id }}</td>
                                         <td class=" "> {{ tech_manager.get_screen_name }}</td>
                                         <td class=" "> {{ tech_manager.user.employee.designation }}</td>
-                                        <td class=" "> {{ tech_manager.user.employee.manager_id }}</td>
+                                        <td class=" "> {{ tech_manager.user.employee.manager.user_id }}</td>
 
                                     </tr>
                                 {% endfor %}

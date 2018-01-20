@@ -4,6 +4,8 @@ from __future__ import unicode_literals
 import datetime
 import os
 
+from service.ml_models import get_priority, train_model, train_order
+
 try:
     from BytesIO import BytesIO
 except ImportError:
@@ -297,7 +299,7 @@ def select_manager(request):
                             tech_manager.employee.manager_id = request.user.employee.id
                             messages.success(request,"Technical manager of Id:"+key+" assigned successfully.")
                             tech_manager.save()
-                        elif request.POST[key] == 'RELEASE' and tech_manager.employee.manager_id == request.user.id:
+                        elif request.POST[key] == 'RELEASE' and tech_manager.employee.manager_id == request.user.employee.id:
                             tech_manager.employee.manager_id = None
                             messages.success(request,"Technical manager of Id:"+key+" released successfully.")
                             tech_manager.save()
@@ -350,7 +352,8 @@ def new_order(request):
 
             try:
                 client_id = request.POST['client_username']
-            except MultiValueDictKeyError:
+                client_id = int(client_id)
+            except Exception:
                 client_id = -1
 
             shipping_address = form.cleaned_data.get('shipping_address')
@@ -393,7 +396,15 @@ def new_order(request):
             order.order_status = form.cleaned_data.get('order_status')
             order.save()
 
-            order_history = OrderHistory(order)
+            if order.progress==100 and OrderHistory.objects.filter(Q(order=order)
+                                                                   & Q(progress=100)).count() ==0:
+                train_order(order)
+
+            # order_history = OrderHistory(order)
+            # order_history.save()
+
+            order_history = OrderHistory()
+            order_history.copy(order)
             order_history.save()
 
             if order.client is not None:
@@ -435,7 +446,8 @@ def update_order(request, pk):
 
             try:
                 client_id = request.POST['client_username']
-            except MultiValueDictKeyError:
+                client_id = int(client_id)
+            except Exception:
                 client_id = -1
 
             shipping_address = form.cleaned_data.get('shipping_address')
@@ -481,7 +493,14 @@ def update_order(request, pk):
             order.order_status = form.cleaned_data.get('order_status')
             order.save()
 
-            order_history = OrderHistory(order)
+            if order.progress==100 and OrderHistory.objects.filter(Q(order=order)
+                                                                   & Q(progress=100)).count() ==0:
+                train_order(order)
+
+            # order_history = OrderHistory(order)
+            # order_history.save()
+            order_history = OrderHistory()
+            order_history.copy(order)
             order_history.save()
 
             if prv_order.approved == 0:
@@ -720,3 +739,13 @@ def order_graphs(request):
     return render(request, 'service/order_graphs.html', {'graph1': graph1, 'graph2': graph2})
 
 
+@login_required
+@group_required('service_group')
+def priority_list(request):
+    return get_priority(request)
+
+
+@login_required
+@group_required('service_group')
+def train_calculator(request):
+    return train_model(request)

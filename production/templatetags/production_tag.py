@@ -13,4 +13,6 @@ register = Library()
 
 @register.simple_tag()
 def get_item(arr, indx):
+    if arr is None:
+        return
     return arr[indx]

@@ -84,4 +84,25 @@ class OrderHistory(models.Model):
     def __init__(self, *args, **kwargs):
         super(OrderHistory, self).__init__(*args, **kwargs)
 
+    def copy(self, order):
+        self.order = order
+        self.client = order.client
+        self.submitted_by = order.submitted_by
+        self.approved_by = order.approved_by
+        self.updated_at = order.updated_at
+        self.order_status = order.order_status
+
+        self.client_name = order.client_name
+        self.order_type = order.order_type
+        self.design = order.design
+        self.deadline = order.deadline
+        self.quantity = order.quantity
+        self.budget = order.budget
+        self.shipping_address = order.shipping_address
+        self.specification = order.specification
+        self.progress = order.progress
+
+        self.approved = order.approved
+        self.review_note = order.review_note
+
 

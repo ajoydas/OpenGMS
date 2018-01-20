@@ -16,7 +16,7 @@ class ProfileForm(forms.ModelForm):
         max_length=50,
         required=True)
     date_of_birth = forms.DateField(
-        widget=forms.DateInput,
+        widget=forms.DateTimeInput(attrs={'class': 'datetime-input'}),
         help_text="'%Y-%m-%d', '%m/%d/%Y', '%m/%d/%y'",
         input_formats=['%Y-%m-%d', '%m/%d/%Y', '%m/%d/%y'],
         required=True,

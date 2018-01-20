@@ -291,7 +291,8 @@ def new_order(request):
 
             try:
                 client_id = request.POST['client_username']
-            except MultiValueDictKeyError:
+                client_id = int(client_id)
+            except Exception:
                 client_id = -1
 
             shipping_address = form.cleaned_data.get('shipping_address')
@@ -334,7 +335,8 @@ def new_order(request):
             order.order_status = form.cleaned_data.get('order_status')
             order.save()
 
-            order_history = OrderHistory(order)
+            order_history = OrderHistory()
+            order_history.copy(order)
             order_history.save()
 
             if order.client is not None:
@@ -386,7 +388,8 @@ def update_order(request, pk):
 
             try:
                 client_id = request.POST['client_username']
-            except MultiValueDictKeyError:
+                client_id = int(client_id)
+            except Exception:
                 client_id = -1
 
             shipping_address = form.cleaned_data.get('shipping_address')
@@ -429,7 +432,8 @@ def update_order(request, pk):
             order.order_status = form.cleaned_data.get('order_status')
             order.save()
 
-            order_history = OrderHistory(order)
+            order_history = OrderHistory()
+            order_history.copy(order)
             order_history.save()
 
             if order.client is not None:

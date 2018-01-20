@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+import numpy
+import pandas
+import datetime
+
 try:
     from BytesIO import BytesIO
 except ImportError:
@@ -12,7 +16,7 @@ from django.conf import settings as django_settings
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q
+from django.db.models import Q, Sum
 from django.shortcuts import redirect, get_object_or_404
 from django.shortcuts import render
 from django.utils.datastructures import MultiValueDictKeyError
@@ -230,7 +234,11 @@ def new_order(request):
             order.order_status = 'RECEIVED'
             order.save()
 
-            order_history = OrderHistory(order)
+            # order_history = OrderHistory(order)
+            # order_history.save()
+
+            order_history = OrderHistory()
+            order_history.copy(order)
             order_history.save()
 
             # generate notification for submitter
@@ -293,7 +301,11 @@ def update_order(request, pk):
             order.order_status = prv_order.order_status
             order.save()
 
-            order_history = OrderHistory(order)
+            # order_history = OrderHistory(order)
+            # order_history.save()
+
+            order_history = OrderHistory()
+            order_history.copy(order)
             order_history.save()
 
             msg = "Client :{0} updated the order with id:{1}".format(
@@ -318,11 +330,21 @@ def update_order(request, pk):
     return render(request, 'client/update_order.html', {'form': form, 'order':order})
 
 
+# @login_required()
+# @group_required('client_group')
+# def view_order(request, pk):
+#     order = get_object_or_404(Order, id=pk)
+#     return render(request, 'client/view_order.html', {'order': order, 'user':request.user})
+
+
 @login_required()
 @group_required('client_group')
 def view_order(request, pk):
     order = get_object_or_404(Order, id=pk)
-    return render(request, 'client/view_order.html', {'order': order, 'user':request.user})
+    graph =  order_graph(order)
+
+    return render(request, 'client/view_order.html', {'order': order,
+                                                      'user':request.user, 'graph':graph})
 
 
 @login_required()
@@ -343,3 +365,40 @@ def status_list(request):
 @group_required('client_group')
 def notification(request):
     return general_notification(request ,'client/notification.html')
+
+
+def order_graph(order):
+    from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+    from matplotlib.figure import Figure
+
+    fig = Figure(figsize=(9, 5))
+    ax = fig.add_subplot(111)
+    data = []
+
+    order_hists = OrderHistory.objects.filter(Q(order= order) & Q(submitted_by__profile__account_type=3)).order_by('updated_at')[:10]
+
+    progresses = []
+    dates = []
+    for hist in order_hists:
+        progresses.append(hist.progress)
+        dates.append(hist.updated_at.date())
+
+    x_pos = numpy.arange(len(progresses))
+    ax.set_xticklabels(dates, rotation=30)
+    ax.set_xticks(x_pos)
+    ax.plot(x_pos, progresses , color='b', marker='o')
+    ax.set_title('Progress chart of the order')
+    ax.set_ylabel('Progress (in %)')
+    ax.set_xlabel('Updated No.')
+    # handles, labels = ax.get_legend_handles_labels()
+    # lgd = ax.legend(handles, labels)
+    ax.grid('on')
+
+    canvas = FigureCanvas(fig)
+    graph1 = django_settings.MEDIA_URL + 'graphs/' + 'graph_progress.jpg'
+
+    file1 = storage.open('graphs/' + 'graph_progress.jpg', 'wb')
+    canvas.print_png(file1)
+    file1.close()
+
+    return graph1

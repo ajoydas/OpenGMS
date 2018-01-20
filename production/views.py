@@ -248,7 +248,8 @@ def update_order(request, pk):
 
             try:
                 client_id = request.POST['client_username']
-            except MultiValueDictKeyError:
+                client_id = int(client_id)
+            except Exception:
                 client_id = -1
 
             shipping_address = form.cleaned_data.get('shipping_address')
@@ -295,7 +296,11 @@ def update_order(request, pk):
             order.order_status = form.cleaned_data.get('order_status')
             order.save()
 
-            order_history = OrderHistory(order)
+            # order_history = OrderHistory(order)
+            # order_history.save()
+
+            order_history = OrderHistory()
+            order_history.copy(order)
             order_history.save()
 
             # train the model using current data
@@ -367,13 +372,18 @@ def estimate(request, pk):
 
     # train_estimator()
 
-    sc_X = joblib.load(django_settings.MEDIA_ROOT + '/ml_models/scaler_X.save')
-    sc_y = joblib.load(django_settings.MEDIA_ROOT + '/ml_models/scaler_y.save')
+    file1 = storage.open('ml_models/scaler_X.save', 'rb')
+    sc_X = joblib.load(file1)
+    file1.close()
+
+    file2 = storage.open('ml_models/scaler_y.save', 'rb')
+    sc_y = joblib.load(file2)
+    file2.close()
 
     X_test = np.array([[order.quantity, order.budget]])
     X_test = sc_X.transform(X_test)
 
-    file = storage.open('/ml_models/estimator.save', 'rb')
+    file = storage.open('ml_models/estimator.save', 'rb')
     regressor = pickle.load(file)
     file.close()
 
