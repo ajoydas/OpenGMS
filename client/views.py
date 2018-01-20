@@ -371,7 +371,7 @@ def order_graph(order):
     from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
     from matplotlib.figure import Figure
 
-    fig = Figure(figsize=(9, 5))
+    fig = Figure(figsize=(9, 6))
     ax = fig.add_subplot(111)
     data = []
 

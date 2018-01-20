@@ -106,7 +106,7 @@
         $(document).ready(function () {
             $('.js-data-example-ajax').select2({
                 ajax: {
-                    url: "http://127.0.0.1:8000/api/clients/",
+                    url: "{% url 'clientsAPI'%}",
                     dataType: 'json',
                     {#					delay: 250,#}
                     data: function (params) {
