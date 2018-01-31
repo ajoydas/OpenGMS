@@ -16,10 +16,3 @@ django-phonenumber-field
 django-guardian
 django-notifications-hq
 djangorestframework
-matplotlib
-numpy
-seaborn
-pandas
-sklearn
-boto3
-django-storages

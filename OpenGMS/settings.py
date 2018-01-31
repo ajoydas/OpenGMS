@@ -133,7 +133,16 @@ if 'TRAVIS' in os.environ:
     }
 elif config('HEROKU') == 'True':
     DATABASES = {'default': dj_database_url.config()}
-
+elif config('DOCKER') == 'True':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'postgres',
+            'USER': 'postgres',
+            'HOST': 'db',
+            'PORT': 5432,
+        }
+    }
 else:
     DATABASES = {
         'default': {
@@ -211,7 +220,7 @@ else:
     AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
     AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
     DEFAULT_FILE_STORAGE = 'OpenGMS.storage_backends.MediaStorage'
-    AWS_S3_CUSTOM_DOMAIN = 's3.amazonaws.com/opengms'
+    AWS_S3_CUSTOM_DOMAIN = config('AWS_S3_CUSTOM_DOMAIN')
 
 
 
@@ -251,7 +260,7 @@ LOGGING = {
     },
     'handlers': {
         'sentry': {
-            'level': 'INFO', # To capture more than ERROR, change to WARNING, INFO, etc.
+            'level': 'ERROR', # To capture more than ERROR, change to WARNING, INFO, etc.
             'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
             'tags': {'custom-tag': 'x'},
         },

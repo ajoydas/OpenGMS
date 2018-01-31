@@ -68,11 +68,8 @@
                                 <td>{{ order.updated_at }}</td>
                                 <td>{{ order.deadline }}</td>
                                 <td>
-{#                                    <div>#}
-{#                                        <form action="https://www.google.com">#}
-{#                                            <input type="submit" value="Update"/>#}
-{#                                        </form>#}
-{#                                    </div>#}
+                                    <button onclick='location.href="{% url 'client:view_order' order.id %}"'
+                                            type="button">View</button>
                                     <button onclick='location.href="{% url 'client:update_order' order.id %}"'
                                             type="button">Update</button>
                                 </td>
